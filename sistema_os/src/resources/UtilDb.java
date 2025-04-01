@@ -32,8 +32,4 @@ public class UtilDb {
         return c;
     }
     
-    public static String formatarNumero(int numero){
-        String numeroFormatado = "0000"+numero;
-        return numeroFormatado.substring(numeroFormatado.length()-5, numeroFormatado.length());
-    }
 }
