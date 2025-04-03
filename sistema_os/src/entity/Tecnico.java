@@ -15,9 +15,9 @@ public class Tecnico {
     private String nome;
     private String telefone;
     private String email;
-    
-    public Tecnico(){
-        
+
+    public Tecnico() {
+
     }
 
     public Tecnico(int id, String nome, String telefone, String email) {
@@ -59,9 +59,4 @@ public class Tecnico {
         this.email = email;
     }
 
-    
-    
 }
-
-
-
