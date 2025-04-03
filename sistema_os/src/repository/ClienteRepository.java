@@ -5,17 +5,19 @@
  */
 package repository;
 
+import entity.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import resources.UtilDb;
 
 /**
  *
  * @author kelvin
  */
-public class Cliente {
+public class ClienteRepository {
 
-    private final UtilSql util = new UtilSql();
+    private final UtilDb util = new UtilDb();
     Connection conn;
     PreparedStatement ppst;
     String Nome;
@@ -33,10 +35,10 @@ public class Cliente {
                 + "VALUES(?,?,?,?,?,?)";
         try {
             ppst = conn.prepareStatement(sql);
-            ppst.setString(1, cliente.Nome);
-            ppst.setString(2, cliente.Endereco());
-            ppst.setString(3, cliente.Telefone());
-            ppst.setString(4, cliente.Email());
+            ppst.setString(1, cliente.getNome());
+            ppst.setString(2, cliente.getEndereco());
+            ppst.setString(3, cliente.getTelefone());
+            ppst.setString(4, cliente.getEmail());
 
             ppst.executeUpdate();
             ppst.close();
@@ -48,16 +50,8 @@ public class Cliente {
         }
     }
 
-    private String Endereco() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 
-    private String Telefone() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private String Email() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 
 }

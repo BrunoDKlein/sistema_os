@@ -5,21 +5,40 @@
  */
 package controller;
 
-/**
- *
- * @author kelvin
- */
-public class Cliente extends javax.swing.JFrame {
+import entity.Cliente;
+import javax.swing.JOptionPane;
+import service.ClienteService;
 
-    /**
-     * Creates new form Cliente
-     */
-    public Cliente() {
+public class ClienteController extends javax.swing.JFrame {
+
+    Cliente clienteClasse;
+
+    public ClienteController Cliente() {
         initComponents();
+        return null;
     }
 
-    private Cliente(int i, String cliente_salvo, int i0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ClienteController Cliente(Cliente cliente) {
+        initComponents();
+        return null;
+    }
+
+    public ClienteController(Cliente cliente) {
+        this.clienteClasse = cliente;
+        initComponents();
+        jbcadastrar.setText("cadastrar");
+        prencherDados();
+    }
+
+    public void prencherDados() {
+        jTNome.setText(clienteClasse.getNome());
+        JOptionPane.showMessageDialog(null, "insira o nome do cliente");
+        jtEmail.setText(clienteClasse.getEmail());
+        JOptionPane.showMessageDialog(null, "insira o email do cliente");
+        jtEndereco.setText(clienteClasse.getEndereco());
+        JOptionPane.showMessageDialog(null, "insira o endereço do cliente");
+        jtTelefone.setText(clienteClasse.getTelefone());
+        JOptionPane.showMessageDialog(null, "insira o telefone do cliente");
     }
 
     /**
@@ -33,16 +52,16 @@ public class Cliente extends javax.swing.JFrame {
 
         jTextField5 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jtemail = new javax.swing.JTextField();
-        jtendereco = new javax.swing.JTextField();
-        jTnome = new javax.swing.JTextField();
-        jttelefone = new javax.swing.JTextField();
+        jtEmail = new javax.swing.JTextField();
+        jtEndereco = new javax.swing.JTextField();
+        jTNome = new javax.swing.JTextField();
+        jtTelefone = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jbcadastrar = new javax.swing.JButton();
+        jbcancelar = new javax.swing.JButton();
 
         jTextField5.setText("jTextField5");
 
@@ -51,17 +70,17 @@ public class Cliente extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Cadastro de Clientes");
 
-        jtemail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtemail.addActionListener(new java.awt.event.ActionListener() {
+        jtEmail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtemailActionPerformed(evt);
+                jtEmailActionPerformed(evt);
             }
         });
 
-        jtendereco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtendereco.addActionListener(new java.awt.event.ActionListener() {
+        jtEndereco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtenderecoActionPerformed(evt);
+                jtEnderecoActionPerformed(evt);
             }
         });
 
@@ -73,14 +92,19 @@ public class Cliente extends javax.swing.JFrame {
 
         jLabel5.setText("Endereço");
 
-        jButton1.setText("Cadastrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbcadastrar.setText("Cadastrar");
+        jbcadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbcadastrarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cancelar");
+        jbcancelar.setText("Cancelar");
+        jbcancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbcancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,10 +119,10 @@ public class Cliente extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jttelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
-                    .addComponent(jTnome)
-                    .addComponent(jtemail)
-                    .addComponent(jtendereco))
+                    .addComponent(jtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                    .addComponent(jTNome)
+                    .addComponent(jtEmail)
+                    .addComponent(jtEndereco))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(226, Short.MAX_VALUE)
@@ -107,9 +131,9 @@ public class Cliente extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(246, 246, 246))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(jbcancelar)
                         .addGap(34, 34, 34)
-                        .addComponent(jButton1)
+                        .addComponent(jbcadastrar)
                         .addGap(46, 46, 46))))
         );
         layout.setVerticalGroup(
@@ -125,46 +149,51 @@ public class Cliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jttelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtendereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))
+                            .addComponent(jbcadastrar)
+                            .addComponent(jbcancelar))
                         .addGap(0, 22, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtemailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtemailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtemailActionPerformed
+    private void jtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtEmailActionPerformed
 
-    private void jtenderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtenderecoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtenderecoActionPerformed
+    }//GEN-LAST:event_jtEmailActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jtEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtEnderecoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtEnderecoActionPerformed
+
+    private void jbcadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbcadastrarActionPerformed
         Cliente cliente = new Cliente();
-        cliente.setName(jTnome.getText());
-        cliente.settelefone(jttelefone.getText());
-        cliente.setemail(jtemail.getText());
-        cliente.setendereco(jtendereco.getText());
-        Cliente cliente = new Cliente(5, "cliente salvo", 100);
-        cliente.setc(cliente);
-        cadastrar
-        \cliente = new ContatoService();        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        cliente.setNome(jTNome.getText());
+        cliente.setTelefone(jtTelefone.getText());
+        cliente.setEndereco(jtEndereco.getText());
+        cliente.setEmail(jtEmail.getText());
+        ;
+
+        ClienteService clienteService = new ClienteService();
+
+
+    }//GEN-LAST:event_jbcadastrarActionPerformed
+
+    private void jbcancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbcancelarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbcancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,48 +212,35 @@ public class Cliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Cliente().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JTextField jTNome;
     private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTnome;
-    private javax.swing.JTextField jtemail;
-    private javax.swing.JTextField jtendereco;
-    private javax.swing.JTextField jttelefone;
+    private javax.swing.JButton jbcadastrar;
+    private javax.swing.JButton jbcancelar;
+    private javax.swing.JTextField jtEmail;
+    private javax.swing.JTextField jtEndereco;
+    private javax.swing.JTextField jtTelefone;
     // End of variables declaration//GEN-END:variables
 
-    private void settelefone(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void setemail(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void setendereco(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
