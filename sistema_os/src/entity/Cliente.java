@@ -7,8 +7,8 @@ package entity;
 
 /**
  *
- * @author admin
+ * @author kelvin
  */
-public class SistemaOs {
-    
+public class Cliente {
+
 }
