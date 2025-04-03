@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author admin
  */
-public class SistemaOs {
+public class OrdemServico {
 
     private int id;
     private int id_cliente;
@@ -24,10 +24,10 @@ public class SistemaOs {
     private String solucao;
     private Double custo_total;
 
-    public SistemaOs() {
+    public OrdemServico() {
     }
 
-    public SistemaOs(int id, int id_cliente, int id_aparelho, int id_tecnico, Date data_abertura, Date data_fechamento, String status, String descricao_problema, String solucao, Double custo_total) {
+    public OrdemServico(int id, int id_cliente, int id_aparelho, int id_tecnico, Date data_abertura, Date data_fechamento, String status, String descricao_problema, String solucao, Double custo_total) {
         this.id = id;
         this.id_cliente = id_cliente;
         this.id_aparelho = id_aparelho;

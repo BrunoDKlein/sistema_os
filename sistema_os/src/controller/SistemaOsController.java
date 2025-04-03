@@ -5,8 +5,10 @@
  */
 package controller;
 
-import entity.SistemaOs;
+import entity.OrdemServico;
 import java.util.List;
+import javax.swing.JOptionPane;
+import service.SistemaOsService;
 
 /**
  *
@@ -21,7 +23,7 @@ public class SistemaOsController extends javax.swing.JFrame {
         initComponents();
         configurarLarguraColunas();
     }
-    
+
     private void configurarLarguraColunas() {
         jtOs.getColumnModel().getColumn(0).setPreferredWidth(jtOs.getWidth() / 20);
         jtOs.getColumnModel().getColumn(1).setPreferredWidth(jtOs.getWidth() / 15);
@@ -34,6 +36,7 @@ public class SistemaOsController extends javax.swing.JFrame {
         jtOs.getColumnModel().getColumn(8).setPreferredWidth(jtOs.getWidth() / 6);
         jtOs.getColumnModel().getColumn(9).setPreferredWidth(jtOs.getWidth() / 15);
     }
+
     public void limparTabela() {
 
         for (int i = 0; i < jtOs.getRowCount(); i++) {
@@ -46,9 +49,9 @@ public class SistemaOsController extends javax.swing.JFrame {
         }
     }
 
-    private void preencheTabela(List<SistemaOs> ordensServico) {
+    private void preencheTabela(List<OrdemServico> ordensServico) {
         int i = 0;
-        for (SistemaOs os : ordensServico) {
+        for (OrdemServico os : ordensServico) {
             int k = 0;
             jtOs.setValueAt(os.getId(), i, k++);
             jtOs.setValueAt(os.getId_cliente(), i, k++);
@@ -65,6 +68,10 @@ public class SistemaOsController extends javax.swing.JFrame {
         }
     }
 
+    public boolean linhaEstaSelecionada() {
+        return jtOs.getSelectedRow() > -1;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -77,6 +84,10 @@ public class SistemaOsController extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtOs = new javax.swing.JTable();
+        jbCriarNovaOs = new javax.swing.JButton();
+        jbAtualizar = new javax.swing.JButton();
+        jbEditar = new javax.swing.JButton();
+        jbExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,36 +136,112 @@ public class SistemaOsController extends javax.swing.JFrame {
         jtOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jScrollPane1.setViewportView(jtOs);
 
+        jbCriarNovaOs.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbCriarNovaOs.setText("Criar");
+        jbCriarNovaOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCriarNovaOsActionPerformed(evt);
+            }
+        });
+
+        jbAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbAtualizar.setText("Atualizar");
+        jbAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAtualizarActionPerformed(evt);
+            }
+        });
+
+        jbEditar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbEditar.setText("Editar");
+        jbEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditarActionPerformed(evt);
+            }
+        });
+
+        jbExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbExcluir.setText("Excluir");
+        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(264, 264, 264)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
-                .addGap(303, 303, 303))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1089, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jbCriarNovaOs, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jbEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1060, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(89, 89, 89)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbCriarNovaOs, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 58, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbCriarNovaOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCriarNovaOsActionPerformed
+        new OrdemServicoController().setVisible(true);
+    }//GEN-LAST:event_jbCriarNovaOsActionPerformed
+
+    private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
+        boolean osExcluida = false;
+        int linhaSelecionada = jtOs.getSelectedRow();
+        try {
+            if (linhaEstaSelecionada()) {
+                osExcluida = SistemaOsService.excluirOs(Integer.parseInt(jtOs.getValueAt(linhaSelecionada, 0).toString()));
+            } else {
+                JOptionPane.showMessageDialog(null, "Para realizar essa ação, selecione um contato");
+            }
+            if (contatoExcluido) {
+                JOptionPane.showMessageDialog(null, "Contato excluído com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro qualquer no banco!");
+
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_jbExcluirActionPerformed
+
+    private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbEditarActionPerformed
+
+    private void jbAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAtualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbAtualizarActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -190,6 +277,10 @@ public class SistemaOsController extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbAtualizar;
+    private javax.swing.JButton jbCriarNovaOs;
+    private javax.swing.JButton jbEditar;
+    private javax.swing.JButton jbExcluir;
     private javax.swing.JTable jtOs;
     // End of variables declaration//GEN-END:variables
 }
