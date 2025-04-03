@@ -5,34 +5,41 @@
  */
 package controller;
 
+import entity.Cliente;
 import javax.swing.JOptionPane;
+import service.ClienteService;
 
-/**
- *
- * @author kelvin
- */
-public class Cliente extends javax.swing.JFrame {
+public class ClienteController extends javax.swing.JFrame {
 
-        Cliente clienteClasse;
-    
+    Cliente clienteClasse;
 
-    public Cliente Cliente() {
+    public ClienteController Cliente() {
         initComponents();
         return null;
     }
 
-    public Cliente(Cliente cliente) {
+    public ClienteController Cliente(Cliente cliente) {
+        initComponents();
+        return null;
+    }
+
+    public ClienteController(Cliente cliente) {
         this.clienteClasse = cliente;
         initComponents();
-        jbcadastrar.setText("editar");
+        jbcadastrar.setText("cadastrar");
         prencherDados();
     }
 
     public void prencherDados() {
-        jTNome.setText(clienteClasse.getName());
-        jtEmail.setText(clienteClasse.getEmail));
+        jTNome.setText(clienteClasse.getNome());
+        JOptionPane.showMessageDialog(null, "insira o nome do cliente");
+        jtEmail.setText(clienteClasse.getEmail());
+        JOptionPane.showMessageDialog(null, "insira o email do cliente");
         jtEndereco.setText(clienteClasse.getEndereco());
+        JOptionPane.showMessageDialog(null, "insira o endereço do cliente");
         jtTelefone.setText(clienteClasse.getTelefone());
+        JOptionPane.showMessageDialog(null, "insira o telefone do cliente");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -93,6 +100,11 @@ public class Cliente extends javax.swing.JFrame {
         });
 
         jbcancelar.setText("Cancelar");
+        jbcancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbcancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -159,7 +171,7 @@ public class Cliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtEmailActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jtEmailActionPerformed
 
     private void jtEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtEnderecoActionPerformed
@@ -167,42 +179,21 @@ public class Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jtEnderecoActionPerformed
 
     private void jbcadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbcadastrarActionPerformed
-      Cliente cliente = new Cliente();
-        cliente.setNome(jtNome.getClass().toString());
-        cliente.setTelefone(jtTendereco.getText());
-        cliente.setEmail(jtemail.getText());
-        cliente.setLinkedin(jtlink.getText());
-        Agenda agenda = new Agenda(6, "minha agenda", 100);
-        contato.setAgenda(agenda);
-        ContatoService contatoService = new ContatoService();
-//      
-//        if (contatoService.SalvarContato(contato) == null) {
-//            JOptionPane.showMessageDialog(null, "não foi ´possivel salvar o contado");
-//        } else {
-//
-//            JOptionPane.showMessageDialog(null, "contato salvo com sucesso");
-//        }
+        Cliente cliente = new Cliente();
+        cliente.setNome(jTNome.getText());
+        cliente.setTelefone(jtTelefone.getText());
+        cliente.setEndereco(jtEndereco.getText());
+        cliente.setEmail(jtEmail.getText());
+        ;
 
-        try {
-            Contato contatoSalvo;
-            if (jbsalvar.getText().equals("editar")) {
-                contato.setId(contatoClasse.getId());
-                contatoSalvo = contatoService.editarContato(contato);
-            } else {
-                contatoSalvo = contatoService.SalvarContato(contato);
-            }
+        ClienteService clienteService = new ClienteService();
 
-            if (contatoSalvo == null) {
-                JOptionPane.showMessageDialog(null, "Ocorreu um erro qualquer no banco!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Contato salvo com sucesso!");
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-                                            
 
     }//GEN-LAST:event_jbcadastrarActionPerformed
+
+    private void jbcancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbcancelarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbcancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,22 +212,20 @@ public class Cliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Cliente().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -254,9 +243,4 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JTextField jtTelefone;
     // End of variables declaration//GEN-END:variables
 
-    private void initComponents() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-  
-}}
+}
