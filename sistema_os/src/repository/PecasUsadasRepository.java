@@ -35,7 +35,7 @@ public class PecasUsadasRepository {
             ppst.setString(1, pecasUsadas.getDescricao());
             ppst.setInt(2, pecasUsadas.getQuantidade());
             ppst.setDouble(3, pecasUsadas.getPrecoUnitario());
-            ppst.setInt(4, pecasUsadas.getPecasUsadas().getId());
+            ppst.setInt(4, pecasUsadas.getId());
             
             ppst.executeUpdate();
             ppst.close();
@@ -46,6 +46,6 @@ public class PecasUsadasRepository {
         }
     }
     
-//    public PecasUsadas buscarPeca()
+//    public PecasUsadas buscarPeca(String descricao, int quantidade){
     
 }
