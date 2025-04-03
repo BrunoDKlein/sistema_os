@@ -14,12 +14,9 @@ import entity.Pagamento;
 public class PagamentoController extends javax.swing.JFrame {
 
     public PagamentoController() {
-        initComponents();
     }
-    public Pagamento lerDadosDoPagamento (){
-        
-    }
-    }
+
+
 
    
     @SuppressWarnings("unchecked")
@@ -55,7 +52,7 @@ public class PagamentoController extends javax.swing.JFrame {
         jLabel2.setText("Registrar Pagamento");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Número da Nota:");
+        jLabel6.setText("Ordem de Serviço:");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Data do Pagamento:");
@@ -67,7 +64,7 @@ public class PagamentoController extends javax.swing.JFrame {
         jLabel9.setText("Método de Pagamento:");
 
         jcbMetodoPagamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jcbMetodoPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Dinheiro", "Cartão", "Pix", "Cheque" }));
+        jcbMetodoPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Dinheiro", "Cartão", "Pix", "Cheque", "Outro" }));
 
         jtfNumeroNota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -1,21 +1,22 @@
 package entity;
 
 // * @author Victor
-import java.util.List;
+
+import java.time.LocalDate;
 
 public class Pagamento {
 
     private int id;
-    private String nomeDoPagador;
-    private int numeroNota;
-    private String data;
-    private int valor;
+    private Cliente cliente;
+    private OrdemServico ordemServico;
+    private LocalDate data;
+    private double valor;
     private String metodoPagamento;
 
-    public Pagamento(int id, String nomeDoPagador, int numeroNota, String data, int valor, String metodoPagamento) {
+    public Pagamento(int id, String nomeDoPagador, OrdemServico ordemServico, LocalDate data, int valor, String metodoPagamento) {
         this.id = id;
-        this.nomeDoPagador = nomeDoPagador;
-        this.numeroNota = numeroNota;
+        this.cliente = cliente;
+        this.ordemServico = ordemServico;
         this.data = data;
         this.valor = valor;
         this.metodoPagamento = metodoPagamento;
@@ -25,20 +26,36 @@ public class Pagamento {
         return id;
     }
 
-    public String getNome() {
-        return nomeDoPagador;
+    public Cliente getNome() {
+        return cliente;
     }
 
-    public int getNumeroPaginas() {
-        return numeroNota;
+    public OrdemServico getIdOs() {
+        return ordemServico;
     }
 
-    public String getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public int getvalor() {
+    public double getValor() {
         return valor;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public OrdemServico getOrdemServico() {
+        return ordemServico;
+    }
+
+    public void setOrdemServico(OrdemServico ordemServico) {
+        this.ordemServico = ordemServico;
     }
 
     public String getMetodoPagamento() {

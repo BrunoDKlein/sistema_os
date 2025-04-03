@@ -4,6 +4,7 @@ package repository;
 
 import entity.Pagamento;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import resources.UtilDb;
@@ -30,9 +31,9 @@ public class PagamentoRepository {
 
             ppst = conn.prepareStatement(sql);
             ppst.setInt(1, pagamento.getId());
-            ppst.setInt(2, pagamento.getOs());
-            ppst.setString(3, pagamento.getData());
-            ppst.setInt(4, pagamento.getValor());
+            ppst.setInt(2, pagamento.getOrdemServico().getId());
+            ppst.setDate(3, Date.valueOf(pagamento.getData()));
+            ppst.setDouble(4, pagamento.getValor());
             ppst.setString(5, pagamento.getMetodoPagamento());
 
             ppst.executeUpdate();
