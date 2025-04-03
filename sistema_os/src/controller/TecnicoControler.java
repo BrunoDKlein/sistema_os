@@ -5,10 +5,9 @@
  */
 package controller;
 
-import entity.Contato;
 import entity.Tecnico;
 import javax.swing.JOptionPane;
-import service.ContatoService;
+import service.TecnicoService;
 
 /**
  *
@@ -16,11 +15,15 @@ import service.ContatoService;
  */
 public class TecnicoControler extends javax.swing.JFrame {
 
+    Tecnico tecnicoClasse;
+    TecnicoService tecnicoService;
+
     /**
      * Creates new form TecnicoControler
      */
     public TecnicoControler() {
         initComponents();
+        
     }
 
     /**
@@ -121,18 +124,16 @@ public class TecnicoControler extends javax.swing.JFrame {
         tecnico.setTelefone(jtfTelefone.getText());
         tecnico.setEmail(jtfEmail.getText());
 
-        
-    //    TecnicoService tecnicoService = new TecnicoService();
+        //   TecnicoService tecnicoService = new TecnicoService();
         try {
             Tecnico tecnicoSalvo = null;
-            if(jbSalvar.getText().equals("Editar")){
-                tecnico.setId(tecnicoClasse.getId());
-               tecnicoSalvoSalvo= tecnicoService.editarTecnico(tecnico);
-            }else{
-                tecnicoSalvoSalvo=tecnicoServiceService.salvarTecnico(tecnico);
+            if (jbSalvar.getText().equals("Editar")) {
+                //            tecnico.setId(tecnicoClasse.getId());
+                //     tecnicoSalvoSalvo= tecnicoService.editarTecnico(tecnico);
+            
+                tecnicoSalvo = tecnicoService.salvarTecnico(tecnico);
             }
-            
-            
+
             if (tecnicoSalvo == null) {
                 JOptionPane.showMessageDialog(null, "Ocorreu um erro qualquer no banco!");
             } else {
