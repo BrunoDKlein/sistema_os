@@ -5,6 +5,8 @@
  */
 package controller;
 
+import entity.Aparelho;
+
 /**
  *
  * @author Tech Consertos
@@ -45,6 +47,11 @@ public class AparelhoController extends javax.swing.JFrame {
         jLabel2.setText("Aparelhos ");
 
         jcbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "samsung", "lg", "motorola", "iphone", "xiaomi", "xperia", "huawei" }));
+        jcbMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbMarcaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Marca:");
@@ -70,6 +77,11 @@ public class AparelhoController extends javax.swing.JFrame {
 
         jbSalvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbSalvar.setText("Salvar");
+        jbSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,10 +147,18 @@ public class AparelhoController extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfModeloActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+    private void jcbMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMarcaActionPerformed
+
+    }//GEN-LAST:event_jcbMarcaActionPerformed
+
+    private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
+        Aparelho aparelho = new Aparelho();
+        aparelho.setMarca(jcbMarca.getSelectedItem().toString());
+        aparelho.setModelo(jtfModelo.getText().toString());
+        aparelho.setDescricao(jtfDescrição.getText().toString());
+
+    }//GEN-LAST:event_jbSalvarActionPerformed
+   public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -152,18 +172,18 @@ public class AparelhoController extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AparelhoController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AparelhoController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AparelhoController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AparelhoController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokjcbMarca Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AparelhoController().setVisible(true);
             }
