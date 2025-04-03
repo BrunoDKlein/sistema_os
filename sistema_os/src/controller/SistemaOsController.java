@@ -16,6 +16,8 @@ import service.SistemaOsService;
  */
 public class SistemaOsController extends javax.swing.JFrame {
 
+    SistemaOsService sistemaOsService = new SistemaOsService();
+
     /**
      * Creates new form SistemaOsController
      */
@@ -54,9 +56,9 @@ public class SistemaOsController extends javax.swing.JFrame {
         for (OrdemServico os : ordensServico) {
             int k = 0;
             jtOs.setValueAt(os.getId(), i, k++);
-            jtOs.setValueAt(os.getId_cliente(), i, k++);
-            jtOs.setValueAt(os.getId_aparelho(), i, k++);
-            jtOs.setValueAt(os.getId_tecnico(), i, k++);
+            jtOs.setValueAt(os.getCliente(), i, k++);
+            jtOs.setValueAt(os.getAparelho(), i, k++);
+            jtOs.setValueAt(os.getTecnico(), i, k++);
             jtOs.setValueAt(os.getData_abertura(), i, k++);
             jtOs.setValueAt(os.getData_fechamento(), i, k++);
             jtOs.setValueAt(os.getStatus(), i, k++);
@@ -71,6 +73,22 @@ public class SistemaOsController extends javax.swing.JFrame {
     public boolean linhaEstaSelecionada() {
         return jtOs.getSelectedRow() > -1;
     }
+
+//    public OrdemServico lerDadosDaTabela() {
+//        OrdemServico osSelecionada = new OrdemServico();
+//        int linhaSelecionada = jtOs.getSelectedRow();
+//        osSelecionada.setId(Integer.parseInt(jtOs.getValueAt(linhaSelecionada, 0).toString()));
+//        osSelecionada.setCliente(Integer.parseInt(jtOs.getValueAt(linhaSelecionada, 1).toString()));
+//        osSelecionada.setId_aparelho(Integer.parseInt(jtOs.getValueAt(linhaSelecionada, 2).toString()));
+//        osSelecionada.setId_tecnico(Integer.parseInt(jtOs.getValueAt(linhaSelecionada, 3).toString()));
+//        osSelecionada.setData_abertura(jtOs.getValueAt(linhaSelecionada, 4).toString());
+//        osSelecionada.setData_fechamento(jtOs.getValueAt(linhaSelecionada, 5).toString());
+//        osSelecionada.setStatus(jtOs.getValueAt(linhaSelecionada, 6).toString());
+//        osSelecionada.setDescricao_problema(jtOs.getValueAt(linhaSelecionada, 7).toString());
+//        osSelecionada.setSolucao(jtOs.getValueAt(linhaSelecionada, 8).toString());
+//        osSelecionada.setCusto_total(Double.parseDouble(jtOs.getValueAt(linhaSelecionada, 9).toString()));
+//        return osSelecionada;
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -216,15 +234,14 @@ public class SistemaOsController extends javax.swing.JFrame {
         int linhaSelecionada = jtOs.getSelectedRow();
         try {
             if (linhaEstaSelecionada()) {
-                osExcluida = SistemaOsService.excluirOs(Integer.parseInt(jtOs.getValueAt(linhaSelecionada, 0).toString()));
+                osExcluida = sistemaOsService.excluirOs(Integer.parseInt(jtOs.getValueAt(linhaSelecionada, 0).toString()));
             } else {
-                JOptionPane.showMessageDialog(null, "Para realizar essa ação, selecione um contato");
+                JOptionPane.showMessageDialog(null, "Para realizar essa ação, selecione uma ordem de serviço");
             }
-            if (contatoExcluido) {
-                JOptionPane.showMessageDialog(null, "Contato excluído com sucesso!");
+            if (osExcluida) {
+                JOptionPane.showMessageDialog(null, "Ordem de serviço excluída com sucesso!");
             } else {
                 JOptionPane.showMessageDialog(null, "Ocorreu um erro qualquer no banco!");
-
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -232,7 +249,11 @@ public class SistemaOsController extends javax.swing.JFrame {
     }//GEN-LAST:event_jbExcluirActionPerformed
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
-        // TODO add your handling code here:
+        if (linhaEstaSelecionada()) {
+//            new OrdemServicoController(lerDadosDaTabela()).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Para realizar essa ação, selecione um contato");
+        }
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAtualizarActionPerformed

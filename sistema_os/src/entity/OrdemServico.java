@@ -5,6 +5,7 @@
  */
 package entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -14,11 +15,11 @@ import java.util.Date;
 public class OrdemServico {
 
     private int id;
-    private int id_cliente;
-    private int id_aparelho;
-    private int id_tecnico;
-    private Date data_abertura;
-    private Date data_fechamento;
+    private Cliente cliente;
+    private Aparelho aparelho;
+    private Tecnico tecnico;
+    private LocalDate data_abertura;
+    private LocalDate data_fechamento;
     private String status;
     private String descricao_problema;
     private String solucao;
@@ -27,11 +28,11 @@ public class OrdemServico {
     public OrdemServico() {
     }
 
-    public OrdemServico(int id, int id_cliente, int id_aparelho, int id_tecnico, Date data_abertura, Date data_fechamento, String status, String descricao_problema, String solucao, Double custo_total) {
+    public OrdemServico(int id, Cliente cliente, Aparelho aparelho, Tecnico tecnico, LocalDate data_abertura, LocalDate data_fechamento, String status, String descricao_problema, String solucao, Double custo_total) {
         this.id = id;
-        this.id_cliente = id_cliente;
-        this.id_aparelho = id_aparelho;
-        this.id_tecnico = id_tecnico;
+        this.cliente = cliente;
+        this.aparelho = aparelho;
+        this.tecnico = tecnico;
         this.data_abertura = data_abertura;
         this.data_fechamento = data_fechamento;
         this.status = status;
@@ -44,43 +45,47 @@ public class OrdemServico {
         return id;
     }
 
-    public int getId_cliente() {
-        return id_cliente;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setId_cliente(int id_cliente) {
-        this.id_cliente = id_cliente;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public int getId_aparelho() {
-        return id_aparelho;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public void setId_aparelho(int id_aparelho) {
-        this.id_aparelho = id_aparelho;
+    public Aparelho getAparelho() {
+        return aparelho;
     }
 
-    public int getId_tecnico() {
-        return id_tecnico;
+    public void setAparelho(Aparelho aparelho) {
+        this.aparelho = aparelho;
     }
 
-    public void setId_tecnico(int id_tecnico) {
-        this.id_tecnico = id_tecnico;
+    public Tecnico getTecnico() {
+        return tecnico;
     }
 
-    public Date getData_abertura() {
+    public void setTecnico(Tecnico tecnico) {
+        this.tecnico = tecnico;
+    }
+
+    public LocalDate getData_abertura() {
         return data_abertura;
     }
 
-    public void setData_abertura(Date data_abertura) {
+    public void setData_abertura(LocalDate data_abertura) {
         this.data_abertura = data_abertura;
     }
 
-    public Date getData_fechamento() {
+    public LocalDate getData_fechamento() {
         return data_fechamento;
     }
 
-    public void setData_fechamento(Date data_fechamento) {
+    public void setData_fechamento(LocalDate data_fechamento) {
         this.data_fechamento = data_fechamento;
     }
 
