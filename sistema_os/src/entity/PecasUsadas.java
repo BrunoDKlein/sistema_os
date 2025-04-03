@@ -10,7 +10,7 @@ package entity;
  * @author Escola
  */
 public class PecasUsadas {
-      
+      private OrdemServico ordemServico;
       private String descricao;
       private int quantidade;
       private double precoUnitario;
@@ -54,6 +54,14 @@ public class PecasUsadas {
     @Override
     public String toString() {
         return "PecasUsadas{" + "descricao=" + descricao + ", quantidade=" + quantidade + ", precoUnitario=" + precoUnitario + ", id=" + id + '}';
+    }
+
+    public OrdemServico getOrdemServico() {
+        return ordemServico;
+    }
+
+    public void setOrdemServico(OrdemServico ordemServico) {
+        this.ordemServico = ordemServico;
     }
 
     
