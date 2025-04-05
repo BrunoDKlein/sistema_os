@@ -7,6 +7,7 @@ package entity;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -24,6 +25,7 @@ public class OrdemServico {
     private String descricao_problema;
     private String solucao;
     private Double custo_total;
+    List<PecasUsadas> pecasUsadas;
 
     public OrdemServico() {
     }
