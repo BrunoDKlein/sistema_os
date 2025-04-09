@@ -3,6 +3,7 @@ package entity;
 public class Aparelho {
 
     private int id;
+    private Cliente cliente;
     private String marca;
     private String modelo;
     private String descricao;
@@ -13,6 +14,14 @@ public class Aparelho {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public String getMarca() {
@@ -39,16 +48,18 @@ public class Aparelho {
         this.descricao = descricao;
     }
 
-    public Aparelho(int id, String marca, String modelo, String descricao) {
+    public Aparelho() {
+    }
+
+    public Aparelho(int id, Cliente cliente, String marca, String modelo, String descricao) {
         this.id = id;
+        this.cliente = cliente;
         this.marca = marca;
         this.modelo = modelo;
         this.descricao = descricao;
     }
 
-    public Aparelho() {
-    }
-
+    
 
 
 }
