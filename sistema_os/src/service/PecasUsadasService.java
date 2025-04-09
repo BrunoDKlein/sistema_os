@@ -18,4 +18,5 @@ public class PecasUsadasService {
     public PecasUsadas salvarPeca(PecasUsadas pecasUsadas){
         return pecasUsadasRepository.salvarPeca(pecasUsadas);
     }
+    
 }
