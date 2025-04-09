@@ -13,18 +13,22 @@ public class AparelhoRepository {
     PreparedStatement ppst;
 
     public Aparelho salvarAparelho(Aparelho aparelho) {
+        System.out.println(aparelho.getCliente().getId());
         conn = util.conexao();
-        String sql = "INSERT INTO aparelho("
+        String sql = "INSERT INTO aparelhos("
+                + "id_cliente, "
                 + "descricao, "
                 + "marca, "
-                + "modelo ) "
-                + "VALUES(?,?,?)";
+                + "modelo) "
+                
+                + "VALUES(?,?,?,?)";
 
         try {
             ppst = conn.prepareStatement(sql);
-            ppst.setString(1, aparelho.getDescricao());
-            ppst.setString(2, aparelho.getMarca());
-            ppst.setString(3, aparelho.getModelo());
+            ppst.setString(2, aparelho.getDescricao());
+            ppst.setString(3, aparelho.getMarca());
+            ppst.setString(4, aparelho.getModelo());
+            ppst.setInt(1, 1);
 
             ppst.executeUpdate();
             ppst.close();
