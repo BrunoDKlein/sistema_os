@@ -86,33 +86,33 @@ public class OrdemServicoController extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jbSalvar = new javax.swing.JButton();
+        jbCancelar = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        jtfDataFechamento = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jcbStatus = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jtaDescricao = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        jtaSolucao = new javax.swing.JTextArea();
         jLabel23 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        jtfValorMaoDeObra = new javax.swing.JTextField();
         jcbCliente = new javax.swing.JComboBox<>();
         jcbAparelho = new javax.swing.JComboBox<>();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jbNovoCliente = new javax.swing.JButton();
+        jbNovoAparelho = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
-        jcbAparelho2 = new javax.swing.JComboBox<>();
-        jButton8 = new javax.swing.JButton();
+        jcbTecnico = new javax.swing.JComboBox<>();
+        jbNovoTecnico = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jcbAparelho3 = new javax.swing.JComboBox<>();
+        jtfDataAbertura = new javax.swing.JTextField();
+        jtfPecasUsadas = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
-        jButton9 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        jtaPecasUsadas = new javax.swing.JTextArea();
+        jbAdicionarPecaUsada = new javax.swing.JButton();
+        jbRemoverPecaUsada = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -136,9 +136,9 @@ public class OrdemServicoController extends javax.swing.JFrame {
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel15.setText("Status:");
 
-        jButton1.setText("Salvar");
+        jbSalvar.setText("Salvar");
 
-        jButton2.setText("Cancelar");
+        jbCancelar.setText("Cancelar");
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -148,9 +148,9 @@ public class OrdemServicoController extends javax.swing.JFrame {
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel21.setText("Data de Abertura:");
 
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        jtfDataFechamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                jtfDataFechamentoActionPerformed(evt);
             }
         });
 
@@ -158,24 +158,24 @@ public class OrdemServicoController extends javax.swing.JFrame {
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel22.setText("Data de Fechamento:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aberto", "Em conserto", "Fechado" }));
+        jcbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aberto", "Em conserto", "Fechado" }));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(2);
-        jScrollPane1.setViewportView(jTextArea1);
+        jtaDescricao.setColumns(20);
+        jtaDescricao.setRows(2);
+        jScrollPane1.setViewportView(jtaDescricao);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setLineWrap(true);
-        jTextArea2.setRows(2);
-        jScrollPane2.setViewportView(jTextArea2);
+        jtaSolucao.setColumns(20);
+        jtaSolucao.setLineWrap(true);
+        jtaSolucao.setRows(2);
+        jScrollPane2.setViewportView(jtaSolucao);
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel23.setText("Valor Mão de Obra: R$");
 
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+        jtfValorMaoDeObra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
+                jtfValorMaoDeObraActionPerformed(evt);
             }
         });
 
@@ -206,17 +206,17 @@ public class OrdemServicoController extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Novo");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jbNovoCliente.setText("Novo");
+        jbNovoCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jbNovoClienteActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Novo");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        jbNovoAparelho.setText("Novo");
+        jbNovoAparelho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                jbNovoAparelhoActionPerformed(evt);
             }
         });
 
@@ -224,26 +224,26 @@ public class OrdemServicoController extends javax.swing.JFrame {
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel24.setText("Técnico:");
 
-        jcbAparelho2.setEditable(true);
-        jcbAparelho2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
-        jcbAparelho2.addActionListener(new java.awt.event.ActionListener() {
+        jcbTecnico.setEditable(true);
+        jcbTecnico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
+        jcbTecnico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbAparelho2ActionPerformed(evt);
+                jcbTecnicoActionPerformed(evt);
             }
         });
-        jcbAparelho2.addKeyListener(new java.awt.event.KeyAdapter() {
+        jcbTecnico.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jcbAparelho2KeyPressed(evt);
+                jcbTecnicoKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jcbAparelho2KeyReleased(evt);
+                jcbTecnicoKeyReleased(evt);
             }
         });
 
-        jButton8.setText("Novo");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        jbNovoTecnico.setText("Novo");
+        jbNovoTecnico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                jbNovoTecnicoActionPerformed(evt);
             }
         });
 
@@ -251,43 +251,43 @@ public class OrdemServicoController extends javax.swing.JFrame {
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel16.setText("Peças usadas:");
 
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        jtfDataAbertura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                jtfDataAberturaActionPerformed(evt);
             }
         });
 
-        jcbAparelho3.setEditable(true);
-        jcbAparelho3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
-        jcbAparelho3.addActionListener(new java.awt.event.ActionListener() {
+        jtfPecasUsadas.setEditable(true);
+        jtfPecasUsadas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
+        jtfPecasUsadas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbAparelho3ActionPerformed(evt);
+                jtfPecasUsadasActionPerformed(evt);
             }
         });
-        jcbAparelho3.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtfPecasUsadas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jcbAparelho3KeyPressed(evt);
+                jtfPecasUsadasKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jcbAparelho3KeyReleased(evt);
+                jtfPecasUsadasKeyReleased(evt);
             }
         });
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jScrollPane3.setViewportView(jTextArea3);
+        jtaPecasUsadas.setColumns(20);
+        jtaPecasUsadas.setRows(5);
+        jScrollPane3.setViewportView(jtaPecasUsadas);
 
-        jButton9.setText(">>");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        jbAdicionarPecaUsada.setText(">>");
+        jbAdicionarPecaUsada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                jbAdicionarPecaUsadaActionPerformed(evt);
             }
         });
 
-        jButton11.setText("<<");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        jbRemoverPecaUsada.setText("<<");
+        jbRemoverPecaUsada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                jbRemoverPecaUsadaActionPerformed(evt);
             }
         });
 
@@ -315,8 +315,8 @@ public class OrdemServicoController extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jbRemoverPecaUsada, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jbAdicionarPecaUsada, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -328,13 +328,13 @@ public class OrdemServicoController extends javax.swing.JFrame {
                                                 .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jcbAparelho2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jcbAparelho3, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                    .addComponent(jtfDataAbertura, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jcbTecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jtfPecasUsadas, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jButton5)
-                                            .addComponent(jButton8))
+                                            .addComponent(jbNovoCliente)
+                                            .addComponent(jbNovoTecnico))
                                         .addGap(18, 18, 18))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,13 +344,13 @@ public class OrdemServicoController extends javax.swing.JFrame {
                                         .addGap(123, 123, 123)
                                         .addComponent(jLabel22)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jtfDataFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jcbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -358,16 +358,16 @@ public class OrdemServicoController extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jcbAparelho, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton6))
+                                        .addComponent(jbNovoAparelho))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jtfValorMaoDeObra, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jScrollPane3)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(jbCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jbSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
@@ -379,35 +379,35 @@ public class OrdemServicoController extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jcbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5)
+                    .addComponent(jbNovoCliente)
                     .addComponent(jLabel19)
                     .addComponent(jcbAparelho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6))
+                    .addComponent(jbNovoAparelho))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
-                    .addComponent(jButton8)
-                    .addComponent(jcbAparelho2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbNovoTecnico)
+                    .addComponent(jcbTecnico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel23)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfValorMaoDeObra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(jLabel15)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel22)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfDataFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfDataAbertura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jcbAparelho3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton9))
+                                .addComponent(jtfPecasUsadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jbAdicionarPecaUsada))
                             .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton11))
+                        .addComponent(jbRemoverPecaUsada))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -419,17 +419,17 @@ public class OrdemServicoController extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jbSalvar)
+                    .addComponent(jbCancelar))
                 .addGap(50, 50, 50))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+    private void jtfValorMaoDeObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfValorMaoDeObraActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    }//GEN-LAST:event_jtfValorMaoDeObraActionPerformed
 
     private void jcbClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbClienteKeyPressed
         // TODO add your handling code here:
@@ -447,61 +447,61 @@ public class OrdemServicoController extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbAparelhoKeyReleased
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jbNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jbNovoClienteActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jbNovoAparelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoAparelhoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_jbNovoAparelhoActionPerformed
 
     private void jcbAparelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAparelhoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbAparelhoActionPerformed
 
-    private void jcbAparelho2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAparelho2ActionPerformed
+    private void jcbTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTecnicoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jcbAparelho2ActionPerformed
+    }//GEN-LAST:event_jcbTecnicoActionPerformed
 
-    private void jcbAparelho2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbAparelho2KeyPressed
+    private void jcbTecnicoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbTecnicoKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jcbAparelho2KeyPressed
+    }//GEN-LAST:event_jcbTecnicoKeyPressed
 
-    private void jcbAparelho2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbAparelho2KeyReleased
+    private void jcbTecnicoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbTecnicoKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_jcbAparelho2KeyReleased
+    }//GEN-LAST:event_jcbTecnicoKeyReleased
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void jbNovoTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoTecnicoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_jbNovoTecnicoActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void jtfDataAberturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfDataAberturaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_jtfDataAberturaActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void jtfDataFechamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfDataFechamentoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_jtfDataFechamentoActionPerformed
 
-    private void jcbAparelho3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAparelho3ActionPerformed
+    private void jtfPecasUsadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfPecasUsadasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jcbAparelho3ActionPerformed
+    }//GEN-LAST:event_jtfPecasUsadasActionPerformed
 
-    private void jcbAparelho3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbAparelho3KeyPressed
+    private void jtfPecasUsadasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPecasUsadasKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jcbAparelho3KeyPressed
+    }//GEN-LAST:event_jtfPecasUsadasKeyPressed
 
-    private void jcbAparelho3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbAparelho3KeyReleased
+    private void jtfPecasUsadasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPecasUsadasKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_jcbAparelho3KeyReleased
+    }//GEN-LAST:event_jtfPecasUsadasKeyReleased
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void jbAdicionarPecaUsadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAdicionarPecaUsadaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_jbAdicionarPecaUsadaActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void jbRemoverPecaUsadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRemoverPecaUsadaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_jbRemoverPecaUsadaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -542,14 +542,6 @@ public class OrdemServicoController extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
@@ -564,16 +556,24 @@ public class OrdemServicoController extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JButton jbAdicionarPecaUsada;
+    private javax.swing.JButton jbCancelar;
+    private javax.swing.JButton jbNovoAparelho;
+    private javax.swing.JButton jbNovoCliente;
+    private javax.swing.JButton jbNovoTecnico;
+    private javax.swing.JButton jbRemoverPecaUsada;
+    private javax.swing.JButton jbSalvar;
     private javax.swing.JComboBox<String> jcbAparelho;
-    private javax.swing.JComboBox<String> jcbAparelho2;
-    private javax.swing.JComboBox<String> jcbAparelho3;
     private javax.swing.JComboBox<String> jcbCliente;
+    private javax.swing.JComboBox<String> jcbStatus;
+    private javax.swing.JComboBox<String> jcbTecnico;
+    private javax.swing.JTextArea jtaDescricao;
+    private javax.swing.JTextArea jtaPecasUsadas;
+    private javax.swing.JTextArea jtaSolucao;
+    private javax.swing.JTextField jtfDataAbertura;
+    private javax.swing.JTextField jtfDataFechamento;
+    private javax.swing.JComboBox<String> jtfPecasUsadas;
+    private javax.swing.JTextField jtfValorMaoDeObra;
     // End of variables declaration//GEN-END:variables
     JTextField editor;
 }
