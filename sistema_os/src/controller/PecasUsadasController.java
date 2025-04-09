@@ -6,6 +6,8 @@
 package controller;
 
 import entity.PecasUsadas;
+import javax.swing.JOptionPane;
+import service.PecasUsadasService;
 
 /**
  *
@@ -36,9 +38,10 @@ public class PecasUsadasController extends javax.swing.JFrame {
         jtfDescricao = new javax.swing.JTextField();
         jtfQuantidade = new javax.swing.JTextField();
         jtfPrecoUnitario = new javax.swing.JTextField();
-        jbVerificar = new javax.swing.JButton();
+        jbSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro de peças usadas");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Peças Usadas");
@@ -64,11 +67,11 @@ public class PecasUsadasController extends javax.swing.JFrame {
             }
         });
 
-        jbVerificar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jbVerificar.setText("Verificar");
-        jbVerificar.addActionListener(new java.awt.event.ActionListener() {
+        jbSalvar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jbSalvar.setText("Salvar");
+        jbSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbVerificarActionPerformed(evt);
+                jbSalvarActionPerformed(evt);
             }
         });
 
@@ -79,24 +82,21 @@ public class PecasUsadasController extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(153, 153, 153)
-                        .addComponent(jLabel1)
-                        .addGap(0, 131, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jtfQuantidade, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                            .addComponent(jtfPrecoUnitario, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtfDescricao)
-                            .addComponent(jtfQuantidade)
-                            .addComponent(jtfPrecoUnitario)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jbVerificar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap())
+                            .addComponent(jbSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(161, 161, 161)
+                        .addComponent(jLabel1)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,9 +115,9 @@ public class PecasUsadasController extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfPrecoUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(jbVerificar)
-                .addGap(31, 31, 31))
+                .addGap(34, 34, 34)
+                .addComponent(jbSalvar)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -131,16 +131,18 @@ public class PecasUsadasController extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfQuantidadeActionPerformed
 
-    private void jbVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerificarActionPerformed
+    private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         // TODO add your handling code here:
         PecasUsadas pecasUsadas = new PecasUsadas();
         pecasUsadas.setDescricao(jtfDescricao.getText());
         pecasUsadas.setQuantidade(Integer.parseInt(jtfQuantidade.getText()));
         pecasUsadas.setPrecoUnitario(Double.parseDouble(jtfPrecoUnitario.getText()));
         
+        PecasUsadasService pecasUsadasService = new PecasUsadasService();
         
+        pecasUsadasService.salvarPeca(pecasUsadas);
         
-    }//GEN-LAST:event_jbVerificarActionPerformed
+    }//GEN-LAST:event_jbSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,7 +184,7 @@ public class PecasUsadasController extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JButton jbVerificar;
+    private javax.swing.JButton jbSalvar;
     private javax.swing.JTextField jtfDescricao;
     private javax.swing.JTextField jtfPrecoUnitario;
     private javax.swing.JTextField jtfQuantidade;

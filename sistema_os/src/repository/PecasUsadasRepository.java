@@ -8,6 +8,8 @@ package repository;
 import entity.PecasUsadas;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import resources.UtilDb;
 
 
@@ -46,6 +48,30 @@ public class PecasUsadasRepository {
         }
     }
     
-//    public PecasUsadas buscarPeca(String descricao, int quantidade){
+    public PecasUsadas buscarPeca(String descricao, int quantidade) throws Exception{
+        conn = util.conexao();
+         String sql = "SELECT * from pecas_usadas WHERE descricao = ? and quantidade = ?";
+          try {
+            ppst = conn.prepareStatement(sql);
+            ppst.setString(1, descricao);
+            ppst.setInt(2, quantidade);
+         
+            ResultSet rs = ppst.executeQuery();
+            while (rs.next()) {
+//                return new Contato(rs.getInt(1), rs.getString(2), rs.getString(3),
+//                        rs.getString(4), rs.getString(5), rs.getString(6));
+                throw new Exception("Essa peça já existe.");
+            }
+            
+            ppst.close();
+            conn.close();
+            
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+          return null;
+    }
     
 }
