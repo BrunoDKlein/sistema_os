@@ -23,17 +23,17 @@ public class TecnicoRepository {
 
     public Tecnico salvarTecnico(Tecnico tecnico) {
         conn = util.conexao();
-        String sql = "INSERT INTO tecnico("
-                + "nome,"
-                + "telefone,"
-                + "email,"
+        String sql = "INSERT INTO tecnicos ("
+                + "nome, "
+                + "telefone, "
+                + "email) "
                 + "VALUES(?,?,?)";
         try {
             ppst = conn.prepareStatement(sql);
             ppst.setString(1, tecnico.getNome());
 
-            ppst.setString(3, tecnico.getTelefone());
-            ppst.setString(4, tecnico.getEmail());
+            ppst.setString(2, tecnico.getTelefone());
+            ppst.setString(3, tecnico.getEmail());
 
             ppst.executeUpdate();
             ppst.close();
