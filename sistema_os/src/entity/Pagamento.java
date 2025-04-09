@@ -1,7 +1,6 @@
 package entity;
 
 // * @author Victor
-
 import java.time.LocalDate;
 
 public class Pagamento {
@@ -13,7 +12,7 @@ public class Pagamento {
     private double valor;
     private String metodoPagamento;
 
-    public Pagamento(int id, String nomeDoPagador, OrdemServico ordemServico, LocalDate data, int valor, String metodoPagamento) {
+    public Pagamento(int id, Cliente cliente, OrdemServico ordemServico, LocalDate data, double valor, String metodoPagamento) {
         this.id = id;
         this.cliente = cliente;
         this.ordemServico = ordemServico;
@@ -22,24 +21,15 @@ public class Pagamento {
         this.metodoPagamento = metodoPagamento;
     }
 
+    public Pagamento() {
+    }
+
     public int getId() {
         return id;
     }
 
-    public Cliente getNome() {
-        return cliente;
-    }
-
-    public OrdemServico getIdOs() {
-        return ordemServico;
-    }
-
-    public LocalDate getData() {
-        return data;
-    }
-
-    public double getValor() {
-        return valor;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Cliente getCliente() {
@@ -58,8 +48,29 @@ public class Pagamento {
         this.ordemServico = ordemServico;
     }
 
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
     public String getMetodoPagamento() {
         return metodoPagamento;
     }
 
+    public void setMetodoPagamento(String metodoPagamento) {
+        this.metodoPagamento = metodoPagamento;
+    }
+    
+    
 }
