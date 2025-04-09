@@ -16,7 +16,7 @@ public class TecnicoService {
 
     TecnicoRepository tecnicoRepository = new TecnicoRepository();
 
-    public Tecnico salvarTecnico(Tecnico tecnico) throws Exception {
+    public Tecnico salvarTecnico(Tecnico tecnico) {
 
         return tecnicoRepository.salvarTecnico(tecnico);
 

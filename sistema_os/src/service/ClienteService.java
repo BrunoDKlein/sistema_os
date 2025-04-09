@@ -16,7 +16,7 @@ public class ClienteService {
 
     ClienteRepository clienteRepository = new ClienteRepository();
 
-    public Cliente cadastrarCliente(Cliente cliente) throws Exception {
+    public Cliente cadastrarCliente(Cliente cliente) {
         return clienteRepository.cadastrarCliente(cliente);
     }
 
@@ -27,4 +27,6 @@ public class ClienteService {
 //    public boolean excluirContato(int id_contato) {
 //return contatoRepository.excluirContato(id_contato);
 //    }
+
+   
 }

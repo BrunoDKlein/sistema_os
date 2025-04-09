@@ -9,6 +9,8 @@ import entity.OrdemServico;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import service.SistemaOsService;
 
 /**
@@ -26,19 +28,37 @@ public class SistemaOsController extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         configurarLarguraColunas();
+        preencheTabela(sistemaOsService.buscarTodasAsOs());
     }
 
     private void configurarLarguraColunas() {
-        jtOs.getColumnModel().getColumn(0).setPreferredWidth(jtOs.getWidth() / 20);
-        jtOs.getColumnModel().getColumn(1).setPreferredWidth(jtOs.getWidth() / 15);
-        jtOs.getColumnModel().getColumn(2).setPreferredWidth(jtOs.getWidth() / 15);
-        jtOs.getColumnModel().getColumn(3).setPreferredWidth(jtOs.getWidth() / 15);
-        jtOs.getColumnModel().getColumn(4).setPreferredWidth(jtOs.getWidth() / 15);
-        jtOs.getColumnModel().getColumn(5).setPreferredWidth(jtOs.getWidth() / 15);
-        jtOs.getColumnModel().getColumn(6).setPreferredWidth(jtOs.getWidth() / 15);
+        ((DefaultTableCellRenderer) jtOs.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        jtOs.getColumnModel().getColumn(0).setPreferredWidth(jtOs.getWidth() / 25);
+        jtOs.getColumnModel().getColumn(1).setPreferredWidth(jtOs.getWidth() / 16);
+        jtOs.getColumnModel().getColumn(2).setPreferredWidth(jtOs.getWidth() / 16);
+        jtOs.getColumnModel().getColumn(3).setPreferredWidth(jtOs.getWidth() / 16);
+        jtOs.getColumnModel().getColumn(4).setPreferredWidth(jtOs.getWidth() / 12);
+        jtOs.getColumnModel().getColumn(5).setPreferredWidth(jtOs.getWidth() / 12);
+        jtOs.getColumnModel().getColumn(6).setPreferredWidth(jtOs.getWidth() / 16);
         jtOs.getColumnModel().getColumn(7).setPreferredWidth(jtOs.getWidth() / 6);
         jtOs.getColumnModel().getColumn(8).setPreferredWidth(jtOs.getWidth() / 6);
-        jtOs.getColumnModel().getColumn(9).setPreferredWidth(jtOs.getWidth() / 15);
+        jtOs.getColumnModel().getColumn(9).setPreferredWidth(jtOs.getWidth() / 16);
+        alinharColuna(0, SwingConstants.CENTER);
+        alinharColuna(1, SwingConstants.CENTER);
+        alinharColuna(2, SwingConstants.CENTER);
+        alinharColuna(3, SwingConstants.CENTER);
+        alinharColuna(4, SwingConstants.CENTER);
+        alinharColuna(5, SwingConstants.CENTER);
+        alinharColuna(6, SwingConstants.CENTER);
+        alinharColuna(7, SwingConstants.CENTER);
+        alinharColuna(8, SwingConstants.CENTER);
+        alinharColuna(9, SwingConstants.CENTER);
+    }
+
+    private void alinharColuna(int coluna, int alinhamento) {
+        DefaultTableCellRenderer alinhar = new DefaultTableCellRenderer();
+        alinhar.setHorizontalAlignment(alinhamento);
+        jtOs.getColumnModel().getColumn(coluna).setCellRenderer(alinhar);
     }
 
     public void limparTabela() {
@@ -76,21 +96,12 @@ public class SistemaOsController extends javax.swing.JFrame {
         return jtOs.getSelectedRow() > -1;
     }
 
-//    public OrdemServico lerDadosDaTabela() {
-//        OrdemServico osSelecionada = new OrdemServico();
-//        int linhaSelecionada = jtOs.getSelectedRow();
-//        osSelecionada.setId(Integer.parseInt(jtOs.getValueAt(linhaSelecionada, 0).toString()));
-//        osSelecionada.setCliente(Integer.parseInt(jtOs.getValueAt(linhaSelecionada, 1).toString()));
-//        osSelecionada.setId_aparelho(Integer.parseInt(jtOs.getValueAt(linhaSelecionada, 2).toString()));
-//        osSelecionada.setId_tecnico(Integer.parseInt(jtOs.getValueAt(linhaSelecionada, 3).toString()));
-//        osSelecionada.setData_abertura(jtOs.getValueAt(linhaSelecionada, 4).toString());
-//        osSelecionada.setData_fechamento(jtOs.getValueAt(linhaSelecionada, 5).toString());
-//        osSelecionada.setStatus(jtOs.getValueAt(linhaSelecionada, 6).toString());
-//        osSelecionada.setDescricao_problema(jtOs.getValueAt(linhaSelecionada, 7).toString());
-//        osSelecionada.setSolucao(jtOs.getValueAt(linhaSelecionada, 8).toString());
-//        osSelecionada.setCusto_total(Double.parseDouble(jtOs.getValueAt(linhaSelecionada, 9).toString()));
-//        return osSelecionada;
-//    }
+    public OrdemServico lerQualOsEstaSelecionada() {
+        OrdemServico osSelecionada = new OrdemServico();
+        osSelecionada = sistemaOsService.buscarOsPorId(Integer.parseInt(jtOs.getValueAt(jtOs.getSelectedRow(), 0).toString()));
+        return osSelecionada;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -118,6 +129,8 @@ public class SistemaOsController extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem7 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -155,7 +168,7 @@ public class SistemaOsController extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id ", "Id Cliente", "Id Aparelho", "Id Técnico", "Data da Abertura", "Data do Fechamento", "Status", "Descrição do Problema", "Solução", "Custo Total"
+                "Id ", "Cliente", "Aparelho", "Técnico", "Data da Abertura", "Data do Fechamento", "Status", "Descrição do Problema", "Solução", "Custo Total"
             }
         ) {
             Class[] types = new Class [] {
@@ -180,6 +193,7 @@ public class SistemaOsController extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jtOs);
+        jtOs.getAccessibleContext().setAccessibleName("");
 
         jbCriarNovaOs.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbCriarNovaOs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/adicionar.png"))); // NOI18N
@@ -247,6 +261,15 @@ public class SistemaOsController extends javax.swing.JFrame {
 
         jMenuItem6.setText("Excluir Técnico");
         jMenu2.add(jMenuItem6);
+        jMenu2.add(jSeparator2);
+
+        jMenuItem7.setText("Fazer Pagamento");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem7);
 
         jMenuBar1.add(jMenu2);
 
@@ -341,6 +364,10 @@ public class SistemaOsController extends javax.swing.JFrame {
         System.out.println(jtOs.getSelectedColumn());
     }//GEN-LAST:event_jtOsMouseClicked
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        new PagamentoController().setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -388,8 +415,10 @@ public class SistemaOsController extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JButton jbAtualizar;
     private javax.swing.JButton jbCriarNovaOs;
     private javax.swing.JButton jbEditar;
