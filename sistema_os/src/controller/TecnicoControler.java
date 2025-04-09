@@ -16,7 +16,7 @@ import service.TecnicoService;
 public class TecnicoControler extends javax.swing.JFrame {
 
     Tecnico tecnicoClasse;
-    TecnicoService tecnicoService;
+    TecnicoService tecnicoService=new TecnicoService();
 
     /**
      * Creates new form TecnicoControler
@@ -45,6 +45,7 @@ public class TecnicoControler extends javax.swing.JFrame {
         jbSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CADASTRO de TECNICOS");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Nome:");
@@ -75,22 +76,25 @@ public class TecnicoControler extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(151, 151, 151)
                         .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jbSalvar)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(28, 28, 28)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel4))
+                                    .addGap(33, 33, 33))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(jLabel3)
+                                    .addGap(18, 18, 18)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jtfNome, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                                .addComponent(jtfTelefone)
+                                .addComponent(jtfEmail)))))
                 .addContainerGap(94, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jbSalvar)
-                .addGap(70, 70, 70))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,17 +105,17 @@ public class TecnicoControler extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jtfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jtfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
+                .addGap(18, 18, 18)
                 .addComponent(jbSalvar)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         pack();
@@ -123,25 +127,32 @@ public class TecnicoControler extends javax.swing.JFrame {
         tecnico.setNome(jtfNome.getText());
         tecnico.setTelefone(jtfTelefone.getText());
         tecnico.setEmail(jtfEmail.getText());
-
-        //   TecnicoService tecnicoService = new TecnicoService();
-        try {
-            Tecnico tecnicoSalvo = null;
-            if (jbSalvar.getText().equals("Editar")) {
-                //            tecnico.setId(tecnicoClasse.getId());
-                //     tecnicoSalvoSalvo= tecnicoService.editarTecnico(tecnico);
+        Tecnico tecnicoSalvo=tecnicoService.salvarTecnico(tecnico);
+        if(tecnicoSalvo!=null){
+            JOptionPane.showMessageDialog(null, "Dados do Tecnico salvos com sucesso!");
             
-                tecnicoSalvo = tecnicoService.salvarTecnico(tecnico);
-            }
-
-            if (tecnicoSalvo == null) {
-                JOptionPane.showMessageDialog(null, "Ocorreu um erro qualquer no banco!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Dados do Tecnico salvos com sucesso!");
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }else{
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro qualquer no banco!");
         }
+        
+        //   TecnicoService tecnicoService = new TecnicoService();
+//        try {
+//            Tecnico tecnicoSalvo = null;
+//            if (jbSalvar.getText().equals("Editar")) {
+//                //            tecnico.setId(tecnicoClasse.getId());
+//                //     tecnicoSalvoSalvo= tecnicoService.editarTecnico(tecnico);
+//            
+//                tecnicoSalvo = tecnicoService.salvarTecnico(tecnico);
+//            }
+//
+//            if (tecnicoSalvo == null) {
+//                JOptionPane.showMessageDialog(null, "Ocorreu um erro qualquer no banco!");
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Dados do Tecnico salvos com sucesso!");
+//            }
+//        } catch (Exception ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage());
+//        }
 
     }//GEN-LAST:event_jbSalvarActionPerformed
 
