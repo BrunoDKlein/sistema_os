@@ -8,7 +8,12 @@ package repository;
 import entity.Tecnico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import resources.UtilDb;
 
 /**
@@ -42,5 +47,34 @@ public class TecnicoRepository {
         } catch (SQLException ex) {
             return null;
         }
+    }
+
+    public List<Tecnico> buscarTecnicosPorNome(String nome) {
+        System.out.println("repo");
+        conn = util.conexao();
+        String sql = "SELECT * FROM tecnicos WHERE nome like ?";
+
+        List<Tecnico> listaDeTecnicos = new ArrayList<>();
+        try {
+            ppst = conn.prepareStatement(sql);
+            ppst.setString(1, nome + "%");
+            ResultSet rs = ppst.executeQuery();
+
+            while (rs.next()) {
+                Tecnico tecnico = new Tecnico(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4));
+
+                listaDeTecnicos.add(tecnico);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TecnicoRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaDeTecnicos;
+
     }
 }
