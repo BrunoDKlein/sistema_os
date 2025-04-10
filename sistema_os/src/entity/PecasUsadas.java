@@ -19,6 +19,15 @@ public class PecasUsadas {
     public PecasUsadas() {
     }
 
+    public PecasUsadas(String descricao, int quantidade, double precoUnitario, int id) {
+        this.descricao = descricao;
+        this.quantidade = quantidade;
+        this.precoUnitario = precoUnitario;
+        this.id = id;
+    }
+    
+    
+
     public String getDescricao() {
         return descricao;
     }

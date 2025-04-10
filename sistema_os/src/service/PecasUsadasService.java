@@ -6,6 +6,7 @@
 package service;
 
 import entity.PecasUsadas;
+import java.sql.ResultSet;
 import repository.PecasUsadasRepository;
 
 /**
@@ -16,6 +17,12 @@ public class PecasUsadasService {
     PecasUsadasRepository pecasUsadasRepository = new PecasUsadasRepository();
     
     public PecasUsadas salvarPeca(PecasUsadas pecasUsadas){
+        System.out.println("A");
         return pecasUsadasRepository.salvarPeca(pecasUsadas);
     }
+    
+    public PecasUsadas buscarPeca( int id){
+        return pecasUsadasRepository.buscarPeca(id);
+    }
+    
 }

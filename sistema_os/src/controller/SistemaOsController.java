@@ -119,6 +119,7 @@ public class SistemaOsController extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pecasUsadasService1 = new service.PecasUsadasService();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtOs = new javax.swing.JTable();
@@ -447,5 +448,6 @@ public class SistemaOsController extends javax.swing.JFrame {
     private javax.swing.JButton jbEditar;
     private javax.swing.JButton jbExcluir;
     private javax.swing.JTable jtOs;
+    private service.PecasUsadasService pecasUsadasService1;
     // End of variables declaration//GEN-END:variables
 }
