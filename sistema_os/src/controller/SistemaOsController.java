@@ -28,7 +28,7 @@ public class SistemaOsController extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         configurarLarguraColunas();
-        preencheTabela(sistemaOsService.buscarTodasAsOs());
+//        preencheTabela(sistemaOsService.buscarTodasAsOs());
     }
 
     private void configurarLarguraColunas() {
