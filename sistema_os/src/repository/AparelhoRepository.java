@@ -3,7 +3,12 @@ package repository;
 import entity.Aparelho;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import resources.UtilDb;
 
 public class AparelhoRepository {
@@ -20,7 +25,6 @@ public class AparelhoRepository {
                 + "descricao, "
                 + "marca, "
                 + "modelo) "
-                
                 + "VALUES(?,?,?,?)";
 
         try {
@@ -38,5 +42,33 @@ public class AparelhoRepository {
             System.out.println(ex);
             return null;
         }
+    }
+
+    public List<Aparelho> buscarAparelhosPorCliente(int id_Cliente) {
+        conn = util.conexao();
+        String sql = " select * from aparelhos where id_Clientes = ?";
+        List<Aparelho> aparelhosDosClientes = new ArrayList<>();
+        try {
+            ppst = conn.prepareStatement(sql);
+            ppst.setInt(1, id_Cliente);
+            ResultSet rs = ppst.executeQuery();
+            while (rs.next()) {
+                Aparelho aparelho = new Aparelho(
+                        rs.getInt(1),
+                        //TODO
+                       //Ajustar quando chegar a alteração do cliente
+                        null, 
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5)
+                );
+
+                aparelhosDosClientes.add(aparelho);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AparelhoRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return aparelhosDosClientes;
     }
 }
