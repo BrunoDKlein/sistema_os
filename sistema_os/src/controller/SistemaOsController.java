@@ -28,7 +28,7 @@ public class SistemaOsController extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         configurarLarguraColunas();
-        preencheTabela(sistemaOsService.buscarTodasAsOs());
+//        preencheTabela(sistemaOsService.buscarTodasAsOs());
     }
 
     private void configurarLarguraColunas() {
@@ -43,6 +43,7 @@ public class SistemaOsController extends javax.swing.JFrame {
         jtOs.getColumnModel().getColumn(7).setPreferredWidth(jtOs.getWidth() / 6);
         jtOs.getColumnModel().getColumn(8).setPreferredWidth(jtOs.getWidth() / 6);
         jtOs.getColumnModel().getColumn(9).setPreferredWidth(jtOs.getWidth() / 16);
+        jtOs.getColumnModel().getColumn(10).setPreferredWidth(jtOs.getWidth() / 25);
         alinharColuna(0, SwingConstants.CENTER);
         alinharColuna(1, SwingConstants.CENTER);
         alinharColuna(2, SwingConstants.CENTER);
@@ -53,6 +54,7 @@ public class SistemaOsController extends javax.swing.JFrame {
         alinharColuna(7, SwingConstants.CENTER);
         alinharColuna(8, SwingConstants.CENTER);
         alinharColuna(9, SwingConstants.CENTER);
+        alinharColuna(10, SwingConstants.CENTER);
     }
 
     private void alinharColuna(int coluna, int alinhamento) {
@@ -70,6 +72,11 @@ public class SistemaOsController extends javax.swing.JFrame {
             jtOs.setValueAt(null, i, 3);
             jtOs.setValueAt(null, i, 4);
             jtOs.setValueAt(null, i, 5);
+            jtOs.setValueAt(null, i, 6);
+            jtOs.setValueAt(null, i, 7);
+            jtOs.setValueAt(null, i, 8);
+            jtOs.setValueAt(null, i, 9);
+            jtOs.setValueAt(null, i, 10);
         }
     }
 
@@ -87,6 +94,7 @@ public class SistemaOsController extends javax.swing.JFrame {
             jtOs.setValueAt(os.getDescricao_problema(), i, k++);
             jtOs.setValueAt(os.getSolucao(), i, k++);
             jtOs.setValueAt(os.getCusto_total(), i, k++);
+            jtOs.setValueAt(os.getPecasUsadas().size(), i, k++);
 
             i++;
         }
@@ -142,41 +150,41 @@ public class SistemaOsController extends javax.swing.JFrame {
         jtOs.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jtOs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id ", "Cliente", "Aparelho", "Técnico", "Data da Abertura", "Data do Fechamento", "Status", "Descrição do Problema", "Solução", "Custo Total"
+                "Id ", "Cliente", "Aparelho", "Técnico", "Data da Abertura", "Data do Fechamento", "Status", "Descrição do Problema", "Solução", "Peças usadas", "Custo Total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -345,14 +353,15 @@ public class SistemaOsController extends javax.swing.JFrame {
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
         if (linhaEstaSelecionada()) {
-//            new OrdemServicoController(lerDadosDaTabela()).setVisible(true);
+            
+//            new OrdemServicoController(lerQualOsEstaSelecionada()).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Para realizar essa ação, selecione um contato");
         }
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAtualizarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jbAtualizarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -360,9 +369,23 @@ public class SistemaOsController extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jtOsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtOsMouseClicked
-        // TODO add your handling code here:
-        System.out.println(jtOs.getSelectedRow());
-        System.out.println(jtOs.getSelectedColumn());
+        if (jtOs.getValueAt(jtOs.getSelectedRow(), jtOs.getSelectedColumn())!=null) {
+            OrdemServico ordemServico = lerQualOsEstaSelecionada();
+
+            switch (jtOs.getSelectedColumn()) {
+                case 7:
+                    JOptionPane.showMessageDialog(rootPane, ordemServico.getDescricao_problema(), "DESCRIÇÃO DO PROBLEMA", 1);
+                    break;
+                case 8:
+                    JOptionPane.showMessageDialog(rootPane, ordemServico.getSolucao(), "SOLUÇÃO", 1);
+                    break;
+                case 9:
+                    JOptionPane.showMessageDialog(rootPane, ordemServico.getPecasUsadas(), "PEÇAS USADAS", 1);
+                    break;
+                default:
+                    break;
+            }
+        }
     }//GEN-LAST:event_jtOsMouseClicked
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed

@@ -42,7 +42,7 @@ public class AparelhoController extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtfDescrição = new javax.swing.JTextArea();
-        jbEditar = new javax.swing.JButton();
+        jbCancelar = new javax.swing.JButton();
         jbSalvar = new javax.swing.JButton();
         jcbMarca1 = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
@@ -78,8 +78,13 @@ public class AparelhoController extends javax.swing.JFrame {
         jtfDescrição.setRows(5);
         jScrollPane1.setViewportView(jtfDescrição);
 
-        jbEditar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jbEditar.setText("Editar");
+        jbCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbCancelar.setText("Cancelar");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarActionPerformed(evt);
+            }
+        });
 
         jbSalvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbSalvar.setText("Salvar");
@@ -114,7 +119,7 @@ public class AparelhoController extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jbSalvar)
                                 .addGap(46, 46, 46)
-                                .addComponent(jbEditar))
+                                .addComponent(jbCancelar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -166,7 +171,7 @@ public class AparelhoController extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbSalvar)
-                    .addComponent(jbEditar))
+                    .addComponent(jbCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -200,6 +205,10 @@ public class AparelhoController extends javax.swing.JFrame {
     private void jcbMarca1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMarca1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbMarca1ActionPerformed
+
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jbCancelarActionPerformed
    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -240,7 +249,7 @@ public class AparelhoController extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton jbEditar;
+    private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbSalvar;
     private javax.swing.JComboBox<String> jcbMarca;
     private javax.swing.JComboBox<String> jcbMarca1;

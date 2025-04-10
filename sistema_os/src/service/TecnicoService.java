@@ -6,6 +6,7 @@
 package service;
 
 import entity.Tecnico;
+import java.util.List;
 import repository.TecnicoRepository;
 
 /**
@@ -21,5 +22,10 @@ public class TecnicoService {
         return tecnicoRepository.salvarTecnico(tecnico);
 
     }
+    
+     public List<Tecnico> buscarTecnicosPorNome(String nome) {
+         System.out.println("service");
+          return tecnicoRepository.buscarTecnicosPorNome(nome);
+     }
 
 }

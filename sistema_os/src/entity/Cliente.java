@@ -21,14 +21,6 @@ public class Cliente {
 
     }
 
-    public Cliente(String nome, String endereco, String telefone, String email) {
-        this.nome = nome;
-        this.endereco = endereco;
-        this.telefone = telefone;
-        this.email = email;
-
-    }
-
     public Cliente(int i, String clientes_salvos, int i0) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

@@ -15,13 +15,14 @@ import javax.swing.JOptionPane;
  * @author admin
  */
 public class UtilDb {
+
     private static final String url = "jdbc:postgresql://localhost:5432/os_tecnica";
     private static final String driver = "org.postgresql.Driver";
     private static final String usuario = "postgres";
-    private static final String senha = "3456";
+    private static final String senha = "1234";
     Connection c;
-    
-    public Connection conexao(){
+
+    public Connection conexao() {
         try {
             Class.forName(driver);
             c = DriverManager.getConnection(url, usuario, senha);
@@ -31,5 +32,5 @@ public class UtilDb {
         }
         return c;
     }
-    
+
 }
