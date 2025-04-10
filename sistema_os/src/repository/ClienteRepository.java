@@ -29,11 +29,11 @@ public class ClienteRepository {
     public Cliente cadastrarCliente(Cliente cliente) {
         conn = util.conexao();
         String sql = "INSERT INTO clientes("
-                + "nome, "
+                + "id_agenda, "
                 + "endereco, "
                 + "telefone, "
                 + "email)"
-                + "id_agenda) "
+                + "nome) "
                 + "VALUES(?,?,?,?,?)";
         try {
             ppst = conn.prepareStatement(sql);
@@ -41,6 +41,7 @@ public class ClienteRepository {
             ppst.setString(2, cliente.getEndereco());
             ppst.setString(3, cliente.getTelefone());
             ppst.setString(4, cliente.getEmail());
+            ppst.setInt(6, cliente.getId());
 
             ppst.executeUpdate();
             ppst.close();
@@ -50,49 +51,47 @@ public class ClienteRepository {
             System.out.println(ex);
             return null;
         }
-
     }
 
-    public Cliente BuscarClientePorNome(String nome) throws Exception {
+//    public Cliente BuscarClientePorNome(String nome) throws Exception {
+//        conn = util.conexao();
+//        String sql = "SELECT * FROM cliente WHERE nome =? and nome =?";
+//        try {
+//            ppst = conn.prepareStatement(sql);
+//            ppst.setString(1, nome);
+//            ppst.setString(2, nome);
+//            ResultSet rs = ppst.executeQuery();
+//            while (rs.next()) {
+//
+//                throw new Exception("Já existe um(a) cliente no banco com este nome");
+//            }
+//            ppst.close();
+//            conn.close();
+//
+//        } catch (SQLException ex) {
+//            System.out.println(ex);
+//            Logger.getLogger(ClienteRepository.class.getName()).log(Level.SEVERE, null, ex);
+//            return null;
+//        }
+//        return null;
+//    }
+    public List< Cliente> buscarClientes(String nomeDoCliente) {
         conn = util.conexao();
-        String sql = "SELECT * FROM contato WHERE nome =? and nome =?";
+        String sql = "SELECT * FROM cliente WHERE nomeDoCliente like ?;";
+        List< Cliente> clientes = new ArrayList<>();
         try {
             ppst = conn.prepareStatement(sql);
-            ppst.setString(1, nome);
-            ppst.setString(2, nome);
+            ppst.setString(1, "%"+nomeDoCliente+"%");
             ResultSet rs = ppst.executeQuery();
             while (rs.next()) {
-
-                throw new Exception("Já existe um(a) cliente no banco com este nome");
-            }
-            ppst.close();
-            conn.close();
-
-        } catch (SQLException ex) {
-            System.out.println(ex);
-            Logger.getLogger(ClienteRepository.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-        return null;
-    }
-    
-    public List< Cliente> buscarCliente(int id_cliente) {
-        conn = util.conexao();
-        String sql = "SELECT * FROM contato WHERE id_agenda = ?;";
-        List< Cliente > clientes = new ArrayList<>();
-        try {
-            ppst = conn.prepareStatement(sql);
-            ppst.setInt(1, id_cliente);
-            ResultSet rs = ppst.executeQuery();
-            while (rs.next()) {
-                Cliente contato = new Cliente(
+                Cliente cliente = new Cliente(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5));
-                        
-                clientes.add(contato);
+
+                clientes.add(cliente);
             }
 
         } catch (SQLException ex) {
@@ -107,20 +106,20 @@ public class ClienteRepository {
 
         conn = util.conexao();
         String sql = "Update contato set "
-                + "nome = ?, "
+                + "where id = ?, "
                 + "endereco = ?, "
                 + "telefone = ?, "
                 + "email = ?, "
-                + "where id = ?";
+                + "nome = ?; ";
 
         try {
 
             ppst = conn.prepareStatement(sql);
-            ppst.setString(1, cliente.getNome());
-            ppst.setString(2, cliente.getEndereco());
-            ppst.setString(3, cliente.getTelefone());
-            ppst.setString(4, cliente.getEmail());
-            ppst.setInt(5, cliente.getId());
+            ppst.setInt(1, cliente.getId());
+            ppst.setString(2, cliente.getNome());
+            ppst.setString(3, cliente.getEndereco());
+            ppst.setString(4, cliente.getTelefone());
+            ppst.setString(5, cliente.getEmail());
 
             ppst.executeUpdate();
             ppst.close();
@@ -132,12 +131,12 @@ public class ClienteRepository {
         }
     }
 
-    public boolean excluirContato(int id_cliente) {
+    public boolean excluirContato(String nomeDoCliente) {
         conn = util.conexao();
-        String sql = "delete from contato where id =?";
+        String sql = "delete from cliente where id =?";
         try {
             ppst = conn.prepareStatement(sql);
-            ppst.setInt(1, id_cliente);
+            ppst.setString(1, nomeDoCliente);
             ppst.executeUpdate();
             ppst.close();
             conn.close();
@@ -147,7 +146,5 @@ public class ClienteRepository {
         }
 
     }
-
 }
-    
 
