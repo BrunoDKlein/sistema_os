@@ -29,11 +29,11 @@ public class PecasUsadasRepository {
     
     public PecasUsadas salvarPeca(PecasUsadas pecasUsadas){
         conn = util.conexao();
-        String db = "INSERT INTO pecasUsadas("
+        String db = "INSERT INTO pecas_usadas("
                 + "descricao, "
                 + "quantidade, "
                 + "preco_unitario, "
-                + "id_os)"
+                + "id_os) "
                 + "VALUES (?,?,?,?)";
         
         try {
@@ -52,19 +52,17 @@ public class PecasUsadasRepository {
         }
     }
     
-    public PecasUsadas buscarPeca(String descricao, int quantidade) throws Exception{
+    public PecasUsadas buscarPeca( int id){
         conn = util.conexao();
-         String db = "SELECT * from pecas_usadas WHERE descricao = ? and quantidade = ?";
+         String db = "SELECT * from pecas_usadas WHERE id = ? ";
           try {
             ppst = conn.prepareStatement(db);
-            ppst.setString(1, descricao);
-            ppst.setInt(2, quantidade);
+            ppst.setInt(1, id);
          
             ResultSet rs = ppst.executeQuery();
             while (rs.next()) {
-//                return new Contato(rs.getInt(1), rs.getString(2), rs.getString(3),
-//                        rs.getString(4), rs.getString(5), rs.getString(6));
-                throw new Exception("Peça já existente no sistema.");
+                return new PecasUsadas(rs.getString(2), rs.getInt(3), rs.getDouble(4), rs.getInt(5));
+                
             }
             
             ppst.close();
@@ -80,7 +78,7 @@ public class PecasUsadasRepository {
     
     public List<PecasUsadas> buscarPecaPorOrdemDeServico(int id_os){
         conn = util.conexao();
-        String db = "select * from pecas_usadas where id_os = ? limit 10;";
+        String db = "select * from pecas_usadas where id_os = ?;";
          List<PecasUsadas> pecasDaLista = new ArrayList<>();
          
           try {
@@ -99,5 +97,7 @@ public class PecasUsadasRepository {
         
         return pecasDaLista;
     }
+    
+    
     
 }

@@ -39,6 +39,7 @@ public class PecasUsadasController extends javax.swing.JFrame {
         jtfQuantidade = new javax.swing.JTextField();
         jtfPrecoUnitario = new javax.swing.JTextField();
         jbSalvar = new javax.swing.JButton();
+        jbBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de peças usadas");
@@ -75,6 +76,14 @@ public class PecasUsadasController extends javax.swing.JFrame {
             }
         });
 
+        jbBuscar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,7 +101,10 @@ public class PecasUsadasController extends javax.swing.JFrame {
                             .addComponent(jtfQuantidade, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                             .addComponent(jtfPrecoUnitario, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtfDescricao)
-                            .addComponent(jbSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jbSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(161, 161, 161)
                         .addComponent(jLabel1)))
@@ -116,7 +128,9 @@ public class PecasUsadasController extends javax.swing.JFrame {
                     .addComponent(jtfPrecoUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(34, 34, 34)
-                .addComponent(jbSalvar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbSalvar)
+                    .addComponent(jbBuscar))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -143,6 +157,11 @@ public class PecasUsadasController extends javax.swing.JFrame {
         pecasUsadasService.salvarPeca(pecasUsadas);
         
     }//GEN-LAST:event_jbSalvarActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        // TODO add your handling code here:
+            
+    }//GEN-LAST:event_jbBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,6 +203,7 @@ public class PecasUsadasController extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbSalvar;
     private javax.swing.JTextField jtfDescricao;
     private javax.swing.JTextField jtfPrecoUnitario;
