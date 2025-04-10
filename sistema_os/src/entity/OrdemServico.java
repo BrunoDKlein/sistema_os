@@ -123,4 +123,13 @@ public class OrdemServico {
         this.custo_total = custo_total;
     }
 
+    public List<PecasUsadas> getPecasUsadas() {
+        return pecasUsadas;
+    }
+
+    public void setPecasUsadas(List<PecasUsadas> pecasUsadas) {
+        this.pecasUsadas = pecasUsadas;
+    }
+    
+
 }

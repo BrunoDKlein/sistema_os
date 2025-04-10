@@ -36,10 +36,9 @@ public class SistemaOsRepository {
             List<OrdemServico> listaDeOs = new ArrayList<>();
             ResultSet rs = ppst.executeQuery();
             while (rs.next()) {
-//                OrdemServico os = new OrdemServico(rs.getInt(1), clienteRepository.buscarCliente(rs.getString(2)), aparelhoRepository.buscarAparelho(rs.getString(3)), tecnicoRepository.buscarTecnico(rs.getString(4)), rs.getDate(5), rs.getDate(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getDouble(10));
-//                listaDeOs.add(os);
+                OrdemServico os = new OrdemServico(rs.getInt(1), clienteRepository.buscarCliente(rs.getString(2)), aparelhoRepository.buscarAparelho(rs.getString(3)), tecnicoRepository.buscarTecnico(rs.getString(4)), rs.getDate(5), rs.getDate(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getDouble(10));
+                listaDeOs.add(os);
             }
-            ppst.executeUpdate();
             ppst.close();
             conn.close();
             return listaDeOs;
@@ -57,7 +56,7 @@ public class SistemaOsRepository {
 
             ResultSet rs = ppst.executeQuery();
             while (rs.next()) {
-//                return new OrdemServico(rs.getInt(1), clienteRepository.buscarCliente(rs.getString(2)), aparelhoRepository.buscarAparelho(rs.getString(3)), tecnicoRepository.buscarTecnico(rs.getString(4)), rs.getDate(5), rs.getDate(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getDouble(10));
+                return new OrdemServico(rs.getInt(1), clienteRepository.buscarCliente(rs.getString(2)), aparelhoRepository.buscarAparelho(rs.getString(3)), tecnicoRepository.buscarTecnico(rs.getString(4)), rs.getDate(5), rs.getDate(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getDouble(10));
             }
             ppst.close();
             conn.close();
