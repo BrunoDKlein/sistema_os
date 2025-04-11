@@ -5,7 +5,7 @@
  */
 package repository;
 
-import entity.PecasUsadas;
+import entity.PecaUsada;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,12 +22,12 @@ import resources.UtilDb;
  *
  * @author Escola
  */
-public class PecasUsadasRepository {
+public class PecaUsadaRepository {
     private final UtilDb util = new UtilDb();
     Connection conn;
     PreparedStatement ppst;
     
-    public PecasUsadas salvarPeca(PecasUsadas pecasUsadas){
+    public PecaUsada salvarPeca(PecaUsada pecasUsadas){
         conn = util.conexao();
         String db = "INSERT INTO pecas_usadas("
                 + "descricao, "
@@ -52,7 +52,7 @@ public class PecasUsadasRepository {
         }
     }
     
-    public PecasUsadas buscarPeca( int id){
+    public PecaUsada buscarPeca( int id){
         conn = util.conexao();
          String db = "SELECT * from pecas_usadas WHERE id = ? ";
           try {
@@ -61,7 +61,7 @@ public class PecasUsadasRepository {
          
             ResultSet rs = ppst.executeQuery();
             while (rs.next()) {
-                return new PecasUsadas(rs.getString(2), rs.getInt(3), rs.getDouble(4), rs.getInt(5));
+                return new PecaUsada(rs.getString(2), rs.getInt(3), rs.getDouble(4), rs.getInt(5));
                 
             }
             
@@ -76,23 +76,23 @@ public class PecasUsadasRepository {
           return null;
     }
     
-    public List<PecasUsadas> buscarPecaPorOrdemDeServico(int id_os){
+    public List<PecaUsada> buscarPecaPorOrdemDeServico(int id_os){
         conn = util.conexao();
         String db = "select * from pecas_usadas where id_os = ?;";
-         List<PecasUsadas> pecasDaLista = new ArrayList<>();
+         List<PecaUsada> pecasDaLista = new ArrayList<>();
          
           try {
             ppst = conn.prepareStatement(db);
             ppst.setInt(1, id_os);
             ResultSet rs = ppst.executeQuery();
             while (rs.next()) {
-                PecasUsadas pecasUsadas = new PecasUsadas(rs.getString(2), rs.getInt(3), rs.getDouble(4),
+                PecaUsada pecasUsadas = new PecaUsada(rs.getString(2), rs.getInt(3), rs.getDouble(4),
                         rs.getInt(5));
                 pecasDaLista.add(pecasUsadas);
             }
             
         } catch (Exception ex) {
-            Logger.getLogger(PecasUsadasRepository.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PecaUsadaRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return pecasDaLista;

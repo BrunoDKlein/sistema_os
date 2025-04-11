@@ -9,17 +9,17 @@ package entity;
  *
  * @author Escola
  */
-public class PecasUsadas {
+public class PecaUsada {
       private OrdemServico ordemServico;
       private String descricao;
       private int quantidade;
       private double precoUnitario;
       private int id;
 
-    public PecasUsadas() {
+    public PecaUsada() {
     }
 
-    public PecasUsadas(String descricao, int quantidade, double precoUnitario, int id) {
+    public PecaUsada(String descricao, int quantidade, double precoUnitario, int id) {
         this.descricao = descricao;
         this.quantidade = quantidade;
         this.precoUnitario = precoUnitario;

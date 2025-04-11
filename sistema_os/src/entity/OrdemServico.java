@@ -25,7 +25,7 @@ public class OrdemServico {
     private String descricao_problema;
     private String solucao;
     private Double custo_total;
-    List<PecasUsadas> pecasUsadas;
+    List<PecaUsada> pecasUsadas;
 
     public OrdemServico() {
     }
@@ -123,11 +123,11 @@ public class OrdemServico {
         this.custo_total = custo_total;
     }
 
-    public List<PecasUsadas> getPecasUsadas() {
+    public List<PecaUsada> getPecasUsadas() {
         return pecasUsadas;
     }
 
-    public void setPecasUsadas(List<PecasUsadas> pecasUsadas) {
+    public void setPecasUsadas(List<PecaUsada> pecasUsadas) {
         this.pecasUsadas = pecasUsadas;
     }
     

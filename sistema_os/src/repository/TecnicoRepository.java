@@ -5,6 +5,7 @@
  */
 package repository;
 
+import entity.Cliente;
 import entity.Tecnico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,6 +48,24 @@ public class TecnicoRepository {
         } catch (SQLException ex) {
             return null;
         }
+    }
+    
+     public Tecnico BuscarTecnicoPorID(int id) {
+        conn = util.conexao();
+        String sql = "SELECT * FROM tecnicos WHERE id = ?;";
+        try {
+            ppst = conn.prepareStatement(sql);
+            ppst.setInt(1, id);
+            ResultSet rs = ppst.executeQuery();
+            while (rs.next()) {
+                return new Tecnico(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+            }
+            ppst.close();
+            conn.close();
+        } catch (SQLException ex) {
+            return null;
+        }
+        return null;
     }
 
     public List<Tecnico> buscarTecnicosPorNome(String nome) {

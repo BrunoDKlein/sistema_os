@@ -28,7 +28,7 @@ public class SistemaOsController extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         configurarLarguraColunas();
-//        preencheTabela(sistemaOsService.buscarTodasAsOs());
+        preencheTabela(sistemaOsService.buscarTodasAsOs());
     }
 
     private void configurarLarguraColunas() {
@@ -45,14 +45,14 @@ public class SistemaOsController extends javax.swing.JFrame {
         jtOs.getColumnModel().getColumn(9).setPreferredWidth(jtOs.getWidth() / 16);
         jtOs.getColumnModel().getColumn(10).setPreferredWidth(jtOs.getWidth() / 25);
         alinharColuna(0, SwingConstants.CENTER);
-        alinharColuna(1, SwingConstants.CENTER);
-        alinharColuna(2, SwingConstants.CENTER);
-        alinharColuna(3, SwingConstants.CENTER);
+        alinharColuna(1, SwingConstants.LEFT);
+        alinharColuna(2, SwingConstants.LEFT);
+        alinharColuna(3, SwingConstants.LEFT);
         alinharColuna(4, SwingConstants.CENTER);
         alinharColuna(5, SwingConstants.CENTER);
         alinharColuna(6, SwingConstants.CENTER);
-        alinharColuna(7, SwingConstants.CENTER);
-        alinharColuna(8, SwingConstants.CENTER);
+        alinharColuna(7, SwingConstants.LEFT);
+        alinharColuna(8, SwingConstants.LEFT);
         alinharColuna(9, SwingConstants.CENTER);
         alinharColuna(10, SwingConstants.CENTER);
     }
@@ -85,16 +85,16 @@ public class SistemaOsController extends javax.swing.JFrame {
         for (OrdemServico os : ordensServico) {
             int k = 0;
             jtOs.setValueAt(os.getId(), i, k++);
-            jtOs.setValueAt(os.getCliente(), i, k++);
-            jtOs.setValueAt(os.getAparelho(), i, k++);
-            jtOs.setValueAt(os.getTecnico(), i, k++);
+            jtOs.setValueAt(os.getCliente().getNome(), i, k++);
+            jtOs.setValueAt(os.getAparelho().getMarca() + " - " + os.getAparelho().getModelo(), i, k++);
+            jtOs.setValueAt(os.getTecnico().getNome(), i, k++);
             jtOs.setValueAt(os.getData_abertura(), i, k++);
             jtOs.setValueAt(os.getData_fechamento(), i, k++);
             jtOs.setValueAt(os.getStatus(), i, k++);
             jtOs.setValueAt(os.getDescricao_problema(), i, k++);
             jtOs.setValueAt(os.getSolucao(), i, k++);
             jtOs.setValueAt(os.getCusto_total(), i, k++);
-            jtOs.setValueAt(os.getPecasUsadas().size(), i, k++);
+            jtOs.setValueAt(os.getPecasUsadas() != null ? os.getPecasUsadas().size() : "", i, k++);
 
             i++;
         }
@@ -119,7 +119,7 @@ public class SistemaOsController extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pecasUsadasService1 = new service.PecasUsadasService();
+        pecasUsadasService1 = new service.PecaUsadaService();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtOs = new javax.swing.JTable();
@@ -130,16 +130,16 @@ public class SistemaOsController extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jmFazerPagamento = new javax.swing.JMenu();
+        jmiCadastrarCliente = new javax.swing.JMenuItem();
+        jmiEditarCliente = new javax.swing.JMenuItem();
+        jmiExcluirCliente = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        jmiCadastrarTecnico = new javax.swing.JMenuItem();
+        jmiEditarTecnico = new javax.swing.JMenuItem();
+        jmiEcluirTecnico = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        jmiFazerPagamento = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -245,42 +245,47 @@ public class SistemaOsController extends javax.swing.JFrame {
         jMenu1.setText("Arquivo");
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Opções");
+        jmFazerPagamento.setText("Opções");
 
-        jMenuItem1.setText("Cadastrar Cliente");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jmiCadastrarCliente.setText("Cadastrar Cliente");
+        jmiCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmiCadastrarClienteActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem1);
+        jmFazerPagamento.add(jmiCadastrarCliente);
 
-        jMenuItem2.setText("Editar Cliente");
-        jMenu2.add(jMenuItem2);
+        jmiEditarCliente.setText("Editar Cliente");
+        jmFazerPagamento.add(jmiEditarCliente);
 
-        jMenuItem3.setText("Excluir Cliente");
-        jMenu2.add(jMenuItem3);
-        jMenu2.add(jSeparator1);
+        jmiExcluirCliente.setText("Excluir Cliente");
+        jmFazerPagamento.add(jmiExcluirCliente);
+        jmFazerPagamento.add(jSeparator1);
 
-        jMenuItem4.setText("Cadastrar Técnico");
-        jMenu2.add(jMenuItem4);
-
-        jMenuItem5.setText("Editar Técnito");
-        jMenu2.add(jMenuItem5);
-
-        jMenuItem6.setText("Excluir Técnico");
-        jMenu2.add(jMenuItem6);
-        jMenu2.add(jSeparator2);
-
-        jMenuItem7.setText("Fazer Pagamento");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        jmiCadastrarTecnico.setText("Cadastrar Técnico");
+        jmiCadastrarTecnico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                jmiCadastrarTecnicoActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem7);
+        jmFazerPagamento.add(jmiCadastrarTecnico);
 
-        jMenuBar1.add(jMenu2);
+        jmiEditarTecnico.setText("Editar Técnico");
+        jmFazerPagamento.add(jmiEditarTecnico);
+
+        jmiEcluirTecnico.setText("Excluir Técnico");
+        jmFazerPagamento.add(jmiEcluirTecnico);
+        jmFazerPagamento.add(jSeparator2);
+
+        jmiFazerPagamento.setText("Fazer Pagamento");
+        jmiFazerPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiFazerPagamentoActionPerformed(evt);
+            }
+        });
+        jmFazerPagamento.add(jmiFazerPagamento);
+
+        jMenuBar1.add(jmFazerPagamento);
 
         setJMenuBar(jMenuBar1);
 
@@ -364,9 +369,10 @@ public class SistemaOsController extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jbAtualizarActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jmiCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadastrarClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+        new ClienteController().setVisible(true);
+    }//GEN-LAST:event_jmiCadastrarClienteActionPerformed
 
     private void jtOsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtOsMouseClicked
         if (jtOs.getValueAt(jtOs.getSelectedRow(), jtOs.getSelectedColumn())!=null) {
@@ -388,9 +394,14 @@ public class SistemaOsController extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jtOsMouseClicked
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+    private void jmiFazerPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFazerPagamentoActionPerformed
         new PagamentoController().setVisible(true);
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    }//GEN-LAST:event_jmiFazerPagamentoActionPerformed
+
+    private void jmiCadastrarTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadastrarTecnicoActionPerformed
+        // TODO add your handling code here:
+        new TecnicoControler().setVisible(true);
+    }//GEN-LAST:event_jmiCadastrarTecnicoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -431,15 +442,7 @@ public class SistemaOsController extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
@@ -447,7 +450,15 @@ public class SistemaOsController extends javax.swing.JFrame {
     private javax.swing.JButton jbCriarNovaOs;
     private javax.swing.JButton jbEditar;
     private javax.swing.JButton jbExcluir;
+    private javax.swing.JMenu jmFazerPagamento;
+    private javax.swing.JMenuItem jmiCadastrarCliente;
+    private javax.swing.JMenuItem jmiCadastrarTecnico;
+    private javax.swing.JMenuItem jmiEcluirTecnico;
+    private javax.swing.JMenuItem jmiEditarCliente;
+    private javax.swing.JMenuItem jmiEditarTecnico;
+    private javax.swing.JMenuItem jmiExcluirCliente;
+    private javax.swing.JMenuItem jmiFazerPagamento;
     private javax.swing.JTable jtOs;
-    private service.PecasUsadasService pecasUsadasService1;
+    private service.PecaUsadaService pecasUsadasService1;
     // End of variables declaration//GEN-END:variables
 }

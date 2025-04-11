@@ -10,8 +10,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import resources.UtilDb;
 
 /**
@@ -36,8 +39,18 @@ public class SistemaOsRepository {
             List<OrdemServico> listaDeOs = new ArrayList<>();
             ResultSet rs = ppst.executeQuery();
             while (rs.next()) {
-                OrdemServico os = new OrdemServico(rs.getInt(1), clienteRepository.buscarCliente(rs.getString(2)), aparelhoRepository.buscarAparelho(rs.getString(3)), tecnicoRepository.buscarTecnico(rs.getString(4)), rs.getDate(5), rs.getDate(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getDouble(10));
-                listaDeOs.add(os);
+                listaDeOs.add(
+                        new OrdemServico(rs.getInt(1),
+                                clienteRepository.BuscarClientePorID(rs.getInt(2)),
+                                aparelhoRepository.BuscarAparelhoPorID(rs.getInt(3)),
+                                tecnicoRepository.BuscarTecnicoPorID(rs.getInt(4)),
+                                (rs.getDate(5) != null ? rs.getDate(5).toLocalDate() : null),
+                                (rs.getDate(6) != null ? rs.getDate(6).toLocalDate() : null),
+                                rs.getString(7),
+                                rs.getString(8),
+                                rs.getString(9),
+                                rs.getDouble(10))
+                );
             }
             ppst.close();
             conn.close();
@@ -56,7 +69,16 @@ public class SistemaOsRepository {
 
             ResultSet rs = ppst.executeQuery();
             while (rs.next()) {
-                return new OrdemServico(rs.getInt(1), clienteRepository.buscarCliente(rs.getString(2)), aparelhoRepository.buscarAparelho(rs.getString(3)), tecnicoRepository.buscarTecnico(rs.getString(4)), rs.getDate(5), rs.getDate(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getDouble(10));
+                return new OrdemServico(rs.getInt(1),
+                        clienteRepository.BuscarClientePorID(rs.getInt(2)),
+                        aparelhoRepository.BuscarAparelhoPorID(rs.getInt(3)),
+                        tecnicoRepository.BuscarTecnicoPorID(rs.getInt(4)),
+                        (rs.getDate(5) != null ? rs.getDate(5).toLocalDate() : null),
+                        (rs.getDate(6) != null ? rs.getDate(6).toLocalDate() : null),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getDouble(10));
             }
             ppst.close();
             conn.close();
@@ -81,4 +103,5 @@ public class SistemaOsRepository {
             return false;
         }
     }
+
 }

@@ -6,6 +6,7 @@
 package service;
 
 import entity.Cliente;
+import java.util.List;
 import repository.ClienteRepository;
 
 /**
@@ -13,11 +14,15 @@ import repository.ClienteRepository;
  * @author kelvin
  */
 public class ClienteService {
-
+    
     ClienteRepository clienteRepository = new ClienteRepository();
-
+    
     public Cliente cadastrarCliente(Cliente cliente) {
         return clienteRepository.cadastrarCliente(cliente);
+    }
+    
+    public List< Cliente> buscarClientes(String nomeDoCliente) {
+        return clienteRepository.buscarClientes(nomeDoCliente);
     }
 
 // public Cliente editarCliente(Cliente cliente) {
@@ -27,6 +32,4 @@ public class ClienteService {
 //    public boolean excluirContato(int id_contato) {
 //return contatoRepository.excluirContato(id_contato);
 //    }
-
-   
 }

@@ -60,7 +60,7 @@ public class ClienteController extends javax.swing.JFrame {
 
         jTextField5.setText("jTextField5");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("cadastro de clientes");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -180,6 +180,7 @@ public class ClienteController extends javax.swing.JFrame {
         ClienteService clienteServise = new ClienteService();
         clienteServise.cadastrarCliente(cliente);
         JOptionPane.showMessageDialog(null, "cliente cadastrado com sucesso");
+        this.dispose();
 // try {
 //            Cliente clienteSalvo;
 //            if (jbcadastrar.getText().equals("cadastrar")) {

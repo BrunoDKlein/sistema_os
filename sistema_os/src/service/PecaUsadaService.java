@@ -5,23 +5,23 @@
  */
 package service;
 
-import entity.PecasUsadas;
+import entity.PecaUsada;
 import java.sql.ResultSet;
-import repository.PecasUsadasRepository;
+import repository.PecaUsadaRepository;
 
 /**
  *
  * @author Escola
  */
-public class PecasUsadasService {
-    PecasUsadasRepository pecasUsadasRepository = new PecasUsadasRepository();
+public class PecaUsadaService {
+    PecaUsadaRepository pecasUsadasRepository = new PecaUsadaRepository();
     
-    public PecasUsadas salvarPeca(PecasUsadas pecasUsadas){
+    public PecaUsada salvarPeca(PecaUsada pecasUsadas){
         System.out.println("A");
         return pecasUsadasRepository.salvarPeca(pecasUsadas);
     }
     
-    public PecasUsadas buscarPeca( int id){
+    public PecaUsada buscarPeca( int id){
         return pecasUsadasRepository.buscarPeca(id);
     }
     

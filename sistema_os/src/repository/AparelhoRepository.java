@@ -1,6 +1,7 @@
 package repository;
 
 import entity.Aparelho;
+import entity.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,6 +44,25 @@ public class AparelhoRepository {
             return null;
         }
     }
+    
+    public Aparelho BuscarAparelhoPorID(int id) {
+        conn = util.conexao();
+        String sql = "SELECT * FROM aparelhos WHERE id = ?;";
+        try {
+            ppst = conn.prepareStatement(sql);
+            ppst.setInt(1, id);
+            ResultSet rs = ppst.executeQuery();
+            while (rs.next()) {
+                return new Aparelho(rs.getInt(1), null, rs.getString(3), rs.getString(4), rs.getString(5));
+            }
+            ppst.close();
+            conn.close();
+        } catch (SQLException ex) {
+            return null;
+        }
+        return null;
+    }
+
 
     public List<Aparelho> buscarAparelhosPorCliente(int id_Cliente) {
         conn = util.conexao();
