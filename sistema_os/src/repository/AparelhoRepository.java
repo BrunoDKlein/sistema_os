@@ -19,21 +19,18 @@ public class AparelhoRepository {
     PreparedStatement ppst;
 
     public Aparelho salvarAparelho(Aparelho aparelho) {
-        System.out.println(aparelho.getCliente().getId());
         conn = util.conexao();
         String sql = "INSERT INTO aparelhos("
-                + "id_cliente, "
                 + "descricao, "
                 + "marca, "
                 + "modelo) "
-                + "VALUES(?,?,?,?)";
+                + "VALUES(?,?,?)";
 
         try {
             ppst = conn.prepareStatement(sql);
-            ppst.setString(2, aparelho.getDescricao());
-            ppst.setString(3, aparelho.getMarca());
-            ppst.setString(4, aparelho.getModelo());
-            ppst.setInt(1, 1);
+            ppst.setString(1, aparelho.getDescricao());
+            ppst.setString(2, aparelho.getMarca());
+            ppst.setString(3, aparelho.getModelo());
 
             ppst.executeUpdate();
             ppst.close();
@@ -53,7 +50,7 @@ public class AparelhoRepository {
             ppst.setInt(1, id);
             ResultSet rs = ppst.executeQuery();
             while (rs.next()) {
-                return new Aparelho(rs.getInt(1), null, rs.getString(3), rs.getString(4), rs.getString(5));
+                return new Aparelho(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
             }
             ppst.close();
             conn.close();
@@ -75,12 +72,9 @@ public class AparelhoRepository {
             while (rs.next()) {
                 Aparelho aparelho = new Aparelho(
                         rs.getInt(1),
-                        //TODO
-                       //Ajustar quando chegar a alteração do cliente
-                        null, 
+                        rs.getString(2),
                         rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5)
+                        rs.getString(4)
                 );
 
                 aparelhosDosClientes.add(aparelho);

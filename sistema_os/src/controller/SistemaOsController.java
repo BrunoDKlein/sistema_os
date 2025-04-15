@@ -128,6 +128,7 @@ public class SistemaOsController extends javax.swing.JFrame {
         jbEditar = new javax.swing.JButton();
         jbExcluir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jbEditar1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmFazerPagamento = new javax.swing.JMenu();
@@ -242,6 +243,15 @@ public class SistemaOsController extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logo.png"))); // NOI18N
 
+        jbEditar1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbEditar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/editar.png"))); // NOI18N
+        jbEditar1.setText("Atender");
+        jbEditar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditar1ActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("Arquivo");
         jMenuBar1.add(jMenu1);
 
@@ -303,7 +313,9 @@ public class SistemaOsController extends javax.swing.JFrame {
                         .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jbEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 570, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 436, Short.MAX_VALUE)
                         .addComponent(jbAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(110, 110, 110)
@@ -324,7 +336,8 @@ public class SistemaOsController extends javax.swing.JFrame {
                     .addComponent(jbCriarNovaOs, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
                 .addContainerGap())
@@ -403,6 +416,10 @@ public class SistemaOsController extends javax.swing.JFrame {
         new TecnicoControler().setVisible(true);
     }//GEN-LAST:event_jmiCadastrarTecnicoActionPerformed
 
+    private void jbEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbEditar1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -449,6 +466,7 @@ public class SistemaOsController extends javax.swing.JFrame {
     private javax.swing.JButton jbAtualizar;
     private javax.swing.JButton jbCriarNovaOs;
     private javax.swing.JButton jbEditar;
+    private javax.swing.JButton jbEditar1;
     private javax.swing.JButton jbExcluir;
     private javax.swing.JMenu jmFazerPagamento;
     private javax.swing.JMenuItem jmiCadastrarCliente;
