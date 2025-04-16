@@ -23,11 +23,13 @@ public class PecaUsadaController extends javax.swing.JFrame {
 
     public PecaUsadaController() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     public PecaUsadaController(OrdemServicoController ordemServicoController) {
         this.ordemServicoController = ordemServicoController;
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -157,10 +159,26 @@ public class PecaUsadaController extends javax.swing.JFrame {
         // TODO add your handling code here:
         PecaUsada pecasUsadas = new PecaUsada();
         pecasUsadas.setDescricao(jtfDescricao.getText());
-        pecasUsadas.setQuantidade(Integer.parseInt(jtfQuantidade.getText()));
-        pecasUsadas.setPrecoUnitario(Double.parseDouble(jtfPrecoUnitario.getText()));
+        try {
+            pecasUsadas.setQuantidade(Integer.parseInt(jtfQuantidade.getText()));
+            pecasUsadas.setPrecoUnitario(Double.parseDouble(jtfPrecoUnitario.getText()));
+
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(null, "Apenas números são permitidos.");
+        }
 
 //        pecasUsadasService.salvarPeca(pecasUsadas);
+        PecaUsada pecasUsadasSalva;
+        try {
+            pecasUsadasSalva = pecasUsadasService.salvarPeca(pecasUsadas);
+            if (pecasUsadasSalva != null) {
+                JOptionPane.showMessageDialog(null, "Peça salva com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Não foi possível salvar a peça.");
+            }
+        } catch (NullPointerException nex) {
+            JOptionPane.showMessageDialog(null, nex.getMessage());
+        }
 
         if (ordemServicoController != null) {
             ordemServicoController.atualizarListaPecasUsadas(pecasUsadas);
@@ -170,6 +188,7 @@ public class PecaUsadaController extends javax.swing.JFrame {
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         // TODO add your handling code here:
+
 
     }//GEN-LAST:event_jbBuscarActionPerformed
 
