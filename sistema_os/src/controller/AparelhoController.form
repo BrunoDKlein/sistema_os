@@ -112,7 +112,7 @@
     <Component class="javax.swing.JComboBox" name="jcbMarca">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="7">
+          <StringArray count="8">
             <StringItem index="0" value="Samsung"/>
             <StringItem index="1" value="LG"/>
             <StringItem index="2" value="Motorola"/>
@@ -120,6 +120,7 @@
             <StringItem index="4" value="Xiaomi"/>
             <StringItem index="5" value="Xperia"/>
             <StringItem index="6" value="Huawei"/>
+            <StringItem index="7" value="outro..."/>
           </StringArray>
         </Property>
       </Properties>

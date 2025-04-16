@@ -9,8 +9,11 @@ public class AparelhoService {
     AparelhoRepository aparelhoRepository = new AparelhoRepository();
 
     public Aparelho salvarAparelho(Aparelho aparelho) {
-
-        return aparelhoRepository.salvarAparelho(aparelho);
+        if (aparelho.getModelo().equals("")){
+         throw new NullPointerException("Descreva o modelo do aparelho para salvar");
+         
+        }
+            return aparelhoRepository.salvarAparelho(aparelho);
     }
 
     public List<Aparelho> buscarAparelhosPorCliente(int id_Cliente) {
