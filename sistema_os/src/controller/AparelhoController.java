@@ -51,7 +51,7 @@ public class AparelhoController extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Aparelhos ");
 
-        jcbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Samsung", "LG", "Motorola", "Iphone", "Xiaomi", "Xperia", "Huawei" }));
+        jcbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Samsung", "LG", "Motorola", "Iphone", "Xiaomi", "Xperia", "Huawei", "outro..." }));
         jcbMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbMarcaActionPerformed(evt);
@@ -168,10 +168,14 @@ public class AparelhoController extends javax.swing.JFrame {
         aparelho.setMarca(jcbMarca.getSelectedItem().toString());
         aparelho.setModelo(jtfModelo.getText().toString());
         aparelho.setDescricao(jtfDescrição.getText().toString());
-        
-        if(aparelhoService.salvarAparelho(aparelho) != null){
+        try {
+          if(aparelhoService.salvarAparelho(aparelho) != null){
             JOptionPane.showMessageDialog(null, "Aparelho salvo com sucesso.");
+        }   
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
+       
         
       
          
