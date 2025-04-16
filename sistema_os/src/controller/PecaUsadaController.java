@@ -14,11 +14,13 @@ import service.PecaUsadaService;
  * @author Escola
  */
 public class PecaUsadaController extends javax.swing.JFrame {
+    PecaUsada pecaUsadaClasse;
 
     /**
      * Creates new form PecasUsadasController
      */
     private OrdemServicoController ordemServicoController;
+    private PecaUsada pecaUsada;
     PecaUsadaService pecasUsadasService = new PecaUsadaService();
 
     public PecaUsadaController() {
@@ -31,6 +33,21 @@ public class PecaUsadaController extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
+    
+    public PecaUsadaController(PecaUsada pecaUsada){
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.pecaUsada = pecaUsada;
+        jbSalvar.setText("Editar");
+        preencherDados();
+    }
+    
+    public void preencherDados(){
+        jtfDescricao.setText(pecaUsadaClasse.getDescricao());
+        jtfQuantidade.setText(pecaUsadaClasse.getQuantidade()+"");
+        jtfPrecoUnitario.setText(pecaUsadaClasse.getPrecoUnitario()+"");
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,7 +66,7 @@ public class PecaUsadaController extends javax.swing.JFrame {
         jtfQuantidade = new javax.swing.JTextField();
         jtfPrecoUnitario = new javax.swing.JTextField();
         jbSalvar = new javax.swing.JButton();
-        jbBuscar = new javax.swing.JButton();
+        jbCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de peças usadas");
@@ -87,11 +104,11 @@ public class PecaUsadaController extends javax.swing.JFrame {
             }
         });
 
-        jbBuscar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jbBuscar.setText("Cancelar");
-        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+        jbCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jbCancelar.setText("Cancelar");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbBuscarActionPerformed(evt);
+                jbCancelarActionPerformed(evt);
             }
         });
 
@@ -111,7 +128,7 @@ public class PecaUsadaController extends javax.swing.JFrame {
                     .addComponent(jtfPrecoUnitario, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jtfDescricao)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(37, Short.MAX_VALUE))
@@ -140,7 +157,7 @@ public class PecaUsadaController extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbSalvar)
-                    .addComponent(jbBuscar))
+                    .addComponent(jbCancelar))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -186,11 +203,10 @@ public class PecaUsadaController extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jbSalvarActionPerformed
 
-    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
         // TODO add your handling code here:
-
-
-    }//GEN-LAST:event_jbBuscarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jbCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,7 +249,7 @@ public class PecaUsadaController extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JButton jbBuscar;
+    private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbSalvar;
     private javax.swing.JTextField jtfDescricao;
     private javax.swing.JTextField jtfPrecoUnitario;
