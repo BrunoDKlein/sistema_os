@@ -374,12 +374,13 @@ public class SistemaOsController extends javax.swing.JFrame {
             
 //            new OrdemServicoController(lerQualOsEstaSelecionada()).setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "Para realizar essa ação, selecione um contato");
+            JOptionPane.showMessageDialog(null, "Para realizar essa ação, selecione uma ordem de serviço");
         }
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAtualizarActionPerformed
-        
+        limparTabela();
+        preencheTabela(sistemaOsService.buscarTodasAsOs());
     }//GEN-LAST:event_jbAtualizarActionPerformed
 
     private void jmiCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadastrarClienteActionPerformed
