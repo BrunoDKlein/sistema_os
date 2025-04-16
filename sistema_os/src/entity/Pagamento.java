@@ -6,7 +6,6 @@ import java.time.LocalDate;
 public class Pagamento {
 
     private int id;
-    private Cliente cliente;
     private OrdemServico ordemServico;
     private LocalDate data;
     private double valor;
@@ -14,7 +13,6 @@ public class Pagamento {
 
     public Pagamento(int id, Cliente cliente, OrdemServico ordemServico, LocalDate data, double valor, String metodoPagamento) {
         this.id = id;
-        this.cliente = cliente;
         this.ordemServico = ordemServico;
         this.data = data;
         this.valor = valor;
@@ -30,14 +28,6 @@ public class Pagamento {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
     }
 
     public OrdemServico getOrdemServico() {
