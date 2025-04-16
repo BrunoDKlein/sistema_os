@@ -1,0 +1,100 @@
+drop table if exists pagamentos;
+drop table if exists pecas_usadas;
+drop table if exists ordens_servico;
+drop table if exists clientes;
+drop table if exists aparelhos;
+drop table if exists tecnicos;
+
+-- Criando a tabela de Clientes (Kelvin)
+CREATE TABLE clientes (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    telefone VARCHAR(20),
+    email VARCHAR(100) UNIQUE,
+    endereco VARCHAR(100)
+);
+
+-- Criando a tabela de Aparelhos (Allan)
+CREATE TABLE aparelhos (
+    id SERIAL PRIMARY KEY,
+    marca VARCHAR(50) NOT NULL,
+    modelo VARCHAR(50) NOT NULL,
+    descricao VARCHAR(500)
+);
+
+-- Criando a tabela de Técnicos (Marcelo)
+CREATE TABLE tecnicos (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    telefone VARCHAR(20),
+    email VARCHAR(100) UNIQUE
+);
+
+-- Criando a tabela de Ordens de Serviço (Bruno)
+CREATE TABLE ordens_servico (
+    id SERIAL PRIMARY KEY,
+    id_cliente INT NOT NULL REFERENCES clientes,
+    id_aparelho INT NOT NULL REFERENCES aparelhos,
+    id_tecnico INT NOT NULL REFERENCES tecnicos,
+    data_abertura TIMESTAMP,
+    data_fechamento TIMESTAMP NULL,
+    status VARCHAR(20) NOT NULL,
+    descricao_problema VARCHAR(500) NOT NULL,
+    solucao VARCHAR(500) NULL,
+    custo_total DECIMAL(10,2) DEFAULT 0.00
+);
+
+-- Criando a tabela de Peças Usadas (Laura)
+CREATE TABLE pecas_usadas (
+    id SERIAL PRIMARY KEY,
+    id_os INT NOT NULL REFERENCES ordens_servico,
+    descricao VARCHAR(100) NOT NULL,
+    quantidade INT NOT NULL,
+    preco_unitario DECIMAL(10,2) NOT NULL
+);
+
+-- Criando a tabela de Pagamentos (Victor)
+CREATE TABLE pagamentos (
+    id SERIAL PRIMARY KEY,
+    id_os INT NOT NULL REFERENCES ordens_servico,
+    data_pagamento TIMESTAMP DEFAULT now(),
+    valor DECIMAL(10,2) NOT NULL,
+    metodo VARCHAR(20) NOT NULL
+);
+
+
+-- Inserindo dados na tabela clientes
+INSERT INTO clientes (nome, telefone, email, endereco) VALUES
+('João Silva', '(55) 99111-2233', 'joao.silva@email.com', 'Rua das Flores, 123'),
+('Maria Souza', '(55) 99222-3344', 'maria.souza@email.com', 'Av. Central, 456'),
+('Carlos Lima', '(55) 99333-4455', 'carlos.lima@email.com', 'Rua do Comércio, 789');
+
+-- Inserindo dados na tabela aparelhos
+INSERT INTO aparelhos (marca, modelo, descricao) VALUES
+('Samsung', 'Galaxy S21', 'Tela trincada, não liga'),
+('Apple', 'iPhone 12', 'Bateria descarregando rápido'),
+('Motorola', 'Moto G60', 'Problemas no alto-falante');
+
+-- Inserindo dados na tabela tecnicos
+INSERT INTO tecnicos (nome, telefone, email) VALUES
+('André Ferreira', '(55) 99444-5566', 'andre.ferreira@tecnica.com'),
+('Luciana Dias', '(55) 99555-6677', 'luciana.dias@tecnica.com'),
+('Rafael Costa', '(55) 99666-7788', 'rafael.costa@tecnica.com');
+
+-- Inserindo dados na tabela ordens_servico
+INSERT INTO ordens_servico (id_cliente, id_aparelho, id_tecnico, data_abertura, status, descricao_problema) VALUES
+(1, 1, 1, '2025-04-10 08:30:00', 'Aberta', 'Tela trincada após queda'),
+(2, 2, 2, '2025-04-09 10:15:00', 'Em andamento', 'Bateria descarregando em poucas horas'),
+(3, 3, 3, '2025-04-08 14:45:00', 'Finalizada', 'Sem som em chamadas');
+
+-- Inserindo dados na tabela pecas_usadas
+INSERT INTO pecas_usadas (id_os, descricao, quantidade, preco_unitario) VALUES
+(1, 'Tela Galaxy S21', 1, 450.00),
+(2, 'Bateria iPhone 12', 1, 380.00),
+(3, 'Alto-falante Moto G60', 1, 120.00);
+
+-- Inserindo dados na tabela pagamentos
+INSERT INTO pagamentos (id_os, valor, metodo) VALUES
+(3, 150.00, 'Dinheiro'),
+(2, 400.00, 'Cartão'),
+(1, 480.00, 'Pix');

@@ -125,7 +125,7 @@ public class ClienteRepository {
         }
     }
 
-    public boolean excluirContato(String nomeDoCliente) {
+    public boolean excluirCliente(String nomeDoCliente) {
         conn = util.conexao();
         String sql = "delete from cliente where id =?";
         try {

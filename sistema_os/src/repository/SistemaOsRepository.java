@@ -32,7 +32,7 @@ public class SistemaOsRepository {
 
     public List<OrdemServico> buscarTodasAsOs() {
         conn = util.conexao();
-        String sql = "SELECT * FROM ordens_servico";
+        String sql = "SELECT * FROM ordens_servico WHERE status <> 'Excluida'";
         try {
             ppst = conn.prepareStatement(sql);
 
@@ -90,7 +90,7 @@ public class SistemaOsRepository {
 
     public boolean excluirOs(int id_os) {
         conn = util.conexao();
-        String sql = "DELETE FROM ordens_servico WHERE id = ?";
+        String sql = "UPDATE ordens_servico set status = 'Excluida' WHERE id = ?";
         try {
             ppst = conn.prepareStatement(sql);
             ppst.setInt(1, id_os);
@@ -100,6 +100,7 @@ public class SistemaOsRepository {
             conn.close();
             return true;
         } catch (SQLException ex) {
+            System.out.println(ex);
             return false;
         }
     }
