@@ -14,22 +14,27 @@ import repository.ClienteRepository;
  * @author kelvin
  */
 public class ClienteService {
-    
+
     ClienteRepository clienteRepository = new ClienteRepository();
-    
+
     public Cliente cadastrarCliente(Cliente cliente) {
+
+        if (cliente.getNome() == null || cliente.getNome().equals("")) {
+            throw new NullPointerException("é necessário informar o nome do cliente");
+        }
         return clienteRepository.cadastrarCliente(cliente);
+
     }
-    
+
     public List< Cliente> buscarClientes(String nomeDoCliente) {
         return clienteRepository.buscarClientes(nomeDoCliente);
     }
 
-// public Cliente editarCliente(Cliente cliente) {
-//        return clienteRepository.editarCliente(cliente);
-//    }
-//
-//    public boolean excluirContato(int id_contato) {
-//return contatoRepository.excluirContato(id_contato);
-//    }
+    public Cliente editarCliente(Cliente cliente) {
+        return clienteRepository.editarCliente(cliente);
+    }
+
+    public boolean excluirCliente(String cliente) {
+        return clienteRepository.excluirCliente(cliente);
+    }
 }

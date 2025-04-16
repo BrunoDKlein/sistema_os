@@ -61,10 +61,10 @@ public class ClienteController extends javax.swing.JFrame {
         jTextField5.setText("jTextField5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("cadastro de clientes");
+        setTitle("Cadastro de Clientes");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("informe seus dados:");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("Informe Deus Dados:");
 
         jtEmail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtEmail.addActionListener(new java.awt.event.ActionListener() {
@@ -107,7 +107,7 @@ public class ClienteController extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(51, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbcancelar)
@@ -116,10 +116,10 @@ public class ClienteController extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel6))
-                        .addGap(49, 49, 49)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                             .addComponent(jTNome)
@@ -127,9 +127,9 @@ public class ClienteController extends javax.swing.JFrame {
                             .addComponent(jtEndereco))))
                 .addContainerGap(64, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(150, Short.MAX_VALUE)
+                .addContainerGap(143, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(142, 142, 142))
+                .addGap(125, 125, 125))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,18 +138,18 @@ public class ClienteController extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
@@ -176,14 +176,19 @@ public class ClienteController extends javax.swing.JFrame {
         cliente.setTelefone(jtTelefone.getText());
         cliente.setEndereco(jtEndereco.getText());
         cliente.setEmail(jtEmail.getText());
-        
-        ClienteService clienteServise = new ClienteService();
-        clienteServise.cadastrarCliente(cliente);
-        JOptionPane.showMessageDialog(null, "cliente cadastrado com sucesso");
-        this.dispose();
-// try {
+      
+            ClienteService clienteServise = new ClienteService();
+            try {
+                clienteServise.cadastrarCliente(cliente);
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+
+            JOptionPane.showMessageDialog(null, "cliente cadastrado com sucesso");
+            this.dispose();
+//            try {
 //            Cliente clienteSalvo;
-//            if (jbcadastrar.getText().equals("cadastrar")) {
+//            if (jbcadastrar.getText().equals("cadastrado")) {
 //                cliente.setId(clienteClasse.getId());
 //                 clienteSalvo = clienteServise.cadastrarCliente(cliente);
 //            } else {
@@ -201,9 +206,9 @@ public class ClienteController extends javax.swing.JFrame {
     }//GEN-LAST:event_jbcadastrarActionPerformed
 
     private void jbcancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbcancelarActionPerformed
-        // TODO add your handling code here:
+       this.dispose();
     }//GEN-LAST:event_jbcancelarActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
