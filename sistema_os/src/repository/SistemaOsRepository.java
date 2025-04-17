@@ -41,7 +41,7 @@ public class SistemaOsRepository {
             while (rs.next()) {
                 listaDeOs.add(
                         new OrdemServico(rs.getInt(1),
-                                clienteRepository.BuscarClientePorID(rs.getInt(2)),
+                                clienteRepository.buscarClientePorID(rs.getInt(2)),
                                 aparelhoRepository.BuscarAparelhoPorID(rs.getInt(3)),
                                 tecnicoRepository.BuscarTecnicoPorID(rs.getInt(4)),
                                 (rs.getDate(5) != null ? rs.getDate(5).toLocalDate() : null),
@@ -70,7 +70,7 @@ public class SistemaOsRepository {
             ResultSet rs = ppst.executeQuery();
             while (rs.next()) {
                 return new OrdemServico(rs.getInt(1),
-                        clienteRepository.BuscarClientePorID(rs.getInt(2)),
+                        clienteRepository.buscarClientePorID(rs.getInt(2)),
                         aparelhoRepository.BuscarAparelhoPorID(rs.getInt(3)),
                         tecnicoRepository.BuscarTecnicoPorID(rs.getInt(4)),
                         (rs.getDate(5) != null ? rs.getDate(5).toLocalDate() : null),

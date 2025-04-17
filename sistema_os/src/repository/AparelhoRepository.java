@@ -86,8 +86,8 @@ public class AparelhoRepository {
     }
 
     public Aparelho editarAparelho(Aparelho aparelho) {
-conn = util.conexao();
-String sql = "update modelo set "
+        conn = util.conexao();
+        String sql = "update modelo set "
                 + " = ?, "
                 + "endereco = ?, "
                 + "telefone = ?, "
