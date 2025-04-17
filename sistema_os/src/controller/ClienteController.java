@@ -12,7 +12,7 @@ import service.ClienteService;
 public class ClienteController extends javax.swing.JFrame {
 
     Cliente clienteClasse;
-    private Object clienteSalvo;
+    Cliente clienteSalvo;
 
     public ClienteController() {
         initComponents();
@@ -21,19 +21,19 @@ public class ClienteController extends javax.swing.JFrame {
     public ClienteController(Cliente cliente) {
         this.clienteClasse = cliente;
         initComponents();
-        jbcadastrar.setText("cadastrar");
+        jbcadastrar.setText("Editar");
         prencherDados();
     }
 
     public void prencherDados() {
         jTNome.setText(clienteClasse.getNome());
-        JOptionPane.showMessageDialog(null, "insira o nome do cliente");
+      
         jtEmail.setText(clienteClasse.getEmail());
-        JOptionPane.showMessageDialog(null, "insira o email do cliente");
+        
         jtEndereco.setText(clienteClasse.getEndereco());
-        JOptionPane.showMessageDialog(null, "insira o endereço do cliente");
+       
         jtTelefone.setText(clienteClasse.toString());
-        JOptionPane.showMessageDialog(null, "insira o telefone do cliente");
+     
     }
 
     /**
@@ -176,39 +176,38 @@ public class ClienteController extends javax.swing.JFrame {
         cliente.setTelefone(jtTelefone.getText());
         cliente.setEndereco(jtEndereco.getText());
         cliente.setEmail(jtEmail.getText());
-      
-            ClienteService clienteServise = new ClienteService();
-            try {
-                clienteServise.cadastrarCliente(cliente);
-            } catch (NullPointerException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
+
+        ClienteService clienteServise = new ClienteService();
+        try {
+            clienteServise.cadastrarCliente(cliente);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+        JOptionPane.showMessageDialog(null, "cliente cadastrado com sucesso");
+        this.dispose();
+        try {
+            if (jbcadastrar.getText().equals("Editar")) {
+                cliente.setId(clienteClasse.getId());
+                clienteSalvo = clienteServise.cadastrarCliente(cliente);
+            } else {
+                clienteSalvo = clienteServise.cadastrarCliente(cliente);
             }
 
-            JOptionPane.showMessageDialog(null, "cliente cadastrado com sucesso");
-            this.dispose();
-//            try {
-//            Cliente clienteSalvo;
-//            if (jbcadastrar.getText().equals("cadastrado")) {
-//                cliente.setId(clienteClasse.getId());
-//                 clienteSalvo = clienteServise.cadastrarCliente(cliente);
-//            } else {
-//                clienteSalvo = clienteServise.cadastrarCliente(cliente);
-//            }
-//
-//            if (clienteSalvo == null) {
-//                JOptionPane.showMessageDialog(null, "Ocorreu um erro qualquer no banco!");
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Contato salvo com sucesso!");
-//            }
-//        } catch (Exception ex) {
-//            JOptionPane.showMessageDialog(null, ex.getMessage());
-//        }
+            if (clienteSalvo == null) {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro qualquer no banco!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
     }//GEN-LAST:event_jbcadastrarActionPerformed
 
     private void jbcancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbcancelarActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jbcancelarActionPerformed
-    
+
     /**
      * @param args the command line arguments
      */

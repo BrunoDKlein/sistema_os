@@ -5,12 +5,14 @@
  */
 package controller;
 
+import entity.Cliente;
 import entity.OrdemServico;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import service.ClienteService;
 import service.SistemaOsService;
 
 /**
@@ -20,6 +22,7 @@ import service.SistemaOsService;
 public class SistemaOsController extends javax.swing.JFrame {
 
     SistemaOsService sistemaOsService = new SistemaOsService();
+    ClienteService clienteService = new ClienteService();
 
     /**
      * Creates new form SistemaOsController
@@ -266,6 +269,11 @@ public class SistemaOsController extends javax.swing.JFrame {
         jmFazerPagamento.add(jmiCadastrarCliente);
 
         jmiEditarCliente.setText("Editar Cliente");
+        jmiEditarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiEditarClienteActionPerformed(evt);
+            }
+        });
         jmFazerPagamento.add(jmiEditarCliente);
 
         jmiExcluirCliente.setText("Excluir Cliente");
@@ -371,7 +379,7 @@ public class SistemaOsController extends javax.swing.JFrame {
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
         if (linhaEstaSelecionada()) {
-            
+
 //            new OrdemServicoController(lerQualOsEstaSelecionada()).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Para realizar essa ação, selecione uma ordem de serviço");
@@ -384,12 +392,12 @@ public class SistemaOsController extends javax.swing.JFrame {
     }//GEN-LAST:event_jbAtualizarActionPerformed
 
     private void jmiCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadastrarClienteActionPerformed
-        // TODO add your handling code here:
+
         new ClienteController().setVisible(true);
     }//GEN-LAST:event_jmiCadastrarClienteActionPerformed
 
     private void jtOsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtOsMouseClicked
-        if (jtOs.getValueAt(jtOs.getSelectedRow(), jtOs.getSelectedColumn())!=null) {
+        if (jtOs.getValueAt(jtOs.getSelectedRow(), jtOs.getSelectedColumn()) != null) {
             OrdemServico ordemServico = lerQualOsEstaSelecionada();
 
             switch (jtOs.getSelectedColumn()) {
@@ -420,6 +428,16 @@ public class SistemaOsController extends javax.swing.JFrame {
     private void jbEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditar1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbEditar1ActionPerformed
+
+    private void jmiEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditarClienteActionPerformed
+        int id_cliente = Integer.parseInt(JOptionPane.showInputDialog("id_cliente"));
+        Cliente cliente = clienteService.buscarClientePorID(id_cliente);
+        if (cliente == null) {
+            JOptionPane.showMessageDialog(null, "Cliente não localizavel!");
+        } else {
+            new ClienteController(cliente).setVisible(true);
+        }
+    }//GEN-LAST:event_jmiEditarClienteActionPerformed
 
     /**
      * @param args the command line arguments

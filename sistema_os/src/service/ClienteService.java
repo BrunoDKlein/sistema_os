@@ -37,4 +37,7 @@ public class ClienteService {
     public boolean excluirCliente(String cliente) {
         return clienteRepository.excluirCliente(cliente);
     }
+     public Cliente buscarClientePorID(int id_cliente) {
+        return clienteRepository.buscarClientePorID(id_cliente);
+    }
 }

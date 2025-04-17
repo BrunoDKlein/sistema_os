@@ -51,7 +51,7 @@ public class ClienteRepository {
         }
     }
 
-    public Cliente BuscarClientePorID(int id) {
+    public Cliente buscarClientePorID(int id) {
         conn = util.conexao();
         String sql = "SELECT * FROM clientes WHERE id = ?;";
         try {
