@@ -16,14 +16,28 @@ import service.TecnicoService;
 public class TecnicoControler extends javax.swing.JFrame {
 
     Tecnico tecnicoClasse;
-    TecnicoService tecnicoService=new TecnicoService();
+    TecnicoService tecnicoService = new TecnicoService();
 
     /**
      * Creates new form TecnicoControler
      */
     public TecnicoControler() {
         initComponents();
-        
+
+    }
+
+    public TecnicoControler(Tecnico tecnico) {
+        this.tecnicoClasse = tecnico;
+        initComponents();
+        jbSalvar.setText("Editar");
+        PreencherDados();
+    }
+
+    public void PreencherDados() {
+        jtfNome.setText(tecnicoClasse.getNome());
+        jtfTelefone.setText(tecnicoClasse.getTelefone());
+        jtfEmail.setText(tecnicoClasse.getEmail());
+
     }
 
     /**
@@ -143,14 +157,14 @@ public class TecnicoControler extends javax.swing.JFrame {
         tecnico.setNome(jtfNome.getText());
         tecnico.setTelefone(jtfTelefone.getText());
         tecnico.setEmail(jtfEmail.getText());
-        Tecnico tecnicoSalvo=tecnicoService.salvarTecnico(tecnico);
-        if(tecnicoSalvo!=null){
+        Tecnico tecnicoSalvo = tecnicoService.salvarTecnico(tecnico);
+        if (tecnicoSalvo != null) {
             JOptionPane.showMessageDialog(null, "Dados do Tecnico salvos com sucesso!");
-            
-        }else{
+
+        } else {
             JOptionPane.showMessageDialog(null, "Ocorreu um erro qualquer no banco!");
         }
-        
+
         //   TecnicoService tecnicoService = new TecnicoService();
 //        try {
 //            Tecnico tecnicoSalvo = null;
@@ -174,7 +188,7 @@ public class TecnicoControler extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+
         System.out.println(tecnicoService.buscarTecnicosPorNome("LAU").get(0).getNome());
     }//GEN-LAST:event_jButton1ActionPerformed
 
