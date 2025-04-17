@@ -17,16 +17,16 @@ public class PagamentoRepository {
     public Pagamento salvarPagamento(Pagamento pagamento) {
         conn = util.conexao();
         String sql = "INSERT INTO pagamentos("
-                + "id,"
-                + "data_pagamento,"
-                + "valor,"
+                + "id_os, "
+                + "data_pagamento, "
+                + "valor, "
                 + "metodo) "
                 + "VALUES(?,?,?,?)";
 
         try {
 
             ppst = conn.prepareStatement(sql);
-            ppst.setInt(1, pagamento.getId());
+            ppst.setInt(1, pagamento.getOrdemServico().getId());
             ppst.setDate(2, Date.valueOf(pagamento.getData()));
             ppst.setDouble(3, pagamento.getValor());
             ppst.setString(4, pagamento.getMetodoPagamento());
