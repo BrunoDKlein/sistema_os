@@ -7,8 +7,10 @@ package repository;
 
 import entity.OrdemServico;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import resources.UtilDb;
 
 /**
@@ -21,7 +23,7 @@ public class OrdemServicoRepository {
     Connection conn;
     PreparedStatement ppst;
     
-    public OrdemServico salvarContato(OrdemServico ordemServico) {
+    public OrdemServico salvarOrdemServico(OrdemServico ordemServico) {
         conn = util.conexao();
         String sql = "INSERT INTO ordens_servico("
                 + "id_cliente,"
@@ -32,17 +34,16 @@ public class OrdemServicoRepository {
                 + "descricao_problema,"
                 + "solucao,"
                 + "custo_total)"
-                + "VALUES(?,?,?,?,?,?,?,?,?)";
+                + "VALUES(?,?,?,?,'Aberta',?,?,?)";
         try {
             ppst = conn.prepareStatement(sql);
             ppst.setInt(1, ordemServico.getCliente().getId());
             ppst.setInt(2, ordemServico.getAparelho().getId());
             ppst.setInt(3, ordemServico.getTecnico().getId());
-//            ppst.set(2, contato.getEndereco());
-//            ppst.setString(3, contato.getTelefone());
-//            ppst.setString(4, contato.getEmail());
-//            ppst.setString(5, contato.getLinkedim());
-//            ppst.setInt(6, contato.getAgenda().getId());
+            ppst.setDate(4, Date.valueOf(ordemServico.getData_abertura()));
+            ppst.setString(5, ordemServico.getDescricao_problema());
+            ppst.setString(6, ordemServico.getSolucao());
+            ppst.setDouble(7, ordemServico.getCusto_total());
 
             ppst.executeUpdate();
             ppst.close();
