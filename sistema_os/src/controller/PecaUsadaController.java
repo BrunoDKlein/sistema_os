@@ -14,13 +14,9 @@ import service.PecaUsadaService;
  * @author Escola
  */
 public class PecaUsadaController extends javax.swing.JFrame {
-    PecaUsada pecaUsadaClasse;
 
-    /**
-     * Creates new form PecasUsadasController
-     */
+    PecaUsada pecaUsadaClasse;
     private OrdemServicoController ordemServicoController;
-    private PecaUsada pecaUsada;
     PecaUsadaService pecasUsadasService = new PecaUsadaService();
 
     public PecaUsadaController() {
@@ -33,21 +29,20 @@ public class PecaUsadaController extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-    
-    public PecaUsadaController(PecaUsada pecaUsada){
+
+    public PecaUsadaController(PecaUsada pecaUsada) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.pecaUsada = pecaUsada;
+        this.pecaUsadaClasse = pecaUsada;
         jbSalvar.setText("Editar");
         preencherDados();
     }
-    
-    public void preencherDados(){
+
+    public void preencherDados() {
         jtfDescricao.setText(pecaUsadaClasse.getDescricao());
-        jtfQuantidade.setText(pecaUsadaClasse.getQuantidade()+"");
-        jtfPrecoUnitario.setText(pecaUsadaClasse.getPrecoUnitario()+"");
+        jtfQuantidade.setText(pecaUsadaClasse.getQuantidade() + "");
+        jtfPrecoUnitario.setText(pecaUsadaClasse.getPrecoUnitario() + "");
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -174,31 +169,33 @@ public class PecaUsadaController extends javax.swing.JFrame {
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         // TODO add your handling code here:
-        PecaUsada pecasUsadas = new PecaUsada();
-        pecasUsadas.setDescricao(jtfDescricao.getText());
+        PecaUsada pecaUsada = new PecaUsada();
+        pecaUsada.setDescricao(jtfDescricao.getText());
         try {
-            pecasUsadas.setQuantidade(Integer.parseInt(jtfQuantidade.getText()));
-            pecasUsadas.setPrecoUnitario(Double.parseDouble(jtfPrecoUnitario.getText()));
+            pecaUsada.setQuantidade(Integer.parseInt(jtfQuantidade.getText()));
+            pecaUsada.setPrecoUnitario(Double.parseDouble(jtfPrecoUnitario.getText()));
 
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(null, "Apenas números são permitidos.");
         }
 
 //        pecasUsadasService.salvarPeca(pecasUsadas);
-        PecaUsada pecasUsadasSalva;
-        try {
-            pecasUsadasSalva = pecasUsadasService.salvarPeca(pecasUsadas);
-            if (pecasUsadasSalva != null) {
-                JOptionPane.showMessageDialog(null, "Peça salva com sucesso.");
-            } else {
-                JOptionPane.showMessageDialog(null, "Não foi possível salvar a peça.");
-            }
-        } catch (NullPointerException nex) {
-            JOptionPane.showMessageDialog(null, nex.getMessage());
-        }
+//        PecaUsada pecaUsadaSalva;
+//        try {
+//            pecaUsadaSalva = pecasUsadasService.salvarPeca(pecaUsada);
+//            if (pecaUsadaSalva != null) {
+//                JOptionPane.showMessageDialog(null, "Peça salva com sucesso.");
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Não foi possível salvar a peça.");
+//            }
+//        } catch (NullPointerException nex) {
+//            JOptionPane.showMessageDialog(null, nex.getMessage());
+//        }
 
         if (ordemServicoController != null) {
-            ordemServicoController.atualizarListaPecasUsadas(pecasUsadas);
+            ordemServicoController.editarListaPecasUsadas(pecaUsada);
+        } else {
+            ordemServicoController.atualizarListaPecasUsadas(pecaUsada);
         }
         this.dispose();
     }//GEN-LAST:event_jbSalvarActionPerformed

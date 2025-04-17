@@ -32,7 +32,6 @@ import service.TecnicoService;
  * @author admin
  */
 public class OrdemServicoController extends javax.swing.JFrame {
-
     int linhaSelecionada;
     private Timer timer = new Timer();
     ClienteService clienteService = new ClienteService();
@@ -588,7 +587,7 @@ public class OrdemServicoController extends javax.swing.JFrame {
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
         if (existeUmaLinhaSelecionadaComPecaUsada()) {
-            PecaUsadaController(pecasUsadas.get(linhaSelecionada));
+            new PecaUsadaController(pecasUsadas.get(linhaSelecionada)).setVisible(true);
         }
     }//GEN-LAST:event_jbEditarActionPerformed
 
