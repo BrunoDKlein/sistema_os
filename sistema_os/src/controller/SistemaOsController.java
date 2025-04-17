@@ -7,6 +7,7 @@ package controller;
 
 import entity.Cliente;
 import entity.OrdemServico;
+import entity.Tecnico;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -14,6 +15,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import service.ClienteService;
 import service.SistemaOsService;
+import service.TecnicoService;
 
 /**
  *
@@ -23,6 +25,8 @@ public class SistemaOsController extends javax.swing.JFrame {
 
     SistemaOsService sistemaOsService = new SistemaOsService();
     ClienteService clienteService = new ClienteService();
+    TecnicoService tecnicoService = new TecnicoService();
+    
 
     /**
      * Creates new form SistemaOsController
@@ -289,6 +293,11 @@ public class SistemaOsController extends javax.swing.JFrame {
         jmFazerPagamento.add(jmiCadastrarTecnico);
 
         jmiEditarTecnico.setText("Editar Técnico");
+        jmiEditarTecnico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiEditarTecnicoActionPerformed(evt);
+            }
+        });
         jmFazerPagamento.add(jmiEditarTecnico);
 
         jmiEcluirTecnico.setText("Excluir Técnico");
@@ -438,6 +447,17 @@ public class SistemaOsController extends javax.swing.JFrame {
             new ClienteController(cliente).setVisible(true);
         }
     }//GEN-LAST:event_jmiEditarClienteActionPerformed
+
+    private void jmiEditarTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditarTecnicoActionPerformed
+//         TODO add your handling code here:
+//       int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
+//        Tecnico tecnico = tecnicoService.buscarTecnicoPorId(id_tecnico);
+//        if (tecnico == null) {
+//            JOptionPane.showMessageDialog(null, "Tecnico não localizado!");
+//        } else {
+//            new TecnicoController(tecnico).setVisible(true);
+//        }  
+    }//GEN-LAST:event_jmiEditarTecnicoActionPerformed
 
     /**
      * @param args the command line arguments
