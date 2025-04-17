@@ -86,13 +86,24 @@ public class AparelhoRepository {
     }
 
     public Aparelho editarAparelho(Aparelho aparelho) {
-conn = util.conexao();
-String sql = "update modelo set "
-                + " = ?, "
-                + "endereco = ?, "
-                + "telefone = ?, "
-                + "email = ?, "
-                + "linkedin = ? "
-                + "where id =?;";
+        conn = util.conexao();
+        String sql = "update aparelhos set "
+                + "modelo = ?, "
+                + "descricao = ? "
+                + "were id = ?;";
+        try {
+            ppst = conn.prepareStatement(sql);
+            ppst.setString(1, aparelho.getModelo());
+            ppst.setString(2, aparelho.getDescricao());
+            ppst.setInt(3, aparelho.getId());
+
+            ppst.executeUpdate();
+            ppst.close();
+            conn.close();
+            return aparelho;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
     }
 }
