@@ -43,6 +43,18 @@ public class OrdemServico {
         this.custo_total = custo_total;
     }
 
+    public OrdemServico(Cliente cliente, Aparelho aparelho, Tecnico tecnico, LocalDate data_abertura, String status, String descricao_problema, String solucao, Double custo_total, List<PecaUsada> pecasUsadas) {
+        this.cliente = cliente;
+        this.aparelho = aparelho;
+        this.tecnico = tecnico;
+        this.data_abertura = data_abertura;
+        this.status = status;
+        this.descricao_problema = descricao_problema;
+        this.solucao = solucao;
+        this.custo_total = custo_total;
+        this.pecasUsadas = pecasUsadas;
+    }
+
     public int getId() {
         return id;
     }
