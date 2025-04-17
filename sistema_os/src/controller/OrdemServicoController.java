@@ -6,10 +6,12 @@
 package controller;
 
 import entity.Cliente;
+import entity.OrdemServico;
 import entity.PecaUsada;
 import entity.Tecnico;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -30,6 +33,7 @@ import service.TecnicoService;
  */
 public class OrdemServicoController extends javax.swing.JFrame {
 
+    int linhaSelecionada;
     private Timer timer = new Timer();
     ClienteService clienteService = new ClienteService();
     TecnicoService tecnicoService = new TecnicoService();
@@ -67,14 +71,14 @@ public class OrdemServicoController extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void alinharColuna(int coluna, int alinhamento) {
         DefaultTableCellRenderer alinhar = new DefaultTableCellRenderer();
         alinhar.setHorizontalAlignment(alinhamento);
         jtPecasUsadas.getColumnModel().getColumn(coluna).setCellRenderer(alinhar);
     }
-    
-private void configurarLarguraColunas() {
+
+    private void configurarLarguraColunas() {
         ((DefaultTableCellRenderer) jtPecasUsadas.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
         jtPecasUsadas.getColumnModel().getColumn(0).setPreferredWidth(jtPecasUsadas.getWidth() / 2);
         jtPecasUsadas.getColumnModel().getColumn(1).setPreferredWidth(jtPecasUsadas.getWidth() / 5);
@@ -83,7 +87,7 @@ private void configurarLarguraColunas() {
         alinharColuna(1, SwingConstants.CENTER);
         alinharColuna(2, SwingConstants.CENTER);
     }
-    
+
     private List<String> buscarNoBanco(String tipoDados, String filtro) {
         switch (tipoDados) {
             case "clientes":
@@ -112,7 +116,7 @@ private void configurarLarguraColunas() {
         editor.setText(textoAtual);
         editor.setCaretPosition(posicaoCursor);
     }
-    
+
     private void preencheTabela(List<PecaUsada> pecasUsadas) {
         int i = 0;
         for (PecaUsada pu : pecasUsadas) {
@@ -124,6 +128,7 @@ private void configurarLarguraColunas() {
             i++;
         }
     }
+
     public void limparTabela() {
 
         for (int i = 0; i < jtPecasUsadas.getRowCount(); i++) {
@@ -131,6 +136,22 @@ private void configurarLarguraColunas() {
             jtPecasUsadas.setValueAt(null, i, 1);
             jtPecasUsadas.setValueAt(null, i, 2);
         }
+    }
+
+    public boolean existeUmaLinhaSelecionadaComPecaUsada() {
+        linhaSelecionada = jtPecasUsadas.getSelectedRow();
+        if (linhaSelecionada > -1 && jtPecasUsadas.getValueAt(linhaSelecionada, 2) != null) {
+            return true;
+        }
+        return false;
+    }
+    
+    public double calcularValorTotal(){
+        double valorTotal = Double.parseDouble(jtfValorMaoDeObra.getText());
+        for (PecaUsada pu : pecasUsadas) {
+            valorTotal = valorTotal + (pu.getPrecoUnitario() * pu.getQuantidade());
+    }
+        return valorTotal;
     }
 
     /**
@@ -164,8 +185,8 @@ private void configurarLarguraColunas() {
         jbNovoTecnico = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jbExcluir = new javax.swing.JButton();
+        jbEditar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtPecasUsadas = new javax.swing.JTable();
 
@@ -226,6 +247,11 @@ private void configurarLarguraColunas() {
 
         jcbCliente.setEditable(true);
         jcbCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
+        jcbCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbClienteActionPerformed(evt);
+            }
+        });
         jcbCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jcbClienteKeyPressed(evt);
@@ -303,9 +329,19 @@ private void configurarLarguraColunas() {
             }
         });
 
-        jButton2.setText("Excluir");
+        jbExcluir.setText("Excluir");
+        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbExcluirActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Editar");
+        jbEditar.setText("Editar");
+        jbEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditarActionPerformed(evt);
+            }
+        });
 
         jtPecasUsadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -378,8 +414,8 @@ private void configurarLarguraColunas() {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jbEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -462,9 +498,9 @@ private void configurarLarguraColunas() {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(jbExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                        .addComponent(jbEditar)))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -480,7 +516,7 @@ private void configurarLarguraColunas() {
     }//GEN-LAST:event_jcbClienteKeyPressed
 
     private void jcbClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbClienteKeyReleased
-        
+
     }//GEN-LAST:event_jcbClienteKeyReleased
 
     private void jcbAparelhoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbAparelhoKeyPressed
@@ -518,7 +554,7 @@ private void configurarLarguraColunas() {
     }//GEN-LAST:event_jcbTecnicoKeyReleased
 
     private void jbNovoTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoTecnicoActionPerformed
-        // TODO add your handling code here:
+        new TecnicoControler().setVisible(true);
     }//GEN-LAST:event_jbNovoTecnicoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -530,12 +566,44 @@ private void configurarLarguraColunas() {
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
-        
-        
+//    OrdemServico ordemServico = new OrdemServico(cliente, aparelho, tecnico, LocalDate.now(), "Aberta", jtaDescricao, jtaSolucao, calcularValorTotal());
+    
     }//GEN-LAST:event_jbSalvarActionPerformed
+
+    private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
+        linhaSelecionada = jtPecasUsadas.getSelectedRow();
+        if (pecasUsadas.size() > 0) {
+            if (jtPecasUsadas.getValueAt(linhaSelecionada, 2) != null) {
+                pecasUsadas.remove(linhaSelecionada);
+                limparTabela();
+                preencheTabela(pecasUsadas);
+            } else {
+                JOptionPane.showMessageDialog(null, "Você deve selecionar uma peça para realizar essa ação");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "A lista de peças usadas está vazia");
+        }
+
+    }//GEN-LAST:event_jbExcluirActionPerformed
+
+    private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
+        if (existeUmaLinhaSelecionadaComPecaUsada()) {
+            PecaUsadaController(pecasUsadas.get(linhaSelecionada));
+        }
+    }//GEN-LAST:event_jbEditarActionPerformed
+
+    private void jcbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbClienteActionPerformed
 
     public void atualizarListaPecasUsadas(PecaUsada pecaUsada) {
         this.pecasUsadas.add(pecaUsada);
+        limparTabela();
+        preencheTabela(pecasUsadas);
+    }
+
+    public void editarListaPecasUsadas(PecaUsada pecaUsada) {
+        this.pecasUsadas.add(linhaSelecionada, pecaUsada);
         limparTabela();
         preencheTabela(pecasUsadas);
     }
@@ -580,8 +648,6 @@ private void configurarLarguraColunas() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
@@ -594,6 +660,8 @@ private void configurarLarguraColunas() {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton jbCancelar;
+    private javax.swing.JButton jbEditar;
+    private javax.swing.JButton jbExcluir;
     private javax.swing.JButton jbNovoAparelho;
     private javax.swing.JButton jbNovoCliente;
     private javax.swing.JButton jbNovoTecnico;
