@@ -19,6 +19,8 @@ public class PecaUsadaController extends javax.swing.JFrame {
     private OrdemServicoController ordemServicoController;
     PecaUsadaService pecasUsadasService = new PecaUsadaService();
 
+    private boolean EDITAR;
+
     public PecaUsadaController() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -28,14 +30,17 @@ public class PecaUsadaController extends javax.swing.JFrame {
         this.ordemServicoController = ordemServicoController;
         initComponents();
         this.setLocationRelativeTo(null);
+        EDITAR = false;
     }
 
-    public PecaUsadaController(PecaUsada pecaUsada) {
+    public PecaUsadaController(OrdemServicoController ordemServicoController, PecaUsada pecaUsada) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.ordemServicoController = ordemServicoController;
         this.pecaUsadaClasse = pecaUsada;
         jbSalvar.setText("Editar");
         preencherDados();
+        EDITAR = true;
     }
 
     public void preencherDados() {
@@ -174,30 +179,18 @@ public class PecaUsadaController extends javax.swing.JFrame {
         try {
             pecaUsada.setQuantidade(Integer.parseInt(jtfQuantidade.getText()));
             pecaUsada.setPrecoUnitario(Double.parseDouble(jtfPrecoUnitario.getText()));
-
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(null, "Apenas números são permitidos.");
+            return;
         }
 
-//        pecasUsadasService.salvarPeca(pecasUsadas);
-//        PecaUsada pecaUsadaSalva;
-//        try {
-//            pecaUsadaSalva = pecasUsadasService.salvarPeca(pecaUsada);
-//            if (pecaUsadaSalva != null) {
-//                JOptionPane.showMessageDialog(null, "Peça salva com sucesso.");
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Não foi possível salvar a peça.");
-//            }
-//        } catch (NullPointerException nex) {
-//            JOptionPane.showMessageDialog(null, nex.getMessage());
-//        }
-
-        if (ordemServicoController != null) {
+        if (EDITAR) {
             ordemServicoController.editarListaPecasUsadas(pecaUsada);
         } else {
             ordemServicoController.atualizarListaPecasUsadas(pecaUsada);
         }
         this.dispose();
+
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed

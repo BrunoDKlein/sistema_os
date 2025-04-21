@@ -10,9 +10,13 @@ import entity.Cliente;
 import entity.OrdemServico;
 import entity.Tecnico;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableCellRenderer;
 import service.AparelhoService;
 import service.ClienteService;
@@ -153,6 +157,7 @@ public class SistemaOsController extends javax.swing.JFrame {
         jmiEditarAparelho = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("...::: Sistema de Controle de Ordens de Serviço - Técnica :::...");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -407,8 +412,7 @@ public class SistemaOsController extends javax.swing.JFrame {
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
         if (linhaEstaSelecionada()) {
-
-//            new OrdemServicoController(lerQualOsEstaSelecionada()).setVisible(true);
+            new OrdemServicoController(lerQualOsEstaSelecionada()).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Para realizar essa ação, selecione uma ordem de serviço");
         }
@@ -445,7 +449,7 @@ public class SistemaOsController extends javax.swing.JFrame {
     }//GEN-LAST:event_jtOsMouseClicked
 
     private void jmiFazerPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFazerPagamentoActionPerformed
-        new PagamentoController().setVisible(true);
+        new PagamentoController(lerQualOsEstaSelecionada()).setVisible(true);
     }//GEN-LAST:event_jmiFazerPagamentoActionPerformed
 
     private void jmiCadastrarTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadastrarTecnicoActionPerformed
@@ -518,8 +522,18 @@ public class SistemaOsController extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(SistemaOsController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
+        try {
+            //</editor-fold>
+            UIManager.setLookAndFeel("com.jtattoo.plaf.mint.MintLookAndFeel");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SistemaOsController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(SistemaOsController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(SistemaOsController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(SistemaOsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

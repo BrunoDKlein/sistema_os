@@ -19,7 +19,7 @@ public class UtilDb {
     private static final String url = "jdbc:postgresql://localhost:5432/os_tecnica";
     private static final String driver = "org.postgresql.Driver";
     private static final String usuario = "postgres";
-    private static final String senha = "1234";
+    private static final String senha = "dhmeli";
     Connection c;
 
     public Connection conexao() {
