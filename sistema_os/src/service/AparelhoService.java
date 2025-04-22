@@ -9,7 +9,10 @@ public class AparelhoService {
     AparelhoRepository aparelhoRepository = new AparelhoRepository();
 
     public Aparelho salvarAparelho(Aparelho aparelho) {
+        if (aparelho.getModelo().equals("")) {
+            throw new NullPointerException("Descreva o modelo do aparelho para salvar");
 
+        }
         return aparelhoRepository.salvarAparelho(aparelho);
     }
 
@@ -17,5 +20,9 @@ public class AparelhoService {
 
         return aparelhoRepository.buscarAparelhosPorCliente(id_Cliente);
 
+    }
+
+    public Aparelho editarAparelho(Aparelho aparelho) {
+        return aparelhoRepository.editarAparelho(aparelho);//To change body of generated methods, choose Tools | Templates.
     }
 }

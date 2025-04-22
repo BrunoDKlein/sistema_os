@@ -6,10 +6,12 @@
 package controller;
 
 import entity.Cliente;
+import entity.OrdemServico;
 import entity.PecaUsada;
 import entity.Tecnico;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,9 +19,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableCellRenderer;
 import service.ClienteService;
 import service.TecnicoService;
 
@@ -29,18 +33,32 @@ import service.TecnicoService;
  */
 public class OrdemServicoController extends javax.swing.JFrame {
 
+    int linhaSelecionada;
     private Timer timer = new Timer();
     ClienteService clienteService = new ClienteService();
     TecnicoService tecnicoService = new TecnicoService();
     List<PecaUsada> pecasUsadas = new ArrayList<>();
+    List<Cliente> filtroClientes = new ArrayList<>();
+    private OrdemServico ordemServicoEditar;
+    private OrdemServico ordemServicoSalvar;
 
     public OrdemServicoController() {
         initComponents();
+        configurarLarguraColunas();
         this.setLocationRelativeTo(null);
         criaAcaoComboBox(jcbCliente, "clientes");
         criaAcaoComboBox(jcbTecnico, "tecnicos");
         criaAcaoComboBox(jcbAparelho, "aparelhos");
+    }
 
+    public OrdemServicoController(OrdemServico ordemServico) {
+        initComponents();
+        configurarLarguraColunas();
+        this.setLocationRelativeTo(null);
+        this.ordemServicoEditar = ordemServico;
+        criaAcaoComboBox(jcbCliente, "clientes");
+        criaAcaoComboBox(jcbTecnico, "tecnicos");
+        criaAcaoComboBox(jcbAparelho, "aparelhos");
     }
 
     private void criaAcaoComboBox(JComboBox combo, String tipoDados) {
@@ -66,10 +84,28 @@ public class OrdemServicoController extends javax.swing.JFrame {
         });
     }
 
+    private void alinharColuna(int coluna, int alinhamento) {
+        DefaultTableCellRenderer alinhar = new DefaultTableCellRenderer();
+        alinhar.setHorizontalAlignment(alinhamento);
+        jtPecasUsadas.getColumnModel().getColumn(coluna).setCellRenderer(alinhar);
+    }
+
+    private void configurarLarguraColunas() {
+        ((DefaultTableCellRenderer) jtPecasUsadas.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        jtPecasUsadas.getColumnModel().getColumn(0).setPreferredWidth(jtPecasUsadas.getWidth() / 2);
+        jtPecasUsadas.getColumnModel().getColumn(1).setPreferredWidth(jtPecasUsadas.getWidth() / 5);
+        jtPecasUsadas.getColumnModel().getColumn(2).setPreferredWidth(jtPecasUsadas.getWidth() / 5);
+        alinharColuna(0, SwingConstants.LEFT);
+        alinharColuna(1, SwingConstants.CENTER);
+        alinharColuna(2, SwingConstants.CENTER);
+    }
+
     private List<String> buscarNoBanco(String tipoDados, String filtro) {
         switch (tipoDados) {
             case "clientes":
-                return clienteService.buscarClientes(filtro).stream().map(Cliente::getNome).collect(Collectors.toList());
+                this.filtroClientes.clear();
+                this.filtroClientes = clienteService.buscarClientes(filtro);
+                return this.filtroClientes.stream().map(Cliente::getNome).collect(Collectors.toList());
             case "tecnicos":
                 return tecnicoService.buscarTecnicosPorNome(filtro).stream().map(Tecnico::getNome).collect(Collectors.toList());
             case "aparelhos":
@@ -93,6 +129,43 @@ public class OrdemServicoController extends javax.swing.JFrame {
         combo.setEditable(true);
         editor.setText(textoAtual);
         editor.setCaretPosition(posicaoCursor);
+    }
+
+    private void preencheTabela(List<PecaUsada> pecasUsadas) {
+        int i = 0;
+        for (PecaUsada pu : pecasUsadas) {
+            int k = 0;
+            jtPecasUsadas.setValueAt(pu.getDescricao(), i, k++);
+            jtPecasUsadas.setValueAt(pu.getQuantidade(), i, k++);
+            jtPecasUsadas.setValueAt(pu.getPrecoUnitario(), i, k++);
+
+            i++;
+        }
+    }
+
+    public void limparTabela() {
+
+        for (int i = 0; i < jtPecasUsadas.getRowCount(); i++) {
+            jtPecasUsadas.setValueAt(null, i, 0);
+            jtPecasUsadas.setValueAt(null, i, 1);
+            jtPecasUsadas.setValueAt(null, i, 2);
+        }
+    }
+
+    public boolean existeUmaLinhaSelecionadaComPecaUsada() {
+        linhaSelecionada = jtPecasUsadas.getSelectedRow();
+        if (linhaSelecionada > -1 && jtPecasUsadas.getValueAt(linhaSelecionada, 2) != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public double calcularValorTotal() {
+        double valorTotal = Double.parseDouble(jtfValorMaoDeObra.getText());
+        for (PecaUsada pu : pecasUsadas) {
+            valorTotal = valorTotal + (pu.getPrecoUnitario() * pu.getQuantidade());
+        }
+        return valorTotal;
     }
 
     /**
@@ -126,10 +199,10 @@ public class OrdemServicoController extends javax.swing.JFrame {
         jbNovoTecnico = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jbExcluir = new javax.swing.JButton();
+        jbEditar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtPecasUsadas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -150,8 +223,18 @@ public class OrdemServicoController extends javax.swing.JFrame {
         jLabel14.setText("Descrição do Problema:");
 
         jbSalvar.setText("Salvar");
+        jbSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalvarActionPerformed(evt);
+            }
+        });
 
         jbCancelar.setText("Cancelar");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -178,6 +261,11 @@ public class OrdemServicoController extends javax.swing.JFrame {
 
         jcbCliente.setEditable(true);
         jcbCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
+        jcbCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbClienteActionPerformed(evt);
+            }
+        });
         jcbCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jcbClienteKeyPressed(evt);
@@ -255,11 +343,21 @@ public class OrdemServicoController extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Excluir");
+        jbExcluir.setText("Excluir");
+        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbExcluirActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Editar");
+        jbEditar.setText("Editar");
+        jbEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditarActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtPecasUsadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -296,7 +394,7 @@ public class OrdemServicoController extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable1);
+        jScrollPane3.setViewportView(jtPecasUsadas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -330,8 +428,8 @@ public class OrdemServicoController extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jbEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -414,9 +512,9 @@ public class OrdemServicoController extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(jbExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                        .addComponent(jbEditar)))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -432,7 +530,7 @@ public class OrdemServicoController extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbClienteKeyPressed
 
     private void jcbClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbClienteKeyReleased
-        
+
     }//GEN-LAST:event_jcbClienteKeyReleased
 
     private void jcbAparelhoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbAparelhoKeyPressed
@@ -470,16 +568,61 @@ public class OrdemServicoController extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbTecnicoKeyReleased
 
     private void jbNovoTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoTecnicoActionPerformed
-        // TODO add your handling code here:
+        new TecnicoControler().setVisible(true);
     }//GEN-LAST:event_jbNovoTecnicoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         new PecaUsadaController(this).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jbCancelarActionPerformed
+
+    private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
+//    OrdemServico ordemServico = new OrdemServico(cliente, aparelho, tecnico, LocalDate.now(), "Aberta", jtaDescricao, jtaSolucao, calcularValorTotal());
+
+    }//GEN-LAST:event_jbSalvarActionPerformed
+
+    private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
+        linhaSelecionada = jtPecasUsadas.getSelectedRow();
+        if (pecasUsadas.size() > 0) {
+            if (jtPecasUsadas.getValueAt(linhaSelecionada, 2) != null) {
+                pecasUsadas.remove(linhaSelecionada);
+                limparTabela();
+                preencheTabela(pecasUsadas);
+            } else {
+                JOptionPane.showMessageDialog(null, "Você deve selecionar uma peça para realizar essa ação");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "A lista de peças usadas está vazia");
+        }
+
+    }//GEN-LAST:event_jbExcluirActionPerformed
+
+    private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
+        if (existeUmaLinhaSelecionadaComPecaUsada()) {
+            new PecaUsadaController(this, pecasUsadas.get(linhaSelecionada)).setVisible(true);
+        }
+    }//GEN-LAST:event_jbEditarActionPerformed
+
+    private void jcbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbClienteActionPerformed
+        // TODO add your handling code here:
+        if (jcbCliente.getSelectedIndex() > -1) {
+            this.ordemServicoSalvar.setCliente(this.filtroClientes.get(jcbCliente.getSelectedIndex()));
+        }
+    }//GEN-LAST:event_jcbClienteActionPerformed
+
     public void atualizarListaPecasUsadas(PecaUsada pecaUsada) {
         this.pecasUsadas.add(pecaUsada);
+        limparTabela();
+        preencheTabela(pecasUsadas);
+    }
+
+    public void editarListaPecasUsadas(PecaUsada pecaUsada) {
+        this.pecasUsadas.set(linhaSelecionada, pecaUsada);
+        limparTabela();
+        preencheTabela(pecasUsadas);
     }
 
     /**
@@ -522,8 +665,6 @@ public class OrdemServicoController extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
@@ -535,8 +676,9 @@ public class OrdemServicoController extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton jbCancelar;
+    private javax.swing.JButton jbEditar;
+    private javax.swing.JButton jbExcluir;
     private javax.swing.JButton jbNovoAparelho;
     private javax.swing.JButton jbNovoCliente;
     private javax.swing.JButton jbNovoTecnico;
@@ -544,6 +686,7 @@ public class OrdemServicoController extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jcbAparelho;
     private javax.swing.JComboBox<String> jcbCliente;
     private javax.swing.JComboBox<String> jcbTecnico;
+    private javax.swing.JTable jtPecasUsadas;
     private javax.swing.JTextArea jtaDescricao;
     private javax.swing.JTextArea jtaSolucao;
     private javax.swing.JTextField jtfValorMaoDeObra;

@@ -28,6 +28,7 @@ public class PecaUsadaRepository {
     PreparedStatement ppst;
     
     public PecaUsada salvarPeca(PecaUsada pecasUsadas){
+        System.out.println("e");
         conn = util.conexao();
         String db = "INSERT INTO pecas_usadas("
                 + "descricao, "
@@ -62,7 +63,6 @@ public class PecaUsadaRepository {
             ResultSet rs = ppst.executeQuery();
             while (rs.next()) {
                 return new PecaUsada(rs.getString(2), rs.getInt(3), rs.getDouble(4), rs.getInt(5));
-                
             }
             
             ppst.close();

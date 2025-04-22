@@ -49,8 +49,8 @@ public class TecnicoRepository {
             return null;
         }
     }
-    
-     public Tecnico BuscarTecnicoPorID(int id) {
+
+    public Tecnico BuscarTecnicoPorID(int id) {
         conn = util.conexao();
         String sql = "SELECT * FROM tecnicos WHERE id = ?;";
         try {
@@ -96,4 +96,58 @@ public class TecnicoRepository {
         return listaDeTecnicos;
 
     }
+
+    public Tecnico editarTecnico(Tecnico tecnico) {
+        conn = util.conexao();
+        String sql = "update tecnicos set "
+                + "nome = ?, "
+                + "telefone = ?, "
+                + "email=?, "
+                + "where id = ?; ";
+        try {
+            ppst = conn.prepareStatement(sql);
+            ppst.setString(1, tecnico.getNome());
+            ppst.setString(2, tecnico.getTelefone());
+            ppst.setString(3, tecnico.getEmail());
+            ppst.setInt(4, tecnico.getId());
+
+            ppst.executeUpdate();
+            ppst.close();
+            conn.close();
+            return tecnico;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+
+        }
+    }
+    
+    public Tecnico buscarTecnicoPorId(int id)  {
+        conn = util.conexao();
+        String sql = "SELECT * FROM tecnicos WHERE id = ? ";
+        try {
+            ppst = conn.prepareStatement(sql);
+            ppst.setInt(1, id);
+            
+
+            ResultSet rs = ppst.executeQuery();
+            while (rs.next()) {
+//                return new Tecnico(rs.getInt(1), rs.getString(2),
+//                        rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+                throw new Exception("Já existe um(a) cara no banco com este email.");
+
+            }
+            ppst.close();
+            conn.close();
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return null;
+
+        }
+        System.out.println("nao achou");
+        return null;
+    }
+
+
 }

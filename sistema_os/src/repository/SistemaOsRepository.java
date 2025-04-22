@@ -32,7 +32,7 @@ public class SistemaOsRepository {
 
     public List<OrdemServico> buscarTodasAsOs() {
         conn = util.conexao();
-        String sql = "SELECT * FROM ordens_servico";
+        String sql = "SELECT * FROM ordens_servico WHERE status <> 'Excluida'";
         try {
             ppst = conn.prepareStatement(sql);
 
@@ -41,7 +41,7 @@ public class SistemaOsRepository {
             while (rs.next()) {
                 listaDeOs.add(
                         new OrdemServico(rs.getInt(1),
-                                clienteRepository.BuscarClientePorID(rs.getInt(2)),
+                                clienteRepository.buscarClientePorID(rs.getInt(2)),
                                 aparelhoRepository.BuscarAparelhoPorID(rs.getInt(3)),
                                 tecnicoRepository.BuscarTecnicoPorID(rs.getInt(4)),
                                 (rs.getDate(5) != null ? rs.getDate(5).toLocalDate() : null),
@@ -70,7 +70,7 @@ public class SistemaOsRepository {
             ResultSet rs = ppst.executeQuery();
             while (rs.next()) {
                 return new OrdemServico(rs.getInt(1),
-                        clienteRepository.BuscarClientePorID(rs.getInt(2)),
+                        clienteRepository.buscarClientePorID(rs.getInt(2)),
                         aparelhoRepository.BuscarAparelhoPorID(rs.getInt(3)),
                         tecnicoRepository.BuscarTecnicoPorID(rs.getInt(4)),
                         (rs.getDate(5) != null ? rs.getDate(5).toLocalDate() : null),
@@ -90,7 +90,7 @@ public class SistemaOsRepository {
 
     public boolean excluirOs(int id_os) {
         conn = util.conexao();
-        String sql = "DELETE FROM ordens_servico WHERE id = ?";
+        String sql = "UPDATE ordens_servico set status = 'Excluida' WHERE id = ?";
         try {
             ppst = conn.prepareStatement(sql);
             ppst.setInt(1, id_os);
@@ -100,6 +100,7 @@ public class SistemaOsRepository {
             conn.close();
             return true;
         } catch (SQLException ex) {
+            System.out.println(ex);
             return false;
         }
     }

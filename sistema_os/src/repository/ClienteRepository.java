@@ -51,7 +51,7 @@ public class ClienteRepository {
         }
     }
 
-    public Cliente BuscarClientePorID(int id) {
+    public Cliente buscarClientePorID(int id) {
         conn = util.conexao();
         String sql = "SELECT * FROM clientes WHERE id = ?;";
         try {
@@ -125,7 +125,7 @@ public class ClienteRepository {
         }
     }
 
-    public boolean excluirContato(String nomeDoCliente) {
+    public boolean excluirCliente(String nomeDoCliente) {
         conn = util.conexao();
         String sql = "delete from cliente where id =?";
         try {
