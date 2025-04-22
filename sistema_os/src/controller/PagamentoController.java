@@ -16,7 +16,7 @@ import service.PagamentoService;
  * @author Victor
  */
 public class PagamentoController extends javax.swing.JFrame {
-    
+
     PagamentoService pagamentoService = new PagamentoService();
     OrdemServico ordemServico;
     
@@ -34,19 +34,16 @@ public class PagamentoController extends javax.swing.JFrame {
     private void preencheValorTotal(OrdemServico ordemServico) {
         jtfValor.setText(ordemServico.getCusto_total().toString());
     }
-    
     public Pagamento lerDadosDoPagamento() {
-        
-        Pagamento pagamentoRegistrado = new Pagamento();
-        
+
+        Pagamento pagamentoRegistrado = new Pagamento();        
         pagamentoRegistrado.setValor(Integer.parseInt(jtfValor.getText()));
         pagamentoRegistrado.setMetodoPagamento(jcbMetodoPagamento.getSelectedItem().toString());
         pagamentoRegistrado.setData(LocalDate.now());
         pagamentoRegistrado.setOrdemServico(ordemServico);
-        
         return pagamentoRegistrado;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -167,6 +164,7 @@ public class PagamentoController extends javax.swing.JFrame {
     }//GEN-LAST:event_jbConfirmarActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jbCancelarActionPerformed
 
