@@ -105,8 +105,8 @@ public class SistemaOsController extends javax.swing.JFrame {
             jtOs.setValueAt(os.getStatus(), i, k++);
             jtOs.setValueAt(os.getDescricao_problema(), i, k++);
             jtOs.setValueAt(os.getSolucao(), i, k++);
-            jtOs.setValueAt(os.getCusto_total(), i, k++);
             jtOs.setValueAt(os.getPecasUsadas() != null ? os.getPecasUsadas().size() : "", i, k++);
+            jtOs.setValueAt(os.getCusto_total(), i, k++);
 
             i++;
         }
