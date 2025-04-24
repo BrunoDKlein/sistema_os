@@ -5,10 +5,16 @@
  */
 package service;
 
+import entity.OrdemServico;
+import repository.OrdemServicoRepository;
+
 /**
  *
  * @author admin
  */
 public class OrdemServicoService {
-    
+    OrdemServicoRepository ordemServicoRepository = new OrdemServicoRepository();
+    public boolean salvarOrdemServico(OrdemServico ordemServico) {
+        return ordemServicoRepository.salvarOrdemServico(ordemServico);
+    }
 }

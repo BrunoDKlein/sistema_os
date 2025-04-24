@@ -5,6 +5,7 @@
  */
 package controller;
 
+import entity.Aparelho;
 import entity.Cliente;
 import entity.OrdemServico;
 import entity.PecaUsada;
@@ -25,6 +26,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import service.ClienteService;
+import service.OrdemServicoService;
 import service.TecnicoService;
 
 /**
@@ -37,8 +39,11 @@ public class OrdemServicoController extends javax.swing.JFrame {
     private Timer timer = new Timer();
     ClienteService clienteService = new ClienteService();
     TecnicoService tecnicoService = new TecnicoService();
+    OrdemServicoService ordemServicoService = new OrdemServicoService();
     List<PecaUsada> pecasUsadas = new ArrayList<>();
     List<Cliente> filtroClientes = new ArrayList<>();
+    List<Tecnico> filtroTecnico = new ArrayList<>();
+    List<Aparelho> filtroAparelho = new ArrayList<>();
     private OrdemServico ordemServicoEditar;
     private OrdemServico ordemServicoSalvar;
 
@@ -204,7 +209,7 @@ public class OrdemServicoController extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jtPecasUsadas = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -552,11 +557,15 @@ public class OrdemServicoController extends javax.swing.JFrame {
     }//GEN-LAST:event_jbNovoAparelhoActionPerformed
 
     private void jcbAparelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAparelhoActionPerformed
-        // TODO add your handling code here:
+        if (jcbAparelho.getSelectedIndex() > -1) {
+            this.ordemServicoSalvar.setAparelho(this.filtroAparelho.get(jcbAparelho.getSelectedIndex()));
+        }
     }//GEN-LAST:event_jcbAparelhoActionPerformed
 
     private void jcbTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTecnicoActionPerformed
-        // TODO add your handling code here:
+        if (jcbTecnico.getSelectedIndex() > -1) {
+            this.ordemServicoSalvar.setTecnico(this.filtroTecnico.get(jcbTecnico.getSelectedIndex()));
+        }
     }//GEN-LAST:event_jcbTecnicoActionPerformed
 
     private void jcbTecnicoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbTecnicoKeyPressed
@@ -580,8 +589,12 @@ public class OrdemServicoController extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
-//    OrdemServico ordemServico = new OrdemServico(cliente, aparelho, tecnico, LocalDate.now(), "Aberta", jtaDescricao, jtaSolucao, calcularValorTotal());
-
+        ordemServicoSalvar.setData_abertura(LocalDate.now());
+        ordemServicoSalvar.setStatus("Aberta");
+        ordemServicoSalvar.setDescricao_problema(jtaDescricao.getText());
+        ordemServicoSalvar.setSolucao(jtaSolucao.getText());
+        ordemServicoSalvar.setCusto_total(calcularValorTotal());
+        ordemServicoService.salvarOrdemServico(ordemServicoSalvar);
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
@@ -607,7 +620,6 @@ public class OrdemServicoController extends javax.swing.JFrame {
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jcbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbClienteActionPerformed
-        // TODO add your handling code here:
         if (jcbCliente.getSelectedIndex() > -1) {
             this.ordemServicoSalvar.setCliente(this.filtroClientes.get(jcbCliente.getSelectedIndex()));
         }
