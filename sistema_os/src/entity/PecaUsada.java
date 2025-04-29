@@ -10,22 +10,25 @@ package entity;
  * @author Escola
  */
 public class PecaUsada {
-      private OrdemServico ordemServico;
-      private String descricao;
-      private int quantidade;
-      private double precoUnitario;
-      private int id;
+
+    private int id;
+    private OrdemServico ordemServico;
+    private String descricao;
+    private int quantidade;
+    private double precoUnitario;
+    private double precoDeCusto;
 
     public PecaUsada() {
     }
 
-    public PecaUsada(String descricao, int quantidade, double precoUnitario, int id) {
+    public PecaUsada(int id, OrdemServico ordemServico, String descricao, int quantidade, double precoUnitario, double precoDeCusto) {
+        this.id = id;
+        this.ordemServico = ordemServico;
         this.descricao = descricao;
         this.quantidade = quantidade;
         this.precoUnitario = precoUnitario;
-        this.id = id;
+        this.precoDeCusto = precoDeCusto;
     }
-    
     
 
     public String getDescricao() {
@@ -52,17 +55,20 @@ public class PecaUsada {
         this.precoUnitario = precoUnitario;
     }
 
+    public double getPrecoDeCusto() {
+        return precoDeCusto;
+    }
+
+    public void setPrecoDeCusto(double precoDeCusto) {
+        this.precoDeCusto = precoDeCusto;
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "PecasUsadas{" + "descricao=" + descricao + ", quantidade=" + quantidade + ", precoUnitario=" + precoUnitario + ", id=" + id + '}';
     }
 
     public OrdemServico getOrdemServico() {
@@ -73,6 +79,10 @@ public class PecaUsada {
         this.ordemServico = ordemServico;
     }
 
+    @Override
+    public String toString() {
+        return "PecaUsada{" + "id=" + id + ", ordemServico=" + ordemServico + ", descricao=" + descricao + ", quantidade=" + quantidade + ", precoUnitario=" + precoUnitario + ", precoDeCusto=" + precoDeCusto + '}';
+    }
     
     
 }

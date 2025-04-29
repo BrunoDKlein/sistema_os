@@ -5,6 +5,7 @@
  */
 package repository;
 
+import entity.OrdemServico;
 import entity.PecaUsada;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,23 +27,26 @@ public class PecaUsadaRepository {
     private final UtilDb util = new UtilDb();
     Connection conn;
     PreparedStatement ppst;
+    SistemaOsRepository osRepository = new SistemaOsRepository();
     
     public PecaUsada salvarPeca(PecaUsada pecasUsadas){
         System.out.println("e");
         conn = util.conexao();
         String db = "INSERT INTO pecas_usadas("
+                + "id_os, "
                 + "descricao, "
                 + "quantidade, "
                 + "preco_unitario, "
-                + "id_os) "
-                + "VALUES (?,?,?,?)";
+                + "preco_de_custo)"
+                + "VALUES (?,?,?,?,?)";
         
         try {
             ppst = conn.prepareStatement(db);
             ppst.setString(1, pecasUsadas.getDescricao());
             ppst.setInt(2, pecasUsadas.getQuantidade());
             ppst.setDouble(3, pecasUsadas.getPrecoUnitario());
-            ppst.setInt(4, pecasUsadas.getId());
+            ppst.setDouble(4, pecasUsadas.getPrecoDeCusto());
+            ppst.setInt(5, pecasUsadas.getId());
             
             ppst.executeUpdate();
             ppst.close();
@@ -62,7 +66,8 @@ public class PecaUsadaRepository {
          
             ResultSet rs = ppst.executeQuery();
             while (rs.next()) {
-                return new PecaUsada(rs.getString(2), rs.getInt(3), rs.getDouble(4), rs.getInt(5));
+                return new PecaUsada(rs.getInt(1), osRepository.buscarOsPorId(rs.getInt(2)), rs.getString(3), rs.getInt(4), 
+                        rs.getDouble(5), rs.getDouble(6));
             }
             
             ppst.close();
@@ -86,8 +91,8 @@ public class PecaUsadaRepository {
             ppst.setInt(1, id_os);
             ResultSet rs = ppst.executeQuery();
             while (rs.next()) {
-                PecaUsada pecasUsadas = new PecaUsada(rs.getString(2), rs.getInt(3), rs.getDouble(4),
-                        rs.getInt(5));
+                PecaUsada pecasUsadas = new PecaUsada(rs.getInt(1), osRepository.buscarOsPorId(rs.getInt(2)), rs.getString(3), rs.getInt(4),
+                        rs.getDouble(5), rs.getDouble(6));
                 pecasDaLista.add(pecasUsadas);
             }
             

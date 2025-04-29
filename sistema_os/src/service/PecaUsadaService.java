@@ -28,6 +28,9 @@ public class PecaUsadaService {
         if (pecasUsadas.getPrecoUnitario() < 1) {
             throw new NullPointerException("É necessário informar um preço unitário.");
         }
+        if (pecasUsadas.getPrecoDeCusto() < 1) {
+            throw new NullPointerException("É necessário informar um preço de custo.");
+        }
 
         return pecasUsadasRepository.salvarPeca(pecasUsadas);
     }
