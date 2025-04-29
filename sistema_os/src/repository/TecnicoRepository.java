@@ -102,7 +102,7 @@ public class TecnicoRepository {
         String sql = "update tecnicos set "
                 + "nome = ?, "
                 + "telefone = ?, "
-                + "email=?, "
+                + "email=? "
                 + "where id = ?; ";
         try {
             ppst = conn.prepareStatement(sql);

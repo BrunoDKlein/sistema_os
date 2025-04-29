@@ -27,6 +27,12 @@ public class TecnicoService {
          System.out.println("service");
           return tecnicoRepository.buscarTecnicosPorNome(nome);
      }
+public Tecnico buscarTecnicoPorID(int id) {
+        return tecnicoRepository.BuscarTecnicoPorID(id);
+}
 
+public Tecnico editarTecnico(Tecnico tecnico) {
+    return tecnicoRepository.editarTecnico(tecnico);
+}
      
 }
