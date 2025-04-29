@@ -107,7 +107,7 @@ public class SistemaOsController extends javax.swing.JFrame {
             jtOs.setValueAt(os.getStatus(), i, k++);
             jtOs.setValueAt(os.getDescricao_problema(), i, k++);
             jtOs.setValueAt(os.getSolucao(), i, k++);
-            jtOs.setValueAt(os.getPecasUsadas() != null ? os.getPecasUsadas().size() : "", i, k++);
+            jtOs.setValueAt(!os.getPecasUsadas().isEmpty() ? os.getPecasUsadas().size() : "", i, k++);
             jtOs.setValueAt(os.getCusto_total(), i, k++);
 
             i++;
@@ -465,7 +465,7 @@ public class SistemaOsController extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(rootPane, ordemServico.getSolucao(), "SOLUÇÃO", 1);
                     break;
                 case 9:
-                    JOptionPane.showMessageDialog(rootPane, ordemServico.getPecasUsadas(), "PEÇAS USADAS", 1);
+                    JOptionPane.showMessageDialog(rootPane, (!ordemServico.getPecasUsadas().isEmpty() ? ordemServico.getPecasUsadas() : "Não existem peças usadas"), "PEÇAS USADAS", 1);
                     break;
                 default:
                     break;
