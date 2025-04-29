@@ -55,10 +55,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiEditarTecnicoActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiEcluirTecnico">
+            <MenuItem class="javax.swing.JMenuItem" name="jmiRelatorioTecnico">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Excluir T&#xe9;cnico"/>
+                <Property name="text" type="java.lang.String" value="Relatorio T&#xe9;cnicos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiRelatorioTecnicoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator2">
             </MenuItem>
