@@ -34,6 +34,7 @@ public class SistemaOsController extends javax.swing.JFrame {
     ClienteService clienteService = new ClienteService();
     TecnicoService tecnicoService = new TecnicoService();
     AparelhoService aparelhoService = new AparelhoService();
+
     /**
      * Creates new form SistemaOsController
      */
@@ -154,6 +155,7 @@ public class SistemaOsController extends javax.swing.JFrame {
         jmiRelatorioTecnico = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jmiFazerPagamento = new javax.swing.JMenuItem();
+        jmiRelatorioPagamento = new javax.swing.JMenuItem();
         jmiCadastrarAparelho = new javax.swing.JMenuItem();
         jmiEditarAparelho = new javax.swing.JMenuItem();
         jmiRelatorioAparelhos = new javax.swing.JMenuItem();
@@ -326,6 +328,14 @@ public class SistemaOsController extends javax.swing.JFrame {
             }
         });
         jmFazerPagamento.add(jmiFazerPagamento);
+
+        jmiRelatorioPagamento.setText("Relatório de Pagamentos");
+        jmiRelatorioPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRelatorioPagamentoActionPerformed(evt);
+            }
+        });
+        jmFazerPagamento.add(jmiRelatorioPagamento);
 
         jmiCadastrarAparelho.setText("Cadastrar Aparelho");
         jmiCadastrarAparelho.addActionListener(new java.awt.event.ActionListener() {
@@ -506,20 +516,32 @@ int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
 //            new TecnicoController(tecnico).setVisible(true);
 //        }  
     }//GEN-LAST:event_jmiEditarTecnicoActionPerformed
-  
+
     private void jmiCadastrarAparelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadastrarAparelhoActionPerformed
         new AparelhoController().setVisible(true);
-        
+
     }//GEN-LAST:event_jmiCadastrarAparelhoActionPerformed
 
     private void jmiEditarAparelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditarAparelhoActionPerformed
-         int id_aparelho = Integer.parseInt(JOptionPane.showInputDialog("Informe o id do aparelho que você deseja buscar"));
-        Aparelho aparelho = aparelhoService.buscarAparelhoPorId(id_aparelho);
-        if (aparelho == null) {
-           JOptionPane.showMessageDialog(null, "Aparelho não localizavel!");
-       } else {
-            new AparelhoController(aparelho).setVisible(true);
-        }
+
+        int id_aparelho = Integer.parseInt(JOptionPane.showInputDialog("id_cliente"));
+//        Aparelho aparelho = aparelhoService.buscarAparelhosPorCliente(null);
+//        if (aparelho == null) {
+//            JOptionPane.showMessageDialog(null, "Aparelho não localizavel!");
+//        } else {
+//            new AparelhoController(aparelho).setVisible(true);
+//        }
+    }//GEN-LAST:event_jmiEditarAparelhoActionPerformed
+
+    private void jmiRelatorioPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioPagamentoActionPerformed
+        
+        List<String> tituloColunas = Arrays.asList("Id","Id da Ordem de Serviço", "Data", "Valor","Método de Pagamento");
+        List<String> nomesAtributos = Arrays.asList("id", "id_ordemServico", "data", "valor", "metodoPagamento") ;
+
+       
+
+
+    
     }//GEN-LAST:event_jmiEditarAparelhoActionPerformed
 
 
@@ -535,6 +557,7 @@ int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
  
         
     }//GEN-LAST:event_jmiRelatorioTecnicoActionPerformed
+
 
 
     /**
@@ -604,8 +627,12 @@ int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
     private javax.swing.JMenuItem jmiEditarTecnico;
     private javax.swing.JMenuItem jmiExcluirCliente;
     private javax.swing.JMenuItem jmiFazerPagamento;
+
+    private javax.swing.JMenuItem jmiRelatorioPagamento;
+
     private javax.swing.JMenuItem jmiRelatorioAparelhos;
     private javax.swing.JMenuItem jmiRelatorioTecnico;
+
     private javax.swing.JTable jtOs;
     private service.PecaUsadaService pecasUsadasService1;
     // End of variables declaration//GEN-END:variables
