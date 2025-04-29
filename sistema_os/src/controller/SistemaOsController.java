@@ -9,6 +9,7 @@ import entity.Aparelho;
 import entity.Cliente;
 import entity.OrdemServico;
 import entity.Tecnico;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -150,7 +151,7 @@ public class SistemaOsController extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmiCadastrarTecnico = new javax.swing.JMenuItem();
         jmiEditarTecnico = new javax.swing.JMenuItem();
-        jmiEcluirTecnico = new javax.swing.JMenuItem();
+        jmiRelatorioTecnico = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jmiFazerPagamento = new javax.swing.JMenuItem();
         jmiCadastrarAparelho = new javax.swing.JMenuItem();
@@ -308,8 +309,13 @@ public class SistemaOsController extends javax.swing.JFrame {
         });
         jmFazerPagamento.add(jmiEditarTecnico);
 
-        jmiEcluirTecnico.setText("Excluir Técnico");
-        jmFazerPagamento.add(jmiEcluirTecnico);
+        jmiRelatorioTecnico.setText("Relatorio Técnicos");
+        jmiRelatorioTecnico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRelatorioTecnicoActionPerformed(evt);
+            }
+        });
+        jmFazerPagamento.add(jmiRelatorioTecnico);
         jmFazerPagamento.add(jSeparator2);
 
         jmiFazerPagamento.setText("Fazer Pagamento");
@@ -472,6 +478,16 @@ public class SistemaOsController extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiEditarClienteActionPerformed
 
     private void jmiEditarTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditarTecnicoActionPerformed
+int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
+        Tecnico tecnico = tecnicoService.buscarTecnicoPorID(id_tecnico);
+        if (tecnico == null) {
+            JOptionPane.showMessageDialog(null, "Tecnico não localizavel!");
+        } else {
+            new TecnicoControler(tecnico).setVisible(true);
+        }
+
+
+
 //         TODO add your handling code here:
 //       int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
 //        Tecnico tecnico = tecnicoService.buscarTecnicoPorId(id_tecnico);
@@ -496,6 +512,15 @@ public class SistemaOsController extends javax.swing.JFrame {
 //            new AparelhoController(aparelho).setVisible(true);
 //        }
     }//GEN-LAST:event_jmiEditarAparelhoActionPerformed
+
+    private void jmiRelatorioTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioTecnicoActionPerformed
+        // TODO add your handling code here:
+        List<String> tituloColunas = Arrays.asList("Id","Nome Tecnico","Telefone","Email");
+        List<String> tituloAtributos = Arrays.asList("id","nome","telefone","email");
+// RelatorioPDF<Tecnico> relatorio = new RelatorioPDF<>;
+ 
+        
+    }//GEN-LAST:event_jmiRelatorioTecnicoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -559,12 +584,12 @@ public class SistemaOsController extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiCadastrarAparelho;
     private javax.swing.JMenuItem jmiCadastrarCliente;
     private javax.swing.JMenuItem jmiCadastrarTecnico;
-    private javax.swing.JMenuItem jmiEcluirTecnico;
     private javax.swing.JMenuItem jmiEditarAparelho;
     private javax.swing.JMenuItem jmiEditarCliente;
     private javax.swing.JMenuItem jmiEditarTecnico;
     private javax.swing.JMenuItem jmiExcluirCliente;
     private javax.swing.JMenuItem jmiFazerPagamento;
+    private javax.swing.JMenuItem jmiRelatorioTecnico;
     private javax.swing.JTable jtOs;
     private service.PecaUsadaService pecasUsadasService1;
     // End of variables declaration//GEN-END:variables
