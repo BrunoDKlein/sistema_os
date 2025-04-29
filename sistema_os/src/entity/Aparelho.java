@@ -6,8 +6,7 @@ public class Aparelho {
     private String marca;
     private String modelo;
     private String descricao;
-    
-    
+
     public int getId() {
         return id;
     }
@@ -39,6 +38,9 @@ public class Aparelho {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+    
+    
+  
 
     public Aparelho() {
     }

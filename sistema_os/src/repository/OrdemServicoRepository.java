@@ -23,7 +23,7 @@ public class OrdemServicoRepository {
     Connection conn;
     PreparedStatement ppst;
     
-    public OrdemServico salvarOrdemServico(OrdemServico ordemServico) {
+    public boolean salvarOrdemServico(OrdemServico ordemServico) {
         conn = util.conexao();
         String sql = "INSERT INTO ordens_servico("
                 + "id_cliente,"
@@ -48,9 +48,9 @@ public class OrdemServicoRepository {
             ppst.executeUpdate();
             ppst.close();
             conn.close();
-            return ordemServico;
+            return true;
         } catch (SQLException ex) {
-            return null;
+            return false;
         }
     }
 }

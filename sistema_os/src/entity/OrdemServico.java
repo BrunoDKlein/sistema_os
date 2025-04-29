@@ -30,7 +30,7 @@ public class OrdemServico {
     public OrdemServico() {
     }
 
-    public OrdemServico(int id, Cliente cliente, Aparelho aparelho, Tecnico tecnico, LocalDate data_abertura, LocalDate data_fechamento, String status, String descricao_problema, String solucao, Double custo_total) {
+    public OrdemServico(int id, Cliente cliente, Aparelho aparelho, Tecnico tecnico, LocalDate data_abertura, LocalDate data_fechamento, String status, String descricao_problema, String solucao, Double custo_total, List<PecaUsada> pecasUsadas) {
         this.id = id;
         this.cliente = cliente;
         this.aparelho = aparelho;
@@ -41,6 +41,7 @@ public class OrdemServico {
         this.descricao_problema = descricao_problema;
         this.solucao = solucao;
         this.custo_total = custo_total;
+        this.pecasUsadas = pecasUsadas;
     }
 
     public OrdemServico(Cliente cliente, Aparelho aparelho, Tecnico tecnico, LocalDate data_abertura, String status, String descricao_problema, String solucao, Double custo_total, List<PecaUsada> pecasUsadas) {
@@ -142,6 +143,5 @@ public class OrdemServico {
     public void setPecasUsadas(List<PecaUsada> pecasUsadas) {
         this.pecasUsadas = pecasUsadas;
     }
-    
 
 }
