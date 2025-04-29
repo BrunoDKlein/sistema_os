@@ -155,6 +155,7 @@ public class SistemaOsController extends javax.swing.JFrame {
         jmiFazerPagamento = new javax.swing.JMenuItem();
         jmiCadastrarAparelho = new javax.swing.JMenuItem();
         jmiEditarAparelho = new javax.swing.JMenuItem();
+        jmiRelatorioAparelhos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("...::: Sistema de Controle de Ordens de Serviço - Técnica :::...");
@@ -336,6 +337,14 @@ public class SistemaOsController extends javax.swing.JFrame {
         });
         jmFazerPagamento.add(jmiEditarAparelho);
 
+        jmiRelatorioAparelhos.setText("Relatorio de Aparelhos");
+        jmiRelatorioAparelhos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRelatorioAparelhosActionPerformed(evt);
+            }
+        });
+        jmFazerPagamento.add(jmiRelatorioAparelhos);
+
         jMenuBar1.add(jmFazerPagamento);
 
         setJMenuBar(jMenuBar1);
@@ -488,14 +497,18 @@ public class SistemaOsController extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiCadastrarAparelhoActionPerformed
 
     private void jmiEditarAparelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditarAparelhoActionPerformed
-         int id_aparelho = Integer.parseInt(JOptionPane.showInputDialog("id_cliente"));
-//        Aparelho aparelho = aparelhoService.buscarAparelhosPorCliente(null);
-//        if (aparelho == null) {
-//            JOptionPane.showMessageDialog(null, "Aparelho não localizavel!");
-//        } else {
-//            new AparelhoController(aparelho).setVisible(true);
-//        }
+         int id_aparelho = Integer.parseInt(JOptionPane.showInputDialog("Informe o id do aparelho que você deseja buscar"));
+        Aparelho aparelho = aparelhoService.buscarAparelhoPorId(id_aparelho);
+        if (aparelho == null) {
+           JOptionPane.showMessageDialog(null, "Aparelho não localizavel!");
+       } else {
+            new AparelhoController(aparelho).setVisible(true);
+        }
     }//GEN-LAST:event_jmiEditarAparelhoActionPerformed
+
+    private void jmiRelatorioAparelhosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioAparelhosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmiRelatorioAparelhosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -565,6 +578,7 @@ public class SistemaOsController extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiEditarTecnico;
     private javax.swing.JMenuItem jmiExcluirCliente;
     private javax.swing.JMenuItem jmiFazerPagamento;
+    private javax.swing.JMenuItem jmiRelatorioAparelhos;
     private javax.swing.JTable jtOs;
     private service.PecaUsadaService pecasUsadasService1;
     // End of variables declaration//GEN-END:variables
