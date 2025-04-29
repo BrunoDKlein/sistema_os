@@ -16,37 +16,36 @@ import service.PagamentoService;
  * @author Victor
  */
 public class PagamentoController extends javax.swing.JFrame {
-    
+
     PagamentoService pagamentoService = new PagamentoService();
     OrdemServico ordemServico;
     
     public PagamentoController() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     
     public PagamentoController(OrdemServico ordemServico) {
         initComponents();
         this.ordemServico = ordemServico;
         preencheValorTotal(ordemServico);
+        this.setLocationRelativeTo(null);
         
     }
     
     private void preencheValorTotal(OrdemServico ordemServico) {
         jtfValor.setText(ordemServico.getCusto_total().toString());
     }
-    
     public Pagamento lerDadosDoPagamento() {
-        
-        Pagamento pagamentoRegistrado = new Pagamento();
-        
+
+        Pagamento pagamentoRegistrado = new Pagamento();        
         pagamentoRegistrado.setValor(Integer.parseInt(jtfValor.getText()));
         pagamentoRegistrado.setMetodoPagamento(jcbMetodoPagamento.getSelectedItem().toString());
         pagamentoRegistrado.setData(LocalDate.now());
         pagamentoRegistrado.setOrdemServico(ordemServico);
-        
         return pagamentoRegistrado;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -62,7 +61,7 @@ public class PagamentoController extends javax.swing.JFrame {
 
         jLabel1.setText("jLabel1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pagamentos");
 
         jbConfirmar.setText("Salvar");
@@ -167,6 +166,7 @@ public class PagamentoController extends javax.swing.JFrame {
     }//GEN-LAST:event_jbConfirmarActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jbCancelarActionPerformed
 

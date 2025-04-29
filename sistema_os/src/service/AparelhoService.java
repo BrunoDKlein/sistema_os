@@ -25,4 +25,10 @@ public class AparelhoService {
     public Aparelho editarAparelho(Aparelho aparelho) {
         return aparelhoRepository.editarAparelho(aparelho);//To change body of generated methods, choose Tools | Templates.
     }
+
+    public Aparelho buscarAparelhoPorId(int id_aparelho) {
+        return aparelhoRepository.editarAparelhoPorId(id_aparelho);
+    }
+
 }
+

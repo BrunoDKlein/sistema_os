@@ -5,6 +5,7 @@
  */
 package controller;
 
+import entity.Aparelho;
 import entity.Cliente;
 import entity.OrdemServico;
 import entity.PecaUsada;
@@ -25,6 +26,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import service.ClienteService;
+import service.OrdemServicoService;
 import service.TecnicoService;
 
 /**
@@ -32,11 +34,18 @@ import service.TecnicoService;
  * @author admin
  */
 public class OrdemServicoController extends javax.swing.JFrame {
+
     int linhaSelecionada;
     private Timer timer = new Timer();
     ClienteService clienteService = new ClienteService();
     TecnicoService tecnicoService = new TecnicoService();
+    OrdemServicoService ordemServicoService = new OrdemServicoService();
     List<PecaUsada> pecasUsadas = new ArrayList<>();
+    List<Cliente> filtroClientes = new ArrayList<>();
+    List<Tecnico> filtroTecnico = new ArrayList<>();
+    List<Aparelho> filtroAparelho = new ArrayList<>();
+    private OrdemServico ordemServicoEditar;
+    private OrdemServico ordemServicoSalvar;
 
     public OrdemServicoController() {
         initComponents();
@@ -45,7 +54,16 @@ public class OrdemServicoController extends javax.swing.JFrame {
         criaAcaoComboBox(jcbCliente, "clientes");
         criaAcaoComboBox(jcbTecnico, "tecnicos");
         criaAcaoComboBox(jcbAparelho, "aparelhos");
+    }
 
+    public OrdemServicoController(OrdemServico ordemServico) {
+        initComponents();
+        configurarLarguraColunas();
+        this.setLocationRelativeTo(null);
+        this.ordemServicoEditar = ordemServico;
+        criaAcaoComboBox(jcbCliente, "clientes");
+        criaAcaoComboBox(jcbTecnico, "tecnicos");
+        criaAcaoComboBox(jcbAparelho, "aparelhos");
     }
 
     private void criaAcaoComboBox(JComboBox combo, String tipoDados) {
@@ -90,7 +108,9 @@ public class OrdemServicoController extends javax.swing.JFrame {
     private List<String> buscarNoBanco(String tipoDados, String filtro) {
         switch (tipoDados) {
             case "clientes":
-                return clienteService.buscarClientes(filtro).stream().map(Cliente::getNome).collect(Collectors.toList());
+                this.filtroClientes.clear();
+                this.filtroClientes = clienteService.buscarClientes(filtro);
+                return this.filtroClientes.stream().map(Cliente::getNome).collect(Collectors.toList());
             case "tecnicos":
                 return tecnicoService.buscarTecnicosPorNome(filtro).stream().map(Tecnico::getNome).collect(Collectors.toList());
             case "aparelhos":
@@ -144,12 +164,12 @@ public class OrdemServicoController extends javax.swing.JFrame {
         }
         return false;
     }
-    
-    public double calcularValorTotal(){
+
+    public double calcularValorTotal() {
         double valorTotal = Double.parseDouble(jtfValorMaoDeObra.getText());
         for (PecaUsada pu : pecasUsadas) {
             valorTotal = valorTotal + (pu.getPrecoUnitario() * pu.getQuantidade());
-    }
+        }
         return valorTotal;
     }
 
@@ -189,7 +209,7 @@ public class OrdemServicoController extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jtPecasUsadas = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -537,11 +557,15 @@ public class OrdemServicoController extends javax.swing.JFrame {
     }//GEN-LAST:event_jbNovoAparelhoActionPerformed
 
     private void jcbAparelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAparelhoActionPerformed
-        // TODO add your handling code here:
+        if (jcbAparelho.getSelectedIndex() > -1) {
+            this.ordemServicoSalvar.setAparelho(this.filtroAparelho.get(jcbAparelho.getSelectedIndex()));
+        }
     }//GEN-LAST:event_jcbAparelhoActionPerformed
 
     private void jcbTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTecnicoActionPerformed
-        // TODO add your handling code here:
+        if (jcbTecnico.getSelectedIndex() > -1) {
+            this.ordemServicoSalvar.setTecnico(this.filtroTecnico.get(jcbTecnico.getSelectedIndex()));
+        }
     }//GEN-LAST:event_jcbTecnicoActionPerformed
 
     private void jcbTecnicoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbTecnicoKeyPressed
@@ -565,8 +589,12 @@ public class OrdemServicoController extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
-//    OrdemServico ordemServico = new OrdemServico(cliente, aparelho, tecnico, LocalDate.now(), "Aberta", jtaDescricao, jtaSolucao, calcularValorTotal());
-    
+        ordemServicoSalvar.setData_abertura(LocalDate.now());
+        ordemServicoSalvar.setStatus("Aberta");
+        ordemServicoSalvar.setDescricao_problema(jtaDescricao.getText());
+        ordemServicoSalvar.setSolucao(jtaSolucao.getText());
+        ordemServicoSalvar.setCusto_total(calcularValorTotal());
+        ordemServicoService.salvarOrdemServico(ordemServicoSalvar);
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
@@ -587,12 +615,14 @@ public class OrdemServicoController extends javax.swing.JFrame {
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
         if (existeUmaLinhaSelecionadaComPecaUsada()) {
-            new PecaUsadaController(pecasUsadas.get(linhaSelecionada)).setVisible(true);
+            new PecaUsadaController(this, pecasUsadas.get(linhaSelecionada)).setVisible(true);
         }
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jcbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbClienteActionPerformed
-        // TODO add your handling code here:
+        if (jcbCliente.getSelectedIndex() > -1) {
+            this.ordemServicoSalvar.setCliente(this.filtroClientes.get(jcbCliente.getSelectedIndex()));
+        }
     }//GEN-LAST:event_jcbClienteActionPerformed
 
     public void atualizarListaPecasUsadas(PecaUsada pecaUsada) {
@@ -602,7 +632,7 @@ public class OrdemServicoController extends javax.swing.JFrame {
     }
 
     public void editarListaPecasUsadas(PecaUsada pecaUsada) {
-        this.pecasUsadas.add(linhaSelecionada, pecaUsada);
+        this.pecasUsadas.set(linhaSelecionada, pecaUsada);
         limparTabela();
         preencheTabela(pecasUsadas);
     }

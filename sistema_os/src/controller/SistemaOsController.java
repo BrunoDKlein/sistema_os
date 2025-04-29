@@ -9,10 +9,15 @@ import entity.Aparelho;
 import entity.Cliente;
 import entity.OrdemServico;
 import entity.Tecnico;
+import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableCellRenderer;
 import service.AparelhoService;
 import service.ClienteService;
@@ -29,6 +34,7 @@ public class SistemaOsController extends javax.swing.JFrame {
     ClienteService clienteService = new ClienteService();
     TecnicoService tecnicoService = new TecnicoService();
     AparelhoService aparelhoService = new AparelhoService();
+
     /**
      * Creates new form SistemaOsController
      */
@@ -101,8 +107,8 @@ public class SistemaOsController extends javax.swing.JFrame {
             jtOs.setValueAt(os.getStatus(), i, k++);
             jtOs.setValueAt(os.getDescricao_problema(), i, k++);
             jtOs.setValueAt(os.getSolucao(), i, k++);
+            jtOs.setValueAt(!os.getPecasUsadas().isEmpty() ? os.getPecasUsadas().size() : "", i, k++);
             jtOs.setValueAt(os.getCusto_total(), i, k++);
-            jtOs.setValueAt(os.getPecasUsadas() != null ? os.getPecasUsadas().size() : "", i, k++);
 
             i++;
         }
@@ -146,13 +152,16 @@ public class SistemaOsController extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmiCadastrarTecnico = new javax.swing.JMenuItem();
         jmiEditarTecnico = new javax.swing.JMenuItem();
-        jmiEcluirTecnico = new javax.swing.JMenuItem();
+        jmiRelatorioTecnico = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jmiFazerPagamento = new javax.swing.JMenuItem();
+        jmiRelatorioPagamento = new javax.swing.JMenuItem();
         jmiCadastrarAparelho = new javax.swing.JMenuItem();
         jmiEditarAparelho = new javax.swing.JMenuItem();
+        jmiRelatorioAparelhos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("...::: Sistema de Controle de Ordens de Serviço - Técnica :::...");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -303,8 +312,13 @@ public class SistemaOsController extends javax.swing.JFrame {
         });
         jmFazerPagamento.add(jmiEditarTecnico);
 
-        jmiEcluirTecnico.setText("Excluir Técnico");
-        jmFazerPagamento.add(jmiEcluirTecnico);
+        jmiRelatorioTecnico.setText("Relatorio Técnicos");
+        jmiRelatorioTecnico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRelatorioTecnicoActionPerformed(evt);
+            }
+        });
+        jmFazerPagamento.add(jmiRelatorioTecnico);
         jmFazerPagamento.add(jSeparator2);
 
         jmiFazerPagamento.setText("Fazer Pagamento");
@@ -314,6 +328,14 @@ public class SistemaOsController extends javax.swing.JFrame {
             }
         });
         jmFazerPagamento.add(jmiFazerPagamento);
+
+        jmiRelatorioPagamento.setText("Relatório de Pagamentos");
+        jmiRelatorioPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRelatorioPagamentoActionPerformed(evt);
+            }
+        });
+        jmFazerPagamento.add(jmiRelatorioPagamento);
 
         jmiCadastrarAparelho.setText("Cadastrar Aparelho");
         jmiCadastrarAparelho.addActionListener(new java.awt.event.ActionListener() {
@@ -330,6 +352,14 @@ public class SistemaOsController extends javax.swing.JFrame {
             }
         });
         jmFazerPagamento.add(jmiEditarAparelho);
+
+        jmiRelatorioAparelhos.setText("Relatorio de Aparelhos");
+        jmiRelatorioAparelhos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRelatorioAparelhosActionPerformed(evt);
+            }
+        });
+        jmFazerPagamento.add(jmiRelatorioAparelhos);
 
         jMenuBar1.add(jmFazerPagamento);
 
@@ -407,8 +437,7 @@ public class SistemaOsController extends javax.swing.JFrame {
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
         if (linhaEstaSelecionada()) {
-
-//            new OrdemServicoController(lerQualOsEstaSelecionada()).setVisible(true);
+            new OrdemServicoController(lerQualOsEstaSelecionada()).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Para realizar essa ação, selecione uma ordem de serviço");
         }
@@ -436,7 +465,7 @@ public class SistemaOsController extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(rootPane, ordemServico.getSolucao(), "SOLUÇÃO", 1);
                     break;
                 case 9:
-                    JOptionPane.showMessageDialog(rootPane, ordemServico.getPecasUsadas(), "PEÇAS USADAS", 1);
+                    JOptionPane.showMessageDialog(rootPane, (!ordemServico.getPecasUsadas().isEmpty() ? ordemServico.getPecasUsadas() : "Não existem peças usadas"), "PEÇAS USADAS", 1);
                     break;
                 default:
                     break;
@@ -445,7 +474,7 @@ public class SistemaOsController extends javax.swing.JFrame {
     }//GEN-LAST:event_jtOsMouseClicked
 
     private void jmiFazerPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFazerPagamentoActionPerformed
-        new PagamentoController().setVisible(true);
+        new PagamentoController(lerQualOsEstaSelecionada()).setVisible(true);
     }//GEN-LAST:event_jmiFazerPagamentoActionPerformed
 
     private void jmiCadastrarTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadastrarTecnicoActionPerformed
@@ -468,6 +497,16 @@ public class SistemaOsController extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiEditarClienteActionPerformed
 
     private void jmiEditarTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditarTecnicoActionPerformed
+int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
+        Tecnico tecnico = tecnicoService.buscarTecnicoPorID(id_tecnico);
+        if (tecnico == null) {
+            JOptionPane.showMessageDialog(null, "Tecnico não localizavel!");
+        } else {
+            new TecnicoControler(tecnico).setVisible(true);
+        }
+
+
+
 //         TODO add your handling code here:
 //       int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
 //        Tecnico tecnico = tecnicoService.buscarTecnicoPorId(id_tecnico);
@@ -477,14 +516,15 @@ public class SistemaOsController extends javax.swing.JFrame {
 //            new TecnicoController(tecnico).setVisible(true);
 //        }  
     }//GEN-LAST:event_jmiEditarTecnicoActionPerformed
-  
+
     private void jmiCadastrarAparelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadastrarAparelhoActionPerformed
         new AparelhoController().setVisible(true);
-        
+
     }//GEN-LAST:event_jmiCadastrarAparelhoActionPerformed
 
     private void jmiEditarAparelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditarAparelhoActionPerformed
-         int id_aparelho = Integer.parseInt(JOptionPane.showInputDialog("id_cliente"));
+
+        int id_aparelho = Integer.parseInt(JOptionPane.showInputDialog("id_cliente"));
 //        Aparelho aparelho = aparelhoService.buscarAparelhosPorCliente(null);
 //        if (aparelho == null) {
 //            JOptionPane.showMessageDialog(null, "Aparelho não localizavel!");
@@ -492,6 +532,33 @@ public class SistemaOsController extends javax.swing.JFrame {
 //            new AparelhoController(aparelho).setVisible(true);
 //        }
     }//GEN-LAST:event_jmiEditarAparelhoActionPerformed
+
+    private void jmiRelatorioPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioPagamentoActionPerformed
+        
+        List<String> tituloColunas = Arrays.asList("Id","Id da Ordem de Serviço", "Data", "Valor","Método de Pagamento");
+        List<String> nomesAtributos = Arrays.asList("id", "id_ordemServico", "data", "valor", "metodoPagamento") ;
+
+       
+
+
+    
+    }//GEN-LAST:event_jmiEditarAparelhoActionPerformed
+
+
+    private void jmiRelatorioAparelhosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioAparelhosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmiRelatorioAparelhosActionPerformed
+
+    private void jmiRelatorioTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioTecnicoActionPerformed
+        // TODO add your handling code here:
+        List<String> tituloColunas = Arrays.asList("Id","Nome Tecnico","Telefone","Email");
+        List<String> tituloAtributos = Arrays.asList("id","nome","telefone","email");
+// RelatorioPDF<Tecnico> relatorio = new RelatorioPDF<>;
+ 
+        
+    }//GEN-LAST:event_jmiRelatorioTecnicoActionPerformed
+
+
 
     /**
      * @param args the command line arguments
@@ -518,8 +585,18 @@ public class SistemaOsController extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(SistemaOsController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
+        try {
+            //</editor-fold>
+            UIManager.setLookAndFeel("com.jtattoo.plaf.mint.MintLookAndFeel");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SistemaOsController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(SistemaOsController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(SistemaOsController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(SistemaOsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -545,12 +622,17 @@ public class SistemaOsController extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiCadastrarAparelho;
     private javax.swing.JMenuItem jmiCadastrarCliente;
     private javax.swing.JMenuItem jmiCadastrarTecnico;
-    private javax.swing.JMenuItem jmiEcluirTecnico;
     private javax.swing.JMenuItem jmiEditarAparelho;
     private javax.swing.JMenuItem jmiEditarCliente;
     private javax.swing.JMenuItem jmiEditarTecnico;
     private javax.swing.JMenuItem jmiExcluirCliente;
     private javax.swing.JMenuItem jmiFazerPagamento;
+
+    private javax.swing.JMenuItem jmiRelatorioPagamento;
+
+    private javax.swing.JMenuItem jmiRelatorioAparelhos;
+    private javax.swing.JMenuItem jmiRelatorioTecnico;
+
     private javax.swing.JTable jtOs;
     private service.PecaUsadaService pecasUsadasService1;
     // End of variables declaration//GEN-END:variables

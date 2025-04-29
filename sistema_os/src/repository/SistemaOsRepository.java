@@ -29,6 +29,7 @@ public class SistemaOsRepository {
     ClienteRepository clienteRepository = new ClienteRepository();
     AparelhoRepository aparelhoRepository = new AparelhoRepository();
     TecnicoRepository tecnicoRepository = new TecnicoRepository();
+    PecaUsadaRepository pecaUsadaRepository = new PecaUsadaRepository();
 
     public List<OrdemServico> buscarTodasAsOs() {
         conn = util.conexao();
@@ -40,7 +41,8 @@ public class SistemaOsRepository {
             ResultSet rs = ppst.executeQuery();
             while (rs.next()) {
                 listaDeOs.add(
-                        new OrdemServico(rs.getInt(1),
+                        new OrdemServico(
+                                rs.getInt(1),
                                 clienteRepository.buscarClientePorID(rs.getInt(2)),
                                 aparelhoRepository.BuscarAparelhoPorID(rs.getInt(3)),
                                 tecnicoRepository.BuscarTecnicoPorID(rs.getInt(4)),
@@ -49,7 +51,8 @@ public class SistemaOsRepository {
                                 rs.getString(7),
                                 rs.getString(8),
                                 rs.getString(9),
-                                rs.getDouble(10))
+                                rs.getDouble(10),
+                                pecaUsadaRepository.buscarPecaPorOrdemDeServico(rs.getInt(1)))
                 );
             }
             ppst.close();
@@ -78,7 +81,9 @@ public class SistemaOsRepository {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getString(9),
-                        rs.getDouble(10));
+                        rs.getDouble(10),
+                        pecaUsadaRepository.buscarPecaPorOrdemDeServico(rs.getInt(1))
+                );
             }
             ppst.close();
             conn.close();

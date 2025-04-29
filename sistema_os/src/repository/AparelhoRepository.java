@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static jdk.nashorn.internal.runtime.Debug.id;
 import resources.UtilDb;
 
 public class AparelhoRepository {
@@ -105,5 +106,24 @@ public class AparelhoRepository {
             System.out.println(ex);
             return null;
         }
+        
     }
-}
+    public Aparelho editarAparelhoPorId(int id_aparelho){
+        conn = util.conexao();
+        String sql = "SELECT * FROM aparelhos WHERE id = ?;";
+        try {
+            ppst = conn.prepareStatement(sql);
+            ppst.setInt(1, id_aparelho );
+            ResultSet rs = ppst.executeQuery();
+            while (rs.next()) {
+                return new Aparelho(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+            }
+            ppst.close();
+            conn.close();
+        } catch (SQLException ex) {
+            return null;
+        }
+        return null;
+    }
+    }
+
