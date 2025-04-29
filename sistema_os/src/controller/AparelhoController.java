@@ -18,16 +18,24 @@ public class AparelhoController extends javax.swing.JFrame {
 
     AparelhoService aparelhoService = new AparelhoService();
     public Aparelho aparelhoClasse;
+
     /**
      * Creates new form AparelhoController
      */
     public AparelhoController() {
         initComponents();
     }
-    
+
     public AparelhoController(Aparelho aparelho) {
         initComponents();
-        this.aparelhoClasse= aparelho;
+        this.aparelhoClasse = aparelho;
+        preencheDados(aparelho);
+        
+    }
+    private void preencheDados(Aparelho aparelho){
+        jtfDescrição.setText(aparelho.getDescricao());
+        jtfModelo.setText(aparelho.getModelo());
+        jcbMarca.setSelectedItem(aparelho.getMarca());
     }
 
     /**
@@ -51,7 +59,7 @@ public class AparelhoController extends javax.swing.JFrame {
         jbCancelar = new javax.swing.JButton();
         jbSalvar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -80,6 +88,7 @@ public class AparelhoController extends javax.swing.JFrame {
         jLabel5.setText("Descrição:");
 
         jtfDescrição.setColumns(20);
+        jtfDescrição.setLineWrap(true);
         jtfDescrição.setRows(5);
         jScrollPane1.setViewportView(jtfDescrição);
 
@@ -174,13 +183,6 @@ public class AparelhoController extends javax.swing.JFrame {
         aparelho.setMarca(jcbMarca.getSelectedItem().toString());
         aparelho.setModelo(jtfModelo.getText().toString());
         aparelho.setDescricao(jtfDescrição.getText().toString());
-        try {
-            if (aparelhoService.salvarAparelho(aparelho) != null) {
-                JOptionPane.showMessageDialog(null, "Aparelho salvo com sucesso.");
-            }
-        } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
 
         try {
 
@@ -190,10 +192,7 @@ public class AparelhoController extends javax.swing.JFrame {
                 aparelho.setId(aparelhoClasse.getId());
                 aparelhoSalvo = aparelhoService.editarAparelho(aparelho);
             } else {
-               if (aparelhoService.salvarAparelho(aparelho) != null) {
-                JOptionPane.showMessageDialog(null, "Aparelho salvo com sucesso.");
-            }
-
+                aparelhoSalvo = aparelhoService.salvarAparelho(aparelho);
             }
 
             if (aparelhoSalvo == null) {
@@ -205,7 +204,6 @@ public class AparelhoController extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         this.dispose();
-    
 
 
     }//GEN-LAST:event_jbSalvarActionPerformed
@@ -213,7 +211,7 @@ public class AparelhoController extends javax.swing.JFrame {
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_jbCancelarActionPerformed
-   public static void main(String args[]) {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -224,28 +222,24 @@ public class AparelhoController extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                
 
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(AparelhoController.class
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (InstantiationException ex) {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(AparelhoController.class
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(AparelhoController.class
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(AparelhoController.class
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
