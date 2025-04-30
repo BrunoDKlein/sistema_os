@@ -17,8 +17,7 @@ public class PecaUsadaService {
 
     PecaUsadaRepository pecasUsadasRepository = new PecaUsadaRepository();
 
-    public PecaUsada salvarPeca(PecaUsada pecasUsadas) throws NullPointerException {
-
+    public boolean pecaValida(PecaUsada pecasUsadas) throws NullPointerException {
         if (pecasUsadas.getDescricao() == null || pecasUsadas.getDescricao().equals("")) {
             throw new NullPointerException("É necessário informar uma descrição.");
         }
@@ -31,8 +30,7 @@ public class PecaUsadaService {
         if (pecasUsadas.getPrecoDeCusto() < 1) {
             throw new NullPointerException("É necessário informar um preço de custo.");
         }
-
-        return pecasUsadasRepository.salvarPeca(pecasUsadas);
+        return true;
     }
 
     public PecaUsada buscarPeca(int id) {

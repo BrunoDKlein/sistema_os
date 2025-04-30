@@ -47,7 +47,7 @@ public class OrdemServicoController extends javax.swing.JFrame {
     List<Tecnico> filtroTecnico = new ArrayList<>();
     List<Aparelho> filtroAparelho = new ArrayList<>();
     private OrdemServico ordemServicoEditar;
-    private OrdemServico ordemServicoSalvar;
+    private OrdemServico ordemServicoSalvar =  new OrdemServico();
 
     public OrdemServicoController() {
         initComponents();
@@ -598,6 +598,7 @@ public class OrdemServicoController extends javax.swing.JFrame {
         ordemServicoSalvar.setDescricao_problema(jtaDescricao.getText());
         ordemServicoSalvar.setSolucao(jtaSolucao.getText());
         ordemServicoSalvar.setCusto_total(calcularValorTotal());
+        ordemServicoSalvar.setPecasUsadas(this.pecasUsadas);
         ordemServicoService.salvarOrdemServico(ordemServicoSalvar);
     }//GEN-LAST:event_jbSalvarActionPerformed
 

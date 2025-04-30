@@ -50,7 +50,8 @@ CREATE TABLE pecas_usadas (
     id_os INT NOT NULL REFERENCES ordens_servico,
     descricao VARCHAR(100) NOT NULL,
     quantidade INT NOT NULL,
-    preco_unitario DECIMAL(10,2) NOT NULL
+    preco_unitario DECIMAL(10,2) NOT NULL,
+    preco_de_custo DECIMAL(10,2) NOT NULL
 );
 
 -- Criando a tabela de Pagamentos (Victor)

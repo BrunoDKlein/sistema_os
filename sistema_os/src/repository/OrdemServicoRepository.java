@@ -9,6 +9,7 @@ import entity.OrdemServico;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import resources.UtilDb;
@@ -18,11 +19,12 @@ import resources.UtilDb;
  * @author admin
  */
 public class OrdemServicoRepository {
-    
+
     private final UtilDb util = new UtilDb();
     Connection conn;
     PreparedStatement ppst;
-    
+    PecaUsadaRepository pecaUsadaRepository = new PecaUsadaRepository();
+
     public boolean salvarOrdemServico(OrdemServico ordemServico) {
         conn = util.conexao();
         String sql = "INSERT INTO ordens_servico("
@@ -46,7 +48,20 @@ public class OrdemServicoRepository {
             ppst.setString(7, ordemServico.getSolucao());
             ppst.setDouble(8, ordemServico.getCusto_total());
 
-            ppst.executeUpdate();
+            int rowsAffected = ppst.executeUpdate();
+
+            if (ordemServico.getPecasUsadas() != null) {
+                int generatedId = -1;
+                if (rowsAffected > 0) {
+                    try (ResultSet rs = ppst.getGeneratedKeys()) {
+                        if (rs.next()) {
+                            generatedId = rs.getInt(1);
+                            pecaUsadaRepository.salvarPecas(ordemServico.getPecasUsadas(), generatedId);
+                        }
+                    }
+                }
+            }
+
             ppst.close();
             conn.close();
             return true;
