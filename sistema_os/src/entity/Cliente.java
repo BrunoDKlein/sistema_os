@@ -21,12 +21,12 @@ public class Cliente {
 
     }
 
-    public Cliente(int i, String clientes_salvos, int i0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public Cliente(int aInt, String string, String string0, String string1, String string2, String string3) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Cliente(int id, String nome, String endereco, String telefone, String email) {
+        this.id = id;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        this.email = email;
     }
 
     public String getNome() {
@@ -71,14 +71,6 @@ public class Cliente {
 
     public Cliente(int id) {
         this.id = id;
-    }
-
-    public Cliente(int id, String nome, String endereco, String telefone, String email) {
-        this.id = id;
-        this.nome = nome;
-        this.endereco = endereco;
-        this.telefone = telefone;
-        this.email = email;
     }
 
 }

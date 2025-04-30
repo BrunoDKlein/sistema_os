@@ -94,26 +94,50 @@ public class ClienteRepository {
 
         return clientes;
     }
+    public List< Cliente> buscarTodosClientes() {
+        conn = util.conexao();
+        String sql = "SELECT * FROM clientes;";
+        List< Cliente> clientes = new ArrayList<>();
+        try {
+            ppst = conn.prepareStatement(sql);
+                     ResultSet rs = ppst.executeQuery();
+            while (rs.next()) {
+                Cliente cliente = new Cliente(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5));
+
+                clientes.add(cliente);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return clientes;
+    }
 
     public Cliente editarCliente(Cliente cliente) {
         System.out.println("aqui");
 
         conn = util.conexao();
-        String sql = "Update contato set "
-                + "where id = ?, "
+        String sql = "Update cliente set "
                 + "endereco = ?, "
                 + "telefone = ?, "
                 + "email = ?, "
-                + "nome = ?; ";
+                + "nome = ? "
+                + "where id = ?;";
 
         try {
 
             ppst = conn.prepareStatement(sql);
-            ppst.setInt(1, cliente.getId());
-            ppst.setString(2, cliente.getNome());
-            ppst.setString(3, cliente.getEndereco());
-            ppst.setString(4, cliente.getTelefone());
-            ppst.setString(5, cliente.getEmail());
+            ppst.setString(1, cliente.getNome());
+            ppst.setString(2, cliente.getEndereco());
+            ppst.setString(3, cliente.getTelefone());
+            ppst.setString(4, cliente.getEmail());
+            ppst.setInt(5, cliente.getId());
 
             ppst.executeUpdate();
             ppst.close();

@@ -26,7 +26,7 @@ public class ClienteService {
 
     }
 
-    public List<Cliente> buscarClientes(String nomeDoCliente) {
+    public List< Cliente> buscarClientes(String nomeDoCliente) {
         return clienteRepository.buscarClientes(nomeDoCliente);
     }
 
@@ -40,4 +40,7 @@ public class ClienteService {
      public Cliente buscarClientePorID(int id_cliente) {
         return clienteRepository.buscarClientePorID(id_cliente);
     }
+     public List< Cliente> buscarTodosClientes() {
+         return clienteRepository.buscarTodosClientes();
+     }
 }
