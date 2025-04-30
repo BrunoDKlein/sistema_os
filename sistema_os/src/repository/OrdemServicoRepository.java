@@ -34,16 +34,17 @@ public class OrdemServicoRepository {
                 + "descricao_problema,"
                 + "solucao,"
                 + "custo_total)"
-                + "VALUES(?,?,?,?,'Aberta',?,?,?)";
+                + "VALUES(?,?,?,?,?,?,?,?)";
         try {
             ppst = conn.prepareStatement(sql);
             ppst.setInt(1, ordemServico.getCliente().getId());
             ppst.setInt(2, ordemServico.getAparelho().getId());
             ppst.setInt(3, ordemServico.getTecnico().getId());
             ppst.setDate(4, Date.valueOf(ordemServico.getData_abertura()));
-            ppst.setString(5, ordemServico.getDescricao_problema());
-            ppst.setString(6, ordemServico.getSolucao());
-            ppst.setDouble(7, ordemServico.getCusto_total());
+            ppst.setString(5, ordemServico.getStatus());
+            ppst.setString(6, ordemServico.getDescricao_problema());
+            ppst.setString(7, ordemServico.getSolucao());
+            ppst.setDouble(8, ordemServico.getCusto_total());
 
             ppst.executeUpdate();
             ppst.close();
