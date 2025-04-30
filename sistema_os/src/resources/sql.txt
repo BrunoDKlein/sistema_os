@@ -89,10 +89,10 @@ INSERT INTO ordens_servico (id_cliente, id_aparelho, id_tecnico, data_abertura, 
 (3, 3, 3, '2025-04-08 14:45:00', 'Finalizada', 'Sem som em chamadas');
 
 -- Inserindo dados na tabela pecas_usadas
-INSERT INTO pecas_usadas (id_os, descricao, quantidade, preco_unitario) VALUES
-(1, 'Tela Galaxy S21', 1, 450.00),
-(2, 'Bateria iPhone 12', 1, 380.00),
-(3, 'Alto-falante Moto G60', 1, 120.00);
+INSERT INTO pecas_usadas (id_os, descricao, quantidade, preco_unitario, preco_de_custo) VALUES
+(1, 'Tela Galaxy S21', 1, 450.00, 350.00),
+(2, 'Bateria iPhone 12', 1, 380.00, 280.00),
+(3, 'Alto-falante Moto G60', 1, 120.00, 80.00);
 
 -- Inserindo dados na tabela pagamentos
 INSERT INTO pagamentos (id_os, valor, metodo) VALUES
