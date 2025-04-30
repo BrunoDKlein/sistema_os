@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
+import service.AparelhoService;
 import service.ClienteService;
 import service.OrdemServicoService;
 import service.TecnicoService;
@@ -39,6 +40,7 @@ public class OrdemServicoController extends javax.swing.JFrame {
     private Timer timer = new Timer();
     ClienteService clienteService = new ClienteService();
     TecnicoService tecnicoService = new TecnicoService();
+    AparelhoService aparelhoService = new AparelhoService();
     OrdemServicoService ordemServicoService = new OrdemServicoService();
     List<PecaUsada> pecasUsadas = new ArrayList<>();
     List<Cliente> filtroClientes = new ArrayList<>();
@@ -97,12 +99,14 @@ public class OrdemServicoController extends javax.swing.JFrame {
 
     private void configurarLarguraColunas() {
         ((DefaultTableCellRenderer) jtPecasUsadas.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
-        jtPecasUsadas.getColumnModel().getColumn(0).setPreferredWidth(jtPecasUsadas.getWidth() / 2);
-        jtPecasUsadas.getColumnModel().getColumn(1).setPreferredWidth(jtPecasUsadas.getWidth() / 5);
+        jtPecasUsadas.getColumnModel().getColumn(0).setPreferredWidth(jtPecasUsadas.getWidth() / 3);
+        jtPecasUsadas.getColumnModel().getColumn(1).setPreferredWidth(jtPecasUsadas.getWidth() / 7);
         jtPecasUsadas.getColumnModel().getColumn(2).setPreferredWidth(jtPecasUsadas.getWidth() / 5);
+        jtPecasUsadas.getColumnModel().getColumn(3).setPreferredWidth(jtPecasUsadas.getWidth() / 5);
         alinharColuna(0, SwingConstants.LEFT);
         alinharColuna(1, SwingConstants.CENTER);
         alinharColuna(2, SwingConstants.CENTER);
+        alinharColuna(3, SwingConstants.CENTER);
     }
 
     private List<String> buscarNoBanco(String tipoDados, String filtro) {
@@ -364,31 +368,31 @@ public class OrdemServicoController extends javax.swing.JFrame {
 
         jtPecasUsadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Peça", "Quantidade", "Valor Unitário"
+                "Peça", "Quantidade", "Valor Unitário", "Custo Unitário"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {

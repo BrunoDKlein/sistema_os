@@ -424,7 +424,6 @@ public class SistemaOsController extends javax.swing.JFrame {
     }//GEN-LAST:event_jbAtualizarActionPerformed
 
     private void jmiCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadastrarClienteActionPerformed
-
         new ClienteController().setVisible(true);
     }//GEN-LAST:event_jmiCadastrarClienteActionPerformed
 
