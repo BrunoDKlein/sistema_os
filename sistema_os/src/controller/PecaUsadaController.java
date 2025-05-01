@@ -191,17 +191,24 @@ public class PecaUsadaController extends javax.swing.JFrame {
         try {
             pecaUsada.setQuantidade(Integer.parseInt(jtfQuantidade.getText()));
             pecaUsada.setPrecoUnitario(Double.parseDouble(jtfPrecoUnitario.getText()));
-            pecaUsada.setPrecoUnitario(Double.parseDouble(jtfPrecoDeCusto.getText()));
+            pecaUsada.setPrecoDeCusto(Double.parseDouble(jtfPrecoDeCusto.getText()));
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(null, "Apenas números são permitidos.");
             return;
         }
-
-        if (EDITAR) {
+        
+        try {
+            pecasUsadasService.pecaValida(pecaUsada);
+            if (EDITAR) {
             ordemServicoController.editarListaPecasUsadas(pecaUsada);
         } else {
             ordemServicoController.atualizarListaPecasUsadas(pecaUsada);
         }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+        
         this.dispose();
 
     }//GEN-LAST:event_jbSalvarActionPerformed
