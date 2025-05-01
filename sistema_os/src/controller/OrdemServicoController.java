@@ -47,7 +47,7 @@ public class OrdemServicoController extends javax.swing.JFrame {
     List<Tecnico> filtroTecnico = new ArrayList<>();
     List<Aparelho> filtroAparelho = new ArrayList<>();
     private OrdemServico ordemServicoEditar;
-    private OrdemServico ordemServicoSalvar =  new OrdemServico();
+    private OrdemServico ordemServicoSalvar = new OrdemServico();
 
     public OrdemServicoController() {
         initComponents();
@@ -116,7 +116,9 @@ public class OrdemServicoController extends javax.swing.JFrame {
                 this.filtroClientes = clienteService.buscarClientes(filtro);
                 return this.filtroClientes.stream().map(Cliente::getNome).collect(Collectors.toList());
             case "tecnicos":
-                return tecnicoService.buscarTecnicosPorNome(filtro).stream().map(Tecnico::getNome).collect(Collectors.toList());
+                this.filtroTecnico.clear();
+                this.filtroTecnico = tecnicoService.buscarTecnicosPorNome(filtro);
+                return this.filtroTecnico.stream().map(Tecnico::getNome).collect(Collectors.toList());
             case "aparelhos":
 //                return aparelhoService.buscarAparelhos(filtro).stream().map(Aparelho::getModelo).collect(Collectors.toList());
         }
@@ -147,6 +149,7 @@ public class OrdemServicoController extends javax.swing.JFrame {
             jtPecasUsadas.setValueAt(pu.getDescricao(), i, k++);
             jtPecasUsadas.setValueAt(pu.getQuantidade(), i, k++);
             jtPecasUsadas.setValueAt(pu.getPrecoUnitario(), i, k++);
+            jtPecasUsadas.setValueAt(pu.getPrecoDeCusto(), i, k++);
 
             i++;
         }
@@ -599,7 +602,13 @@ public class OrdemServicoController extends javax.swing.JFrame {
         ordemServicoSalvar.setSolucao(jtaSolucao.getText());
         ordemServicoSalvar.setCusto_total(calcularValorTotal());
         ordemServicoSalvar.setPecasUsadas(this.pecasUsadas);
-        ordemServicoService.salvarOrdemServico(ordemServicoSalvar);
+        if (ordemServicoService.salvarOrdemServico(ordemServicoSalvar)) {
+            JOptionPane.showMessageDialog(null, "Ordem de serviço salva com sucesso!");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao salvar a ordem de serviço!");
+            this.dispose();
+        }
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
