@@ -22,7 +22,7 @@ public class PecaUsadaService {
             throw new NullPointerException("É necessário informar uma descrição.");
         }
         if (pecasUsadas.getQuantidade() < 1) {
-            throw new NullPointerException("É necessário informar uma quantidade positiva.");
+            throw new NullPointerException("É necessário informar uma quantidade.");
         }
         if (pecasUsadas.getPrecoUnitario() < 1) {
             throw new NullPointerException("É necessário informar um preço unitário.");
