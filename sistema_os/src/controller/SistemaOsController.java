@@ -8,7 +8,10 @@ package controller;
 import entity.Aparelho;
 import entity.Cliente;
 import entity.OrdemServico;
+import entity.Pagamento;
+import entity.PagamentoDTO;
 import entity.Tecnico;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,6 +25,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import resources.RelatorioPDF;
 import service.AparelhoService;
 import service.ClienteService;
+import service.PagamentoService;
 import service.SistemaOsService;
 import service.TecnicoService;
 
@@ -35,7 +39,7 @@ public class SistemaOsController extends javax.swing.JFrame {
     ClienteService clienteService = new ClienteService();
     TecnicoService tecnicoService = new TecnicoService();
     AparelhoService aparelhoService = new AparelhoService();
-
+    PagamentoService pagamentoService = new PagamentoService();
     /**
      * Creates new form SistemaOsController
      */
@@ -156,7 +160,7 @@ public class SistemaOsController extends javax.swing.JFrame {
         jmiRelatorioTecnico = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jmiFazerPagamento = new javax.swing.JMenuItem();
-        jmiRelatorioPagamento = new javax.swing.JMenuItem();
+        jmiRelatorioDePagamento = new javax.swing.JMenuItem();
         jmiCadastrarAparelho = new javax.swing.JMenuItem();
         jmiEditarAparelho = new javax.swing.JMenuItem();
         jmiRelatorioAparelhos = new javax.swing.JMenuItem();
@@ -335,13 +339,13 @@ public class SistemaOsController extends javax.swing.JFrame {
         });
         jmFazerPagamento.add(jmiFazerPagamento);
 
-        jmiRelatorioPagamento.setText("Relatório de Pagamentos");
-        jmiRelatorioPagamento.addActionListener(new java.awt.event.ActionListener() {
+        jmiRelatorioDePagamento.setText("Relatório de Pagamento");
+        jmiRelatorioDePagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiRelatorioPagamentoActionPerformed(evt);
+                jmiRelatorioDePagamentoActionPerformed(evt);
             }
         });
-        jmFazerPagamento.add(jmiRelatorioPagamento);
+        jmFazerPagamento.add(jmiRelatorioDePagamento);
 
         jmiCadastrarAparelho.setText("Cadastrar Aparelho");
         jmiCadastrarAparelho.addActionListener(new java.awt.event.ActionListener() {
@@ -536,6 +540,7 @@ public class SistemaOsController extends javax.swing.JFrame {
 //        }
     }//GEN-LAST:event_jmiEditarAparelhoActionPerformed
 
+
     private void jmiRelatorioPagamentoActionPerformed(java.awt.event.ActionEvent evt) {
 
         List<String> tituloColunas = Arrays.asList("Id", "Id da Ordem de Serviço", "Data", "Valor", "Método de Pagamento");
@@ -555,7 +560,9 @@ public class SistemaOsController extends javax.swing.JFrame {
 // RelatorioPDF<Tecnico> relatorio = new RelatorioPDF<>;
 
 
+
     }//GEN-LAST:event_jmiRelatorioTecnicoActionPerformed
+
 
     private void jmiExcluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExcluirClienteActionPerformed
         // TODO add your handling code here:
@@ -568,6 +575,21 @@ public class SistemaOsController extends javax.swing.JFrame {
         relatorio.gerarRelatorio("Relatóio De Clientes", tituloColunas, nomesAtribuidos, clienteService.buscarTodosClientes());
 
     }//GEN-LAST:event_jmiExcluirClienteActionPerformed
+
+    }//GEN-LAST:event_jmiRelatorioTecnicoActionPerformed
+
+    private void jmiRelatorioDePagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioDePagamentoActionPerformed
+        
+        
+        
+        List<String> tituloColunas = Arrays.asList("Id", "Id da Ordem de Serviço", "Data", "Valor", "Método de Pagamento");
+        List<String> nomesAtributos = Arrays.asList("id", "id_ordemServico", "data", "valor", "metodoPagamento");
+        RelatorioPDF<PagamentoDTO> relatorio = new RelatorioPDF<>();
+        List<Pagamento> ps = new ArrayList<>();
+        ps = pagamentoService.buscarPagamentos();
+        relatorio.gerarRelatorio("Relatório de Pagamentos", tituloColunas, nomesAtributos, PagamentoDTO.converteParaDTO(ps));
+    }//GEN-LAST:event_jmiRelatorioDePagamentoActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -638,6 +660,7 @@ public class SistemaOsController extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiFazerPagamento;
     private javax.swing.JMenuItem jmiRelatorioAparelhos;
     private javax.swing.JMenuItem jmiRelatorioPagamento;
+    private javax.swing.JMenuItem jmiRelatorioDePagamento;
     private javax.swing.JMenuItem jmiRelatorioTecnico;
     private javax.swing.JTable jtOs;
     private service.PecaUsadaService pecasUsadasService1;
