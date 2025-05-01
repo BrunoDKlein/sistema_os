@@ -86,6 +86,30 @@ public class AparelhoRepository {
         return aparelhosDosClientes;
     }
 
+    public List<Aparelho> buscarTodosAparelhos() {
+        conn = util.conexao();
+        String sql = " select * from aparelhos; ";
+        List<Aparelho> aparelhosDosClientes = new ArrayList<>();
+        try {
+            ppst = conn.prepareStatement(sql);
+            ResultSet rs = ppst.executeQuery();
+            while (rs.next()) {
+                Aparelho aparelho = new Aparelho(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4)
+                );
+
+                aparelhosDosClientes.add(aparelho);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AparelhoRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return aparelhosDosClientes;
+    }
+
     public Aparelho editarAparelho(Aparelho aparelho) {
         conn = util.conexao();
         String sql = "update aparelhos set "
@@ -106,14 +130,15 @@ public class AparelhoRepository {
             System.out.println(ex);
             return null;
         }
-        
+
     }
-    public Aparelho editarAparelhoPorId(int id_aparelho){
+
+    public Aparelho editarAparelhoPorId(int id_aparelho) {
         conn = util.conexao();
         String sql = "SELECT * FROM aparelhos WHERE id = ?;";
         try {
             ppst = conn.prepareStatement(sql);
-            ppst.setInt(1, id_aparelho );
+            ppst.setInt(1, id_aparelho);
             ResultSet rs = ppst.executeQuery();
             while (rs.next()) {
                 return new Aparelho(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
@@ -125,5 +150,29 @@ public class AparelhoRepository {
         }
         return null;
     }
-    }
 
+    public List<Aparelho> buscarAparelhoPorMarca(String marca) {
+        conn = util.conexao();
+        String sql = " select * from aparelhos where marca = ?";
+        List<Aparelho> aparelhosPorMarca = new ArrayList<>();
+        try {
+            ppst = conn.prepareStatement(sql);
+            ppst.setString(1, marca);
+            ResultSet rs = ppst.executeQuery();
+            while (rs.next()) {
+                Aparelho aparelho = new Aparelho(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4)
+                );
+
+                aparelhosPorMarca.add(aparelho);
+            }
+            return aparelhosPorMarca;
+        } catch (SQLException ex) {
+            Logger.getLogger(AparelhoRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+}
