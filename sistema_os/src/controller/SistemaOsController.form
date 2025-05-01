@@ -73,12 +73,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiFazerPagamentoActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiRelatorioPagamento">
+            <MenuItem class="javax.swing.JMenuItem" name="jmiRelatorioDePagamento">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Pagamentos"/>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Pagamento"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiRelatorioPagamentoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiRelatorioDePagamentoActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiCadastrarAparelho">

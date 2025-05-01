@@ -20,7 +20,7 @@ public class PagamentoDTO {
         this.metodoPagamento = metodoPagamento;
     }
 
-    public List<PagamentoDTO> converteParaDTO(List<Pagamento> listaPagamentos) {
+    public static List<PagamentoDTO> converteParaDTO(List<Pagamento> listaPagamentos) {
 
         List<PagamentoDTO> pagamentosDTO = new ArrayList<>();
 
