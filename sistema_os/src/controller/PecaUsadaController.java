@@ -47,6 +47,7 @@ public class PecaUsadaController extends javax.swing.JFrame {
         jtfDescricao.setText(pecaUsadaClasse.getDescricao());
         jtfQuantidade.setText(pecaUsadaClasse.getQuantidade() + "");
         jtfPrecoUnitario.setText(pecaUsadaClasse.getPrecoUnitario() + "");
+        jtfPrecoDeCusto.setText(pecaUsadaClasse.getPrecoDeCusto() + "");
     }
 
     /**
@@ -67,8 +68,10 @@ public class PecaUsadaController extends javax.swing.JFrame {
         jtfPrecoUnitario = new javax.swing.JTextField();
         jbSalvar = new javax.swing.JButton();
         jbCancelar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jtfPrecoDeCusto = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de peças usadas");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -112,13 +115,21 @@ public class PecaUsadaController extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Preço de Custo:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4))
@@ -130,12 +141,9 @@ public class PecaUsadaController extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(37, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addComponent(jbSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfPrecoDeCusto))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,11 +162,15 @@ public class PecaUsadaController extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfPrecoUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jtfPrecoDeCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbSalvar)
                     .addComponent(jbCancelar))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -179,6 +191,7 @@ public class PecaUsadaController extends javax.swing.JFrame {
         try {
             pecaUsada.setQuantidade(Integer.parseInt(jtfQuantidade.getText()));
             pecaUsada.setPrecoUnitario(Double.parseDouble(jtfPrecoUnitario.getText()));
+            pecaUsada.setPrecoUnitario(Double.parseDouble(jtfPrecoDeCusto.getText()));
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(null, "Apenas números são permitidos.");
             return;
@@ -225,6 +238,8 @@ public class PecaUsadaController extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -239,9 +254,11 @@ public class PecaUsadaController extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbSalvar;
     private javax.swing.JTextField jtfDescricao;
+    private javax.swing.JTextField jtfPrecoDeCusto;
     private javax.swing.JTextField jtfPrecoUnitario;
     private javax.swing.JTextField jtfQuantidade;
     // End of variables declaration//GEN-END:variables

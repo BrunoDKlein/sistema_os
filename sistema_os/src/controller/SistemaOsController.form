@@ -34,8 +34,11 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiExcluirCliente">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Excluir Cliente"/>
+                <Property name="text" type="java.lang.String" value="Relatorio de Clientes"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiExcluirClienteActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
             </MenuItem>
@@ -71,6 +74,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiFazerPagamentoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiRelatorioDePagamento">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Pagamento"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiRelatorioDePagamentoActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiCadastrarAparelho">

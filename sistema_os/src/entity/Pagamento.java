@@ -11,7 +11,7 @@ public class Pagamento {
     private double valor;
     private String metodoPagamento;
 
-    public Pagamento(int id, Cliente cliente, OrdemServico ordemServico, LocalDate data, double valor, String metodoPagamento) {
+    public Pagamento(int id, OrdemServico ordemServico, LocalDate data, double valor, String metodoPagamento) {
         this.id = id;
         this.ordemServico = ordemServico;
         this.data = data;
