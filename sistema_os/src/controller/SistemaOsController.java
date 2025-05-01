@@ -539,9 +539,6 @@ public class SistemaOsController extends javax.swing.JFrame {
         } else {
             new AparelhoController(aparelho).setVisible(true);
         }
-
-        int id_aparelho = Integer.parseInt(JOptionPane.showInputDialog("id_cliente"));
-
     }//GEN-LAST:event_jmiEditarAparelhoActionPerformed
 
 
@@ -587,7 +584,7 @@ public class SistemaOsController extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jmiExcluirClienteActionPerformed
 
-    }//GEN-LAST:event_jmiRelatorioTecnicoActionPerformed
+                                                       
 
 
     private void jmiRelatorioDePagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioDePagamentoActionPerformed
@@ -603,7 +600,7 @@ public class SistemaOsController extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiRelatorioDePagamentoActionPerformed
 
 
-    }//GEN-LAST:event_jmiRelatorioTecnicoActionPerformed
+                                                       
 
     /**
      * @param args the command line arguments
