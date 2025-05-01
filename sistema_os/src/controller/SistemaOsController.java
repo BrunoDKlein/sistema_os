@@ -297,7 +297,12 @@ public class SistemaOsController extends javax.swing.JFrame {
         });
         jmFazerPagamento.add(jmiEditarCliente);
 
-        jmiExcluirCliente.setText("Excluir Cliente");
+        jmiExcluirCliente.setText("Relatorio de Clientes");
+        jmiExcluirCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiExcluirClienteActionPerformed(evt);
+            }
+        });
         jmFazerPagamento.add(jmiExcluirCliente);
         jmFazerPagamento.add(jSeparator1);
 
@@ -535,7 +540,14 @@ public class SistemaOsController extends javax.swing.JFrame {
 //        }
     }//GEN-LAST:event_jmiEditarAparelhoActionPerformed
 
-  
+
+    private void jmiRelatorioPagamentoActionPerformed(java.awt.event.ActionEvent evt) {
+
+        List<String> tituloColunas = Arrays.asList("Id", "Id da Ordem de Serviço", "Data", "Valor", "Método de Pagamento");
+        List<String> nomesAtributos = Arrays.asList("id", "id_ordemServico", "data", "valor", "metodoPagamento");
+
+    }
+
 
     private void jmiRelatorioAparelhosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioAparelhosActionPerformed
         // TODO add your handling code here:
@@ -547,6 +559,22 @@ public class SistemaOsController extends javax.swing.JFrame {
         List<String> tituloAtributos = Arrays.asList("id", "nome", "telefone", "email");
 // RelatorioPDF<Tecnico> relatorio = new RelatorioPDF<>;
 
+
+
+    }//GEN-LAST:event_jmiRelatorioTecnicoActionPerformed
+
+
+    private void jmiExcluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExcluirClienteActionPerformed
+        // TODO add your handling code here:
+        List<String> tituloColunas = Arrays.asList("Id", "Nome", "Email", "Telefone", "Endereço");
+
+        List<String> nomesAtribuidos = Arrays.asList("id", "nome", "telefone", "endereco", "email");
+        ClienteService clienteService = new ClienteService();
+
+        RelatorioPDF<Cliente> relatorio = new RelatorioPDF<>();
+        relatorio.gerarRelatorio("Relatóio De Clientes", tituloColunas, nomesAtribuidos, clienteService.buscarTodosClientes());
+
+    }//GEN-LAST:event_jmiExcluirClienteActionPerformed
 
     }//GEN-LAST:event_jmiRelatorioTecnicoActionPerformed
 
@@ -561,6 +589,7 @@ public class SistemaOsController extends javax.swing.JFrame {
         ps = pagamentoService.buscarPagamentos();
         relatorio.gerarRelatorio("Relatório de Pagamentos", tituloColunas, nomesAtributos, PagamentoDTO.converteParaDTO(ps));
     }//GEN-LAST:event_jmiRelatorioDePagamentoActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -630,6 +659,7 @@ public class SistemaOsController extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiExcluirCliente;
     private javax.swing.JMenuItem jmiFazerPagamento;
     private javax.swing.JMenuItem jmiRelatorioAparelhos;
+    private javax.swing.JMenuItem jmiRelatorioPagamento;
     private javax.swing.JMenuItem jmiRelatorioDePagamento;
     private javax.swing.JMenuItem jmiRelatorioTecnico;
     private javax.swing.JTable jtOs;
