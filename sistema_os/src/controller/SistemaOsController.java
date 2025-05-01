@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableCellRenderer;
+import resources.RelatorioPDF;
 import service.AparelhoService;
 import service.ClienteService;
 import service.SistemaOsService;
@@ -292,7 +293,12 @@ public class SistemaOsController extends javax.swing.JFrame {
         });
         jmFazerPagamento.add(jmiEditarCliente);
 
-        jmiExcluirCliente.setText("Excluir Cliente");
+        jmiExcluirCliente.setText("Relatorio de Clientes");
+        jmiExcluirCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiExcluirClienteActionPerformed(evt);
+            }
+        });
         jmFazerPagamento.add(jmiExcluirCliente);
         jmFazerPagamento.add(jSeparator1);
 
@@ -496,15 +502,13 @@ public class SistemaOsController extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiEditarClienteActionPerformed
 
     private void jmiEditarTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditarTecnicoActionPerformed
-int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
+        int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
         Tecnico tecnico = tecnicoService.buscarTecnicoPorID(id_tecnico);
         if (tecnico == null) {
             JOptionPane.showMessageDialog(null, "Tecnico não localizavel!");
         } else {
             new TecnicoControler(tecnico).setVisible(true);
         }
-
-
 
 //         TODO add your handling code here:
 //       int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
@@ -532,16 +536,12 @@ int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
 //        }
     }//GEN-LAST:event_jmiEditarAparelhoActionPerformed
 
-    private void jmiRelatorioPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioPagamentoActionPerformed
-        
-        List<String> tituloColunas = Arrays.asList("Id","Id da Ordem de Serviço", "Data", "Valor","Método de Pagamento");
-        List<String> nomesAtributos = Arrays.asList("id", "id_ordemServico", "data", "valor", "metodoPagamento") ;
+    private void jmiRelatorioPagamentoActionPerformed(java.awt.event.ActionEvent evt) {
 
-       
+        List<String> tituloColunas = Arrays.asList("Id", "Id da Ordem de Serviço", "Data", "Valor", "Método de Pagamento");
+        List<String> nomesAtributos = Arrays.asList("id", "id_ordemServico", "data", "valor", "metodoPagamento");
 
-
-    
-    }//GEN-LAST:event_jmiEditarAparelhoActionPerformed
+    }
 
 
     private void jmiRelatorioAparelhosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioAparelhosActionPerformed
@@ -550,14 +550,24 @@ int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
 
     private void jmiRelatorioTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioTecnicoActionPerformed
         // TODO add your handling code here:
-        List<String> tituloColunas = Arrays.asList("Id","Nome Tecnico","Telefone","Email");
-        List<String> tituloAtributos = Arrays.asList("id","nome","telefone","email");
+        List<String> tituloColunas = Arrays.asList("Id", "Nome Tecnico", "Telefone", "Email");
+        List<String> tituloAtributos = Arrays.asList("id", "nome", "telefone", "email");
 // RelatorioPDF<Tecnico> relatorio = new RelatorioPDF<>;
- 
-        
+
+
     }//GEN-LAST:event_jmiRelatorioTecnicoActionPerformed
 
+    private void jmiExcluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExcluirClienteActionPerformed
+        // TODO add your handling code here:
+        List<String> tituloColunas = Arrays.asList("Id", "Nome", "Email", "Telefone", "Endereço");
 
+        List<String> nomesAtribuidos = Arrays.asList("id", "nome", "telefone", "endereco", "email");
+        ClienteService clienteService = new ClienteService();
+
+        RelatorioPDF<Cliente> relatorio = new RelatorioPDF<>();
+        relatorio.gerarRelatorio("Relatóio De Clientes", tituloColunas, nomesAtribuidos, clienteService.buscarTodosClientes());
+
+    }//GEN-LAST:event_jmiExcluirClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -626,12 +636,9 @@ int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
     private javax.swing.JMenuItem jmiEditarTecnico;
     private javax.swing.JMenuItem jmiExcluirCliente;
     private javax.swing.JMenuItem jmiFazerPagamento;
-
-    private javax.swing.JMenuItem jmiRelatorioPagamento;
-
     private javax.swing.JMenuItem jmiRelatorioAparelhos;
+    private javax.swing.JMenuItem jmiRelatorioPagamento;
     private javax.swing.JMenuItem jmiRelatorioTecnico;
-
     private javax.swing.JTable jtOs;
     private service.PecaUsadaService pecasUsadasService1;
     // End of variables declaration//GEN-END:variables

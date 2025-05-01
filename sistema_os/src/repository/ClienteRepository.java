@@ -94,13 +94,14 @@ public class ClienteRepository {
 
         return clientes;
     }
+
     public List< Cliente> buscarTodosClientes() {
         conn = util.conexao();
         String sql = "SELECT * FROM clientes;";
         List< Cliente> clientes = new ArrayList<>();
         try {
             ppst = conn.prepareStatement(sql);
-                     ResultSet rs = ppst.executeQuery();
+            ResultSet rs = ppst.executeQuery();
             while (rs.next()) {
                 Cliente cliente = new Cliente(
                         rs.getInt(1),

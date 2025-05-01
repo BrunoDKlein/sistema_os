@@ -28,13 +28,13 @@ public class ClienteController extends javax.swing.JFrame {
 
     public void prencherDados() {
         jTNome.setText(clienteClasse.getNome());
-      
+
         jtEmail.setText(clienteClasse.getEmail());
-        
+
         jtEndereco.setText(clienteClasse.getEndereco());
-       
-        jtTelefone.setText(clienteClasse.toString());
-     
+
+        jtTelefone.setText(clienteClasse.getTelefone());
+
     }
 
     /**

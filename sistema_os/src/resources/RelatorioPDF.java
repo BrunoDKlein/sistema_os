@@ -57,7 +57,10 @@ public class RelatorioPDF<T> {
             e.printStackTrace();
         } finally {
             document.close();
-            abrirArquivo(c);
+            if (c != null) {
+                abrirArquivo(c);
+            }
+
         }
     }
 

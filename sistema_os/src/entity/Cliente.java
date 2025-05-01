@@ -13,21 +13,23 @@ public class Cliente {
 
     private int id;
     private String nome;
-    private String endereco;
     private String telefone;
     private String email;
+    private String endereco;
 
     public Cliente() {
 
     }
 
-    public Cliente(int id, String nome, String endereco, String telefone, String email) {
+    public Cliente(int id, String nome, String telefone, String email, String endereco) {
         this.id = id;
         this.nome = nome;
-        this.endereco = endereco;
         this.telefone = telefone;
         this.email = email;
+        this.endereco = endereco;
     }
+
+    
 
     public String getNome() {
         return nome;
