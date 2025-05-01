@@ -40,6 +40,7 @@ public class SistemaOsController extends javax.swing.JFrame {
     TecnicoService tecnicoService = new TecnicoService();
     AparelhoService aparelhoService = new AparelhoService();
     PagamentoService pagamentoService = new PagamentoService();
+
     /**
      * Creates new form SistemaOsController
      */
@@ -531,13 +532,16 @@ public class SistemaOsController extends javax.swing.JFrame {
 
     private void jmiEditarAparelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditarAparelhoActionPerformed
 
+        int id_aparelho = Integer.parseInt(JOptionPane.showInputDialog("Informe o id do aparelho que você deseja buscar"));
+        Aparelho aparelho = aparelhoService.buscarAparelhoPorId(id_aparelho);
+        if (aparelho == null) {
+            JOptionPane.showMessageDialog(null, "Aparelho não localizavel!");
+        } else {
+            new AparelhoController(aparelho).setVisible(true);
+        }
+
         int id_aparelho = Integer.parseInt(JOptionPane.showInputDialog("id_cliente"));
-//        Aparelho aparelho = aparelhoService.buscarAparelhosPorCliente(null);
-//        if (aparelho == null) {
-//            JOptionPane.showMessageDialog(null, "Aparelho não localizavel!");
-//        } else {
-//            new AparelhoController(aparelho).setVisible(true);
-//        }
+
     }//GEN-LAST:event_jmiEditarAparelhoActionPerformed
 
 
@@ -550,7 +554,14 @@ public class SistemaOsController extends javax.swing.JFrame {
 
 
     private void jmiRelatorioAparelhosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioAparelhosActionPerformed
-        // TODO add your handling code here:
+        List<String> tituloColunas = Arrays.asList("Id", "Marca", "Modelo", "Descrição");
+        List<String> nomesAtributos = Arrays.asList("id", "marca", "modelo", "descrição");
+        
+        AparelhoService aparelhoService = new AparelhoService();
+        RelatorioPDF<Aparelho> relatorio = new RelatorioPDF<>();
+        relatorio.gerarRelatorio("Relatório de Técnicos", tituloColunas, nomesAtributos, aparelhoService.buscarTodosAparelhos());
+        
+        
     }//GEN-LAST:event_jmiRelatorioAparelhosActionPerformed
 
     private void jmiRelatorioTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioTecnicoActionPerformed
@@ -578,6 +589,7 @@ public class SistemaOsController extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jmiRelatorioTecnicoActionPerformed
 
+
     private void jmiRelatorioDePagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioDePagamentoActionPerformed
         
         
@@ -590,6 +602,8 @@ public class SistemaOsController extends javax.swing.JFrame {
         relatorio.gerarRelatorio("Relatório de Pagamentos", tituloColunas, nomesAtributos, PagamentoDTO.converteParaDTO(ps));
     }//GEN-LAST:event_jmiRelatorioDePagamentoActionPerformed
 
+
+    }//GEN-LAST:event_jmiRelatorioTecnicoActionPerformed
 
     /**
      * @param args the command line arguments

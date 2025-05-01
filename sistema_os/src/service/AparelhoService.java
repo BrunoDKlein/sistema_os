@@ -30,5 +30,12 @@ public class AparelhoService {
         return aparelhoRepository.editarAparelhoPorId(id_aparelho);
     }
 
-}
+    public List<Aparelho> buscarTodosAparelhos() {
+        return aparelhoRepository.buscarTodosAparelhos();
+    }
 
+    public List<Aparelho> buscarAparelhoPorMarca(String marca) {
+        return aparelhoRepository.buscarAparelhoPorMarca(marca);
+    }
+    }
+ 

@@ -6,6 +6,7 @@ public class Aparelho {
     private String marca;
     private String modelo;
     private String descricao;
+    
 
     public int getId() {
         return id;
