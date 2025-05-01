@@ -54,7 +54,7 @@ public class PecaUsadaRepository {
             ppst.setInt(2, pecasUsadas.getQuantidade());
             ppst.setDouble(3, pecasUsadas.getPrecoUnitario());
             ppst.setDouble(4, pecasUsadas.getPrecoDeCusto());
-            ppst.setInt(5, pecasUsadas.getId());
+            ppst.setInt(5, id_os);
 
             ppst.executeUpdate();
             ppst.close();
