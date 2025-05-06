@@ -149,5 +149,32 @@ public class TecnicoRepository {
         return null;
     }
 
+    
+    public List<Tecnico> buscarTecnicos() {
+        conn = util.conexao();
+        String sql = "SELECT * FROM tecnicos ORDER BY nome";
+
+        List<Tecnico> listaDeTecnicos = new ArrayList<>();
+        try {
+            ppst = conn.prepareStatement(sql);
+            ResultSet rs = ppst.executeQuery();
+
+            while (rs.next()) {
+                Tecnico tecnico = new Tecnico(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4));
+
+                listaDeTecnicos.add(tecnico);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TecnicoRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaDeTecnicos;
+
+    }
 
 }

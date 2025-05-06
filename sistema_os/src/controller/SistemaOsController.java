@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableCellRenderer;
+import resources.RelatorioPDF;
 import service.AparelhoService;
 import service.ClienteService;
 import service.SistemaOsService;
@@ -34,6 +35,7 @@ public class SistemaOsController extends javax.swing.JFrame {
     ClienteService clienteService = new ClienteService();
     TecnicoService tecnicoService = new TecnicoService();
     AparelhoService aparelhoService = new AparelhoService();
+
     /**
      * Creates new form SistemaOsController
      */
@@ -478,15 +480,13 @@ public class SistemaOsController extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiEditarClienteActionPerformed
 
     private void jmiEditarTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditarTecnicoActionPerformed
-int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
+        int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
         Tecnico tecnico = tecnicoService.buscarTecnicoPorID(id_tecnico);
         if (tecnico == null) {
             JOptionPane.showMessageDialog(null, "Tecnico não localizavel!");
         } else {
             new TecnicoControler(tecnico).setVisible(true);
         }
-
-
 
 //         TODO add your handling code here:
 //       int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
@@ -497,14 +497,14 @@ int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
 //            new TecnicoController(tecnico).setVisible(true);
 //        }  
     }//GEN-LAST:event_jmiEditarTecnicoActionPerformed
-  
+
     private void jmiCadastrarAparelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadastrarAparelhoActionPerformed
         new AparelhoController().setVisible(true);
-        
+
     }//GEN-LAST:event_jmiCadastrarAparelhoActionPerformed
 
     private void jmiEditarAparelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditarAparelhoActionPerformed
-         int id_aparelho = Integer.parseInt(JOptionPane.showInputDialog("id_cliente"));
+        int id_aparelho = Integer.parseInt(JOptionPane.showInputDialog("id_cliente"));
 //        Aparelho aparelho = aparelhoService.buscarAparelhosPorCliente(null);
 //        if (aparelho == null) {
 //            JOptionPane.showMessageDialog(null, "Aparelho não localizavel!");
@@ -515,11 +515,13 @@ int id_tecnico = Integer.parseInt(JOptionPane.showInputDialog("id_tecnico"));
 
     private void jmiRelatorioTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioTecnicoActionPerformed
         // TODO add your handling code here:
-        List<String> tituloColunas = Arrays.asList("Id","Nome Tecnico","Telefone","Email");
-        List<String> tituloAtributos = Arrays.asList("id","nome","telefone","email");
-// RelatorioPDF<Tecnico> relatorio = new RelatorioPDF<>;
- 
-        
+        List<String> tituloColunas = Arrays.asList("Id", "Nome Tecnico", "Telefone", "Email");
+        List<String> tituloAtributos = Arrays.asList("id", "nome", "telefone", "email");
+        RelatorioPDF<Tecnico> relatorio = new RelatorioPDF<>();
+
+        relatorio.gerarRelatorio("Relatório de Técnicos", tituloColunas, tituloAtributos, tecnicoService.buscarTecnicos());
+
+
     }//GEN-LAST:event_jmiRelatorioTecnicoActionPerformed
 
     /**

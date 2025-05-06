@@ -23,6 +23,11 @@ public class TecnicoService {
 
     }
     
+    public List<Tecnico> buscarTecnicos() {
+        return tecnicoRepository.buscarTecnicos();
+    }
+    
+    
      public List<Tecnico> buscarTecnicosPorNome(String nome) {
          System.out.println("service");
           return tecnicoRepository.buscarTecnicosPorNome(nome);
