@@ -16,6 +16,7 @@ public class ClienteController extends javax.swing.JFrame {
 
     public ClienteController() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     public ClienteController(Cliente cliente) {
@@ -27,13 +28,13 @@ public class ClienteController extends javax.swing.JFrame {
 
     public void prencherDados() {
         jTNome.setText(clienteClasse.getNome());
-      
+
         jtEmail.setText(clienteClasse.getEmail());
-        
+
         jtEndereco.setText(clienteClasse.getEndereco());
-       
-        jtTelefone.setText(clienteClasse.toString());
-     
+
+        jtTelefone.setText(clienteClasse.getTelefone());
+
     }
 
     /**
@@ -189,9 +190,9 @@ public class ClienteController extends javax.swing.JFrame {
         try {
             if (jbcadastrar.getText().equals("Editar")) {
                 cliente.setId(clienteClasse.getId());
-                clienteSalvo = clienteServise.cadastrarCliente(cliente);
+                clienteSalvo = clienteServise.editarCliente(cliente);
             } else {
-                clienteSalvo = clienteServise.cadastrarCliente(cliente);
+                clienteSalvo = clienteServise.editarCliente(cliente);
             }
 
             if (clienteSalvo == null) {

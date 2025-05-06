@@ -414,14 +414,20 @@
         <Component class="javax.swing.JTable" name="jtPecasUsadas">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="3" rowCount="15">
+              <Table columnCount="4" rowCount="15">
                 <Column editable="false" title="Pe&#xe7;a" type="java.lang.String"/>
                 <Column editable="false" title="Quantidade" type="java.lang.Integer"/>
                 <Column editable="false" title="Valor Unit&#xe1;rio" type="java.lang.Double"/>
+                <Column editable="false" title="Custo Unit&#xe1;rio" type="java.lang.Double"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>

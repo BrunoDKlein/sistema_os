@@ -8,7 +8,10 @@ package controller;
 import entity.Aparelho;
 import entity.Cliente;
 import entity.OrdemServico;
+import entity.Pagamento;
+import entity.PagamentoDTO;
 import entity.Tecnico;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,6 +25,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import resources.RelatorioPDF;
 import service.AparelhoService;
 import service.ClienteService;
+import service.PagamentoService;
 import service.SistemaOsService;
 import service.TecnicoService;
 
@@ -35,6 +39,8 @@ public class SistemaOsController extends javax.swing.JFrame {
     ClienteService clienteService = new ClienteService();
     TecnicoService tecnicoService = new TecnicoService();
     AparelhoService aparelhoService = new AparelhoService();
+    PagamentoService pagamentoService = new PagamentoService();
+
 
     /**
      * Creates new form SistemaOsController
@@ -108,7 +114,7 @@ public class SistemaOsController extends javax.swing.JFrame {
             jtOs.setValueAt(os.getStatus(), i, k++);
             jtOs.setValueAt(os.getDescricao_problema(), i, k++);
             jtOs.setValueAt(os.getSolucao(), i, k++);
-            jtOs.setValueAt(os.getPecasUsadas() != null ? os.getPecasUsadas().size() : "", i, k++);
+            jtOs.setValueAt(!os.getPecasUsadas().isEmpty() ? os.getPecasUsadas().size() : "", i, k++);
             jtOs.setValueAt(os.getCusto_total(), i, k++);
 
             i++;
@@ -156,8 +162,10 @@ public class SistemaOsController extends javax.swing.JFrame {
         jmiRelatorioTecnico = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jmiFazerPagamento = new javax.swing.JMenuItem();
+        jmiRelatorioDePagamento = new javax.swing.JMenuItem();
         jmiCadastrarAparelho = new javax.swing.JMenuItem();
         jmiEditarAparelho = new javax.swing.JMenuItem();
+        jmiRelatorioAparelhos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("...::: Sistema de Controle de Ordens de Serviço - Técnica :::...");
@@ -291,7 +299,12 @@ public class SistemaOsController extends javax.swing.JFrame {
         });
         jmFazerPagamento.add(jmiEditarCliente);
 
-        jmiExcluirCliente.setText("Excluir Cliente");
+        jmiExcluirCliente.setText("Relatorio de Clientes");
+        jmiExcluirCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiExcluirClienteActionPerformed(evt);
+            }
+        });
         jmFazerPagamento.add(jmiExcluirCliente);
         jmFazerPagamento.add(jSeparator1);
 
@@ -328,6 +341,14 @@ public class SistemaOsController extends javax.swing.JFrame {
         });
         jmFazerPagamento.add(jmiFazerPagamento);
 
+        jmiRelatorioDePagamento.setText("Relatório de Pagamento");
+        jmiRelatorioDePagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRelatorioDePagamentoActionPerformed(evt);
+            }
+        });
+        jmFazerPagamento.add(jmiRelatorioDePagamento);
+
         jmiCadastrarAparelho.setText("Cadastrar Aparelho");
         jmiCadastrarAparelho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -343,6 +364,14 @@ public class SistemaOsController extends javax.swing.JFrame {
             }
         });
         jmFazerPagamento.add(jmiEditarAparelho);
+
+        jmiRelatorioAparelhos.setText("Relatorio de Aparelhos");
+        jmiRelatorioAparelhos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRelatorioAparelhosActionPerformed(evt);
+            }
+        });
+        jmFazerPagamento.add(jmiRelatorioAparelhos);
 
         jMenuBar1.add(jmFazerPagamento);
 
@@ -432,7 +461,6 @@ public class SistemaOsController extends javax.swing.JFrame {
     }//GEN-LAST:event_jbAtualizarActionPerformed
 
     private void jmiCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadastrarClienteActionPerformed
-
         new ClienteController().setVisible(true);
     }//GEN-LAST:event_jmiCadastrarClienteActionPerformed
 
@@ -448,7 +476,7 @@ public class SistemaOsController extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(rootPane, ordemServico.getSolucao(), "SOLUÇÃO", 1);
                     break;
                 case 9:
-                    JOptionPane.showMessageDialog(rootPane, ordemServico.getPecasUsadas(), "PEÇAS USADAS", 1);
+                    JOptionPane.showMessageDialog(rootPane, (!ordemServico.getPecasUsadas().isEmpty() ? ordemServico.getPecasUsadas() : "Não existem peças usadas"), "PEÇAS USADAS", 1);
                     break;
                 default:
                     break;
@@ -504,25 +532,77 @@ public class SistemaOsController extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiCadastrarAparelhoActionPerformed
 
     private void jmiEditarAparelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditarAparelhoActionPerformed
-        int id_aparelho = Integer.parseInt(JOptionPane.showInputDialog("id_cliente"));
-//        Aparelho aparelho = aparelhoService.buscarAparelhosPorCliente(null);
-//        if (aparelho == null) {
-//            JOptionPane.showMessageDialog(null, "Aparelho não localizavel!");
-//        } else {
-//            new AparelhoController(aparelho).setVisible(true);
-//        }
+        int id_aparelho = Integer.parseInt(JOptionPane.showInputDialog("Informe o id do aparelho que você deseja buscar"));
+        Aparelho aparelho = aparelhoService.buscarAparelhoPorId(id_aparelho);
+        if (aparelho == null) {
+            JOptionPane.showMessageDialog(null, "Aparelho não localizavel!");
+        } else {
+            new AparelhoController(aparelho).setVisible(true);
+        }
+
     }//GEN-LAST:event_jmiEditarAparelhoActionPerformed
+
+
+    private void jmiRelatorioPagamentoActionPerformed(java.awt.event.ActionEvent evt) {
+
+        List<String> tituloColunas = Arrays.asList("Id", "Id da Ordem de Serviço", "Data", "Valor", "Método de Pagamento");
+        List<String> nomesAtributos = Arrays.asList("id", "id_ordemServico", "data", "valor", "metodoPagamento");
+
+    }
+
+
+    private void jmiRelatorioAparelhosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioAparelhosActionPerformed
+        List<String> tituloColunas = Arrays.asList("Id", "Marca", "Modelo", "Descrição");
+        List<String> nomesAtributos = Arrays.asList("id", "marca", "modelo", "descrição");
+        
+        AparelhoService aparelhoService = new AparelhoService();
+        RelatorioPDF<Aparelho> relatorio = new RelatorioPDF<>();
+        relatorio.gerarRelatorio("Relatório de Técnicos", tituloColunas, nomesAtributos, aparelhoService.buscarTodosAparelhos());
+        
+        
+    }//GEN-LAST:event_jmiRelatorioAparelhosActionPerformed
 
     private void jmiRelatorioTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioTecnicoActionPerformed
         // TODO add your handling code here:
         List<String> tituloColunas = Arrays.asList("Id", "Nome Tecnico", "Telefone", "Email");
         List<String> tituloAtributos = Arrays.asList("id", "nome", "telefone", "email");
+
         RelatorioPDF<Tecnico> relatorio = new RelatorioPDF<>();
 
         relatorio.gerarRelatorio("Relatório de Técnicos", tituloColunas, tituloAtributos, tecnicoService.buscarTecnicos());
 
-
     }//GEN-LAST:event_jmiRelatorioTecnicoActionPerformed
+
+
+    private void jmiExcluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExcluirClienteActionPerformed
+        // TODO add your handling code here:
+        List<String> tituloColunas = Arrays.asList("Id", "Nome", "Email", "Telefone", "Endereço");
+
+        List<String> nomesAtribuidos = Arrays.asList("id", "nome", "telefone", "endereco", "email");
+        ClienteService clienteService = new ClienteService();
+
+        RelatorioPDF<Cliente> relatorio = new RelatorioPDF<>();
+        relatorio.gerarRelatorio("Relatóio De Clientes", tituloColunas, nomesAtribuidos, clienteService.buscarTodosClientes());
+
+    }//GEN-LAST:event_jmiExcluirClienteActionPerformed
+
+                                                       
+
+
+    private void jmiRelatorioDePagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioDePagamentoActionPerformed
+        
+        
+        
+        List<String> tituloColunas = Arrays.asList("Id", "Id da Ordem de Serviço", "Data", "Valor", "Método de Pagamento");
+        List<String> nomesAtributos = Arrays.asList("id", "id_ordemServico", "data", "valor", "metodoPagamento");
+        RelatorioPDF<PagamentoDTO> relatorio = new RelatorioPDF<>();
+        List<Pagamento> ps = new ArrayList<>();
+        ps = pagamentoService.buscarPagamentos();
+        relatorio.gerarRelatorio("Relatório de Pagamentos", tituloColunas, nomesAtributos, PagamentoDTO.converteParaDTO(ps));
+    }//GEN-LAST:event_jmiRelatorioDePagamentoActionPerformed
+
+
+                                                       
 
     /**
      * @param args the command line arguments
@@ -591,6 +671,9 @@ public class SistemaOsController extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiEditarTecnico;
     private javax.swing.JMenuItem jmiExcluirCliente;
     private javax.swing.JMenuItem jmiFazerPagamento;
+    private javax.swing.JMenuItem jmiRelatorioAparelhos;
+    private javax.swing.JMenuItem jmiRelatorioPagamento;
+    private javax.swing.JMenuItem jmiRelatorioDePagamento;
     private javax.swing.JMenuItem jmiRelatorioTecnico;
     private javax.swing.JTable jtOs;
     private service.PecaUsadaService pecasUsadasService1;

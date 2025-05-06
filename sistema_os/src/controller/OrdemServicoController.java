@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
+import service.AparelhoService;
 import service.ClienteService;
 import service.OrdemServicoService;
 import service.TecnicoService;
@@ -39,13 +40,14 @@ public class OrdemServicoController extends javax.swing.JFrame {
     private Timer timer = new Timer();
     ClienteService clienteService = new ClienteService();
     TecnicoService tecnicoService = new TecnicoService();
+    AparelhoService aparelhoService = new AparelhoService();
     OrdemServicoService ordemServicoService = new OrdemServicoService();
     List<PecaUsada> pecasUsadas = new ArrayList<>();
     List<Cliente> filtroClientes = new ArrayList<>();
     List<Tecnico> filtroTecnico = new ArrayList<>();
     List<Aparelho> filtroAparelho = new ArrayList<>();
     private OrdemServico ordemServicoEditar;
-    private OrdemServico ordemServicoSalvar;
+    private OrdemServico ordemServicoSalvar = new OrdemServico();
 
     public OrdemServicoController() {
         initComponents();
@@ -97,12 +99,14 @@ public class OrdemServicoController extends javax.swing.JFrame {
 
     private void configurarLarguraColunas() {
         ((DefaultTableCellRenderer) jtPecasUsadas.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
-        jtPecasUsadas.getColumnModel().getColumn(0).setPreferredWidth(jtPecasUsadas.getWidth() / 2);
-        jtPecasUsadas.getColumnModel().getColumn(1).setPreferredWidth(jtPecasUsadas.getWidth() / 5);
+        jtPecasUsadas.getColumnModel().getColumn(0).setPreferredWidth(jtPecasUsadas.getWidth() / 3);
+        jtPecasUsadas.getColumnModel().getColumn(1).setPreferredWidth(jtPecasUsadas.getWidth() / 7);
         jtPecasUsadas.getColumnModel().getColumn(2).setPreferredWidth(jtPecasUsadas.getWidth() / 5);
+        jtPecasUsadas.getColumnModel().getColumn(3).setPreferredWidth(jtPecasUsadas.getWidth() / 5);
         alinharColuna(0, SwingConstants.LEFT);
         alinharColuna(1, SwingConstants.CENTER);
         alinharColuna(2, SwingConstants.CENTER);
+        alinharColuna(3, SwingConstants.CENTER);
     }
 
     private List<String> buscarNoBanco(String tipoDados, String filtro) {
@@ -112,7 +116,9 @@ public class OrdemServicoController extends javax.swing.JFrame {
                 this.filtroClientes = clienteService.buscarClientes(filtro);
                 return this.filtroClientes.stream().map(Cliente::getNome).collect(Collectors.toList());
             case "tecnicos":
-                return tecnicoService.buscarTecnicosPorNome(filtro).stream().map(Tecnico::getNome).collect(Collectors.toList());
+                this.filtroTecnico.clear();
+                this.filtroTecnico = tecnicoService.buscarTecnicosPorNome(filtro);
+                return this.filtroTecnico.stream().map(Tecnico::getNome).collect(Collectors.toList());
             case "aparelhos":
 //                return aparelhoService.buscarAparelhos(filtro).stream().map(Aparelho::getModelo).collect(Collectors.toList());
         }
@@ -143,6 +149,7 @@ public class OrdemServicoController extends javax.swing.JFrame {
             jtPecasUsadas.setValueAt(pu.getDescricao(), i, k++);
             jtPecasUsadas.setValueAt(pu.getQuantidade(), i, k++);
             jtPecasUsadas.setValueAt(pu.getPrecoUnitario(), i, k++);
+            jtPecasUsadas.setValueAt(pu.getPrecoDeCusto(), i, k++);
 
             i++;
         }
@@ -364,31 +371,31 @@ public class OrdemServicoController extends javax.swing.JFrame {
 
         jtPecasUsadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Peça", "Quantidade", "Valor Unitário"
+                "Peça", "Quantidade", "Valor Unitário", "Custo Unitário"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -594,7 +601,14 @@ public class OrdemServicoController extends javax.swing.JFrame {
         ordemServicoSalvar.setDescricao_problema(jtaDescricao.getText());
         ordemServicoSalvar.setSolucao(jtaSolucao.getText());
         ordemServicoSalvar.setCusto_total(calcularValorTotal());
-        ordemServicoService.salvarOrdemServico(ordemServicoSalvar);
+        ordemServicoSalvar.setPecasUsadas(this.pecasUsadas);
+        if (ordemServicoService.salvarOrdemServico(ordemServicoSalvar)) {
+            JOptionPane.showMessageDialog(null, "Ordem de serviço salva com sucesso!");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao salvar a ordem de serviço!");
+            this.dispose();
+        }
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed

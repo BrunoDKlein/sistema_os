@@ -22,12 +22,14 @@ public class PagamentoController extends javax.swing.JFrame {
     
     public PagamentoController() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     
     public PagamentoController(OrdemServico ordemServico) {
         initComponents();
         this.ordemServico = ordemServico;
         preencheValorTotal(ordemServico);
+        this.setLocationRelativeTo(null);
         
     }
     
@@ -59,7 +61,7 @@ public class PagamentoController extends javax.swing.JFrame {
 
         jLabel1.setText("jLabel1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pagamentos");
 
         jbConfirmar.setText("Salvar");
