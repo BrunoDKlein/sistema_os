@@ -41,6 +41,7 @@ public class SistemaOsController extends javax.swing.JFrame {
     AparelhoService aparelhoService = new AparelhoService();
     PagamentoService pagamentoService = new PagamentoService();
 
+
     /**
      * Creates new form SistemaOsController
      */
@@ -531,7 +532,6 @@ public class SistemaOsController extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiCadastrarAparelhoActionPerformed
 
     private void jmiEditarAparelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditarAparelhoActionPerformed
-
         int id_aparelho = Integer.parseInt(JOptionPane.showInputDialog("Informe o id do aparelho que você deseja buscar"));
         Aparelho aparelho = aparelhoService.buscarAparelhoPorId(id_aparelho);
         if (aparelho == null) {
@@ -539,6 +539,7 @@ public class SistemaOsController extends javax.swing.JFrame {
         } else {
             new AparelhoController(aparelho).setVisible(true);
         }
+
     }//GEN-LAST:event_jmiEditarAparelhoActionPerformed
 
 
@@ -565,9 +566,10 @@ public class SistemaOsController extends javax.swing.JFrame {
         // TODO add your handling code here:
         List<String> tituloColunas = Arrays.asList("Id", "Nome Tecnico", "Telefone", "Email");
         List<String> tituloAtributos = Arrays.asList("id", "nome", "telefone", "email");
-// RelatorioPDF<Tecnico> relatorio = new RelatorioPDF<>;
 
+        RelatorioPDF<Tecnico> relatorio = new RelatorioPDF<>();
 
+        relatorio.gerarRelatorio("Relatório de Técnicos", tituloColunas, tituloAtributos, tecnicoService.buscarTecnicos());
 
     }//GEN-LAST:event_jmiRelatorioTecnicoActionPerformed
 
